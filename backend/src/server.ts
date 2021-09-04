@@ -40,7 +40,7 @@ const connection = new Sequelize("vilasrebrnojezero", "root", "Betonija1", {
     }
 });
 
-module.exports = { Sequelize : Sequelize, sequelize : connection }
+module.exports = { Sequelize: Sequelize, sequelize: connection }
 
 const { RoomType } = require('./database/models/roomType');
 
