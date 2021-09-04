@@ -1,7 +1,7 @@
 .bookButton {
     border-radius: 25px;
     background: rgba(62, 193, 172, 0.6);
-    box-shadow: inset white 3px 3px 8px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, .5), 3px 3px 8px white inset;
     cursor: pointer;
 }
 

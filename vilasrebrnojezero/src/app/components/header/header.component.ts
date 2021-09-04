@@ -18,10 +18,10 @@ export class HeaderComponent implements OnInit {
   }
 
   showBookModal() {
-    console.log('show')
     let el = document.getElementById('booking')
-    console.log(el.style.display)
-    el.style.visibility='visible'
+    if (el) {
+      el.style.display='block'
+    }
   }
 
 }

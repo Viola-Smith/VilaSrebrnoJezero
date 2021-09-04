@@ -12,7 +12,7 @@
 
 #booking {
 	font-family: 'Raleway', sans-serif;
-    visibility: hidden;
+    display: none;
 }
 
 .booking-form {

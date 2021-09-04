@@ -15,7 +15,7 @@ export class BookFormComponent implements OnInit {
   closeBook() {
     let el = document.getElementById('booking')
     if (el) {
-      el.style.visibility='hidden'
+      el.style.display='none'
     }
   }
 
