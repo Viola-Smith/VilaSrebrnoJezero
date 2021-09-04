@@ -1,0 +1,78 @@
+<div class="site-mobile-menu">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div> <!-- .site-mobile-menu -->
+
+
+<div class="site-navbar-wrap js-site-navbar bg-white">
+
+    <div class="container-fluid">
+        <div class="site-navbar bg-light">
+            <div class="py-1">
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        <h2 class="mb-0 site-logo" align='center'><a href="index.html">Vila Srebrno Jezero</a></h2>
+                        <p style='color:black;background-color:yellow;font-size:10;margin-left:0;' align='center'>
+                            <b>Velika mogućnost socijalnog distanciranja</b></p>
+                        <p style='color:black;background-color:yellow;font-size:10;margin-left:0;' align='center'><b>Ne
+                                primamo vaučere</b></p>
+                    </div>
+                    <div class="col-9">
+                        <nav class="site-navigation text-right" role="navigation">
+                            <div class="container-fluid" style='padding-left:5%;padding-right:5%'>
+
+                                <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="index.html"
+                                        class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a>
+                                </div>
+                                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                    <li class="active">
+                                        <a href="index.html">O Nama</a>
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="index.html#sobe">Sobe - Cenovnik</a>
+                                        <ul class="dropdown arrow-top">
+                                            <li><a (click)="goToRooms(2)">Dvokrevetne</a></li>
+
+                                            <li class="has-children">
+                                                <a href="index.html#sobe">Apartmani</a>
+                                                <ul class="dropdown">
+                                                    <li><a (click)="goToRooms(3)">Trokrevetni</a></li>
+                                                    <li><a (click)="goToRooms(4)">Cetvorokrevetni</a></li>
+                                                    <li><a (click)="goToRooms('Lux')">Lux</a></li>
+
+
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li><a href="events">Događaji</a></li>
+                                    <li><a href="gallery">Galerija</a></li>
+                                    <!-- <li><a class="popup-with-form" href="#test-form">Book A Room</a></li> -->
+                                    <li><a href="contact">Kontakt</a></li>
+                                    <li class='bookButton'>
+                                        <a (click)='showBookModal()'>Rezerviši</a>
+                                    </li>
+                                    <li>
+                                        <a href='index_eng.html'>
+                                            <img src='../assets/styles/images/eng.png' width='50px'>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!--<div class='col-1'>
+        <a href='index_eng.html'><img src='../assets/styles/images/eng.png' width='100%'></a>
+      </div>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
