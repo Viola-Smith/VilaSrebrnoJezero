@@ -1,0 +1,51 @@
+<button class='newReservationButton' (click)='showNewReservation()'>
+    New Reservation
+</button>
+
+<div id='reservationForm'>
+    <form>
+        From: <input type='date' class='form-control' [(ngModel)]="dateFrom" name="dateFrom">
+        To: <input type='date' class='form-control' [(ngModel)]="dateTo" name="dateTo">
+        Room: 
+        <select [(ngModel)]="roomSelected" class='form-control' name="roomSelected">
+            <option *ngFor='let room of rooms'>
+                {{ room.id }}
+            </option>
+        </select>
+        Name: <input class='form-control' type='text' [(ngModel)]="name" name="name">
+        Notes: <textarea class='form-control' [(ngModel)]="notes" name="notes"></textarea> <br>
+        <input class='form-control' type='button' value='Book' (click)='book()'>
+    </form>
+</div>
+<!-- 
+<table style='margin-left:300px'>
+
+    <thead>
+        <td>Id</td>
+        <td>Name</td>
+        <td>From</td>
+        <td>To</td>
+    </thead>
+
+</table> -->
+<div class="content-container">
+    <div class="container">
+        <h2>Reservations</h2>
+        <ul class="responsive-table" style='padding:0'>
+          <li class="table-header">
+            <div class="col">Name</div>
+            <div class="col">Date from</div>
+            <div class="col">Date to</div>
+            <div class="col">Room Number</div>
+            <div class="col">Reserved</div>
+          </li>
+          <li class="table-row" *ngFor='let reservation of reservations'>
+            <div class="col" data-label="Name">{{ reservation.name }}</div>
+            <div class="col" data-label="Date from">{{ formattedDate(reservation.date_from) }}</div>
+            <div class="col" data-label="Date to">{{ formattedDate(reservation.date_to) }}</div>
+            <div class="col" data-label="Room">{{ reservation.room }}</div>
+            <div class="col" data-label="Reserved">{{ formattedDateTime(reservation.timestamp) }}</div>
+          </li>
+        </ul>
+      </div>
+</div>

@@ -1,0 +1,20 @@
+{
+    "id":1,
+    "name": "Dvokrevetna soba",
+    "capacity":2
+}
+{
+    "id":2,
+    "name": "Trokrevetni apaartman",
+    "capacity":3
+}
+{
+    "id":3,
+    "name": "Cetvorokrevetni apartman",
+    "capacity":4
+}
+{
+    "id":1,
+    "name": "Lux apartman",
+    "capacity":2
+}

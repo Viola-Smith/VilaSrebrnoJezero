@@ -12,6 +12,11 @@ import { EventsComponent } from './events/events.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ContactComponent } from './contact/contact.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { LoginComponent } from './admin/login/login.component';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,11 +28,16 @@ import { BookFormComponent } from './components/book-form/book-form.component';
     EventsComponent,
     GalleryComponent,
     ContactComponent,
-    BookFormComponent
+    BookFormComponent,
+    DashboardComponent,
+    LoginComponent,
+    AdminMenuComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [{provide: APP_BASE_HREF, useValue: '/'}],
   bootstrap: [AppComponent]

@@ -8,8 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'vilasrebrnojezero';
 
-  showForm() {
-    
+  isAdmin() {
+    //return localStorage.getItem('admin') !== null
+    return true
   }
 
 }

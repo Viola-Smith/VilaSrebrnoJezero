@@ -1,9 +1,8 @@
-import { RoomType } from "./roomTypes";
-
-export class Room {
+export interface Room {
     id: number;
-    number: number;
-    room_type: RoomType;
+    name: string;
     floor: number;
+    adults: number;
+    extra_beds: number;
     view: boolean;
 }

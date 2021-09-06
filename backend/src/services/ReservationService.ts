@@ -1,7 +1,5 @@
-import Helper from "../helpers/Helper";
 import ReservationRepo from "../database/repositories/ReservationRepo";
-// import DreamTypeService from "./DreamTypeService";
-// import { logger } from "../server";
+import PricelistService from "./PricelistService";
 
 
 
@@ -27,6 +25,28 @@ export default class ReservationService{
             return {"error message": err}
         }
         
+    }
+
+    public static async book(reservationObject: any) {
+        let price = await PricelistService.calculatePrice(reservationObject.date_from, reservationObject.date_to, reservationObject.room.name)
+        if (price) {
+            reservationObject.price = price
+            delete reservationObject.timestamp
+            try {
+                let outcome =  await ReservationRepo.book(reservationObject)
+                if (outcome) {
+                    return {'message': 'Sucessfully inserted reservation', 'new': outcome}
+                } else {
+                    return {'message': 'Failed to insert reservation', 'new': null}
+                }
+            } catch (err) {
+                return {'message': err, 'new': null as Object}
+            }
+        }       
+    }
+
+    public static async getAll() {
+        return await ReservationRepo.getAllReservations();
     }
 
 }

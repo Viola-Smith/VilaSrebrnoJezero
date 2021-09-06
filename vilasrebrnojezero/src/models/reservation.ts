@@ -1,4 +1,3 @@
-import { Timestamp } from "rxjs";
 import { Room } from "./room";
 
 export class Reservation {
@@ -8,7 +7,8 @@ export class Reservation {
     room: Room;
     name: string;
     user_id: number;
-    timestamp: Timestamp<any>;
+    timestamp: Date;
     price: number;
     payed: number;
+    notes: string;
 }

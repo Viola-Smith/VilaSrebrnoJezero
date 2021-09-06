@@ -3,17 +3,13 @@ import ReservationService from '../services/ReservationService';
 
 const router = express.Router();
 
+router.route('/').post(async (req, res) => {
+	let reservation = req.body
+	res.json(await ReservationService.book(reservation.reservation))
+});
 
-router.route('/available').get(async (req, res)=>{
-	let dateFrom = req.query.dateFrom
-	let dateTo = req.query.dateTo
-	let adults = req.query.adults
-	let kids = req.query.kids
-	// let page = req.query.page
-	// let pageSize = req.query.size
-	res.json( await ReservationService.getAvailable(dateFrom,dateTo, adults, kids))
-  }
-);
-
+router.route('/').get(async (req, res) => {
+	res.json(await ReservationService.getAll())
+});
 
 module.exports = router;

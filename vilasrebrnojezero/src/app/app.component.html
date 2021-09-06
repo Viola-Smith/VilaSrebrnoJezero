@@ -1,8 +1,9 @@
 
-<app-header></app-header>
+<app-header *ngIf='!isAdmin()'></app-header>
+<app-admin-menu *ngIf='isAdmin()'></app-admin-menu>
 
 <app-book-form></app-book-form>
 
 <router-outlet></router-outlet>
 
-<app-footer></app-footer>
+<app-footer *ngIf='!isAdmin()'></app-footer>
