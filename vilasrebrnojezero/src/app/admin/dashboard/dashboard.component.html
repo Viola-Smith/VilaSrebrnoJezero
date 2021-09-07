@@ -2,12 +2,13 @@
     New Reservation
 </button>
 
+
 <div id='reservationForm'>
     <form>
         From: <input type='date' class='form-control' [(ngModel)]="dateFrom" name="dateFrom">
         To: <input type='date' class='form-control' [(ngModel)]="dateTo" name="dateTo">
         Room: 
-        <select [(ngModel)]="roomSelected" class='form-control' name="roomSelected">
+        <select [(ngModel)]="roomSelectedId" class='form-control' name="roomSelectedId">
             <option *ngFor='let room of rooms'>
                 {{ room.id }}
             </option>
@@ -17,19 +18,31 @@
         <input class='form-control' type='button' value='Book' (click)='book()'>
     </form>
 </div>
-<!-- 
-<table style='margin-left:300px'>
 
-    <thead>
-        <td>Id</td>
-        <td>Name</td>
-        <td>From</td>
-        <td>To</td>
-    </thead>
 
-</table> -->
+
 <div class="content-container">
-    <div class="container">
+
+    <div id='msg-popup' class='hide'> {{ message }} </div>
+
+
+    <div style='display:inline-block; align-items: center;margin-bottom: 30px;'>
+        <span style='margin-left:20px'>Calendar View</span>
+        <!-- Rounded switch -->
+        <label class="switch" style='margin-left:10px; margin-bottom: 0;'>
+            <input type="checkbox" [(ngModel)]="calendarView" name="calendarView"> 
+            <span class="slider round"></span>
+        </label>
+    
+    </div>
+
+    <div style='display:flex; align-items: center; position:relative; float:right; margin-right: 30px;'>
+        <input type='text' class='form-control' 
+        style='background: url(../../../assets/styles/images/icons/search.png) no-repeat scroll 7px 7px; padding-left: 50px;'>
+        <!-- <img src='../../../assets/styles/images/icons/search.png' width='20px'> -->
+    </div>
+    
+    <div class="container" *ngIf='!calendarView'>
         <h2>Reservations</h2>
         <ul class="responsive-table" style='padding:0'>
           <li class="table-header">
@@ -48,4 +61,22 @@
           </li>
         </ul>
       </div>
+
+      <div *ngIf='calendarView' style='margin-left: 20px;margin-right: 20px;'>
+        <table width='100%' class='calendarView'>
+            <tr>
+                <td></td>
+                <td *ngFor='let room of rooms'>{{ room.id }}</td>
+            </tr>
+            <tr *ngFor = 'let date of dates'>
+                <td>
+                    {{ date.getDate() }}
+                </td>
+                <td *ngFor = 'let room of rooms' [attr.id]="'Reservation ' + date.getDate() +'-' + room.id">
+                    {{ getReservation(date, room.id) }}
+                </td>
+            </tr>
+        </table>
+      </div>
+
 </div>

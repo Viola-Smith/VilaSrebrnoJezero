@@ -28,6 +28,10 @@ export default class ReservationService{
     }
 
     public static async book(reservationObject: any) {
+        let reservationsExist = await ReservationRepo.checkAvailable(reservationObject.date_from, reservationObject.date_to, reservationObject.room.id)
+        if (reservationsExist && reservationsExist.length > 0) {
+            return {'message': 'Room not available for set dates', 'new': null}
+        }
         let price = await PricelistService.calculatePrice(reservationObject.date_from, reservationObject.date_to, reservationObject.room.name)
         if (price) {
             reservationObject.price = price

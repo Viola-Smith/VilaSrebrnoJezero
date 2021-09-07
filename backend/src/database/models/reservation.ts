@@ -7,10 +7,10 @@ let Reservation = new Schema({
         type:Number
     },
     date_from: {
-        type: String
+        type: Date
     },
 	date_to: {
-        type: String
+        type: Date
     },
 	room: {
         type: Number
