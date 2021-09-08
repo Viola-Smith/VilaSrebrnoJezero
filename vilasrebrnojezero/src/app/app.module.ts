@@ -17,6 +17,7 @@ import { LoginComponent } from './admin/login/login.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     BookFormComponent,
     DashboardComponent,
     LoginComponent,
-    AdminMenuComponent
+    AdminMenuComponent,
+    SearchRoomsComponent
   ],
   imports: [
     BrowserModule,

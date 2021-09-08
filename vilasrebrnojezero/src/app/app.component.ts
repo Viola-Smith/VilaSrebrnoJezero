@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'vilasrebrnojezero';
 
+  constructor(private router: Router) {}
+
   isAdmin() {
-    //return localStorage.getItem('admin') !== null
-    return true
+    return this.router.url.includes('admin') && localStorage.getItem('admin') !== null
   }
 
 }

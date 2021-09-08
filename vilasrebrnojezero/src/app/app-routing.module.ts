@@ -7,6 +7,7 @@ import { EventsComponent } from './events/events.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
 import { RoomsComponent } from './rooms/rooms.component';
+import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'admin', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'search', component: SearchRoomsComponent }
 ];
 
 @NgModule({

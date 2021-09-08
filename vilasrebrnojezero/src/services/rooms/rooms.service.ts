@@ -10,9 +10,21 @@ export class RoomsService {
 
   constructor(private http: HttpClient) { }
 
-  getRoomNumbers(){
+  getRoomNumbers() {
     return this.http.get(`${this.uri}/room`);
   }
 
-  
+  getAvailableRooms(date1, date2, adults, kids, rooms) {
+    return this.http.get(`${this.uri}/room/available`, {
+      params: {
+        date1: date1,
+        date2: date2,
+        adults: adults,
+        kids: kids,
+        rooms: rooms
+      }
+    });
+  }
+
+
 }

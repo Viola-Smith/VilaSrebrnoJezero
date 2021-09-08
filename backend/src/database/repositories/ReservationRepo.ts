@@ -2,10 +2,6 @@ import Reservation from "../models/reservation";
 
 export default class ReservationRepo {
 
-    public static async getAvailable(dateFrom: any, dateTo: any, adults: any, kids: any) {
-        //  return await RoomType.find()
-    }
-
     public static async findLastId() {
         let lastId = 1
         let lastEl = await Reservation.find().sort({ "id": -1 }).limit(1)

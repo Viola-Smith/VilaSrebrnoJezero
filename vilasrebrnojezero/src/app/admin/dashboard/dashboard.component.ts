@@ -30,11 +30,11 @@ export class DashboardComponent implements OnInit {
   dates = this.getAllDates()
 
   ngOnInit() {
-    // if (localStorage.getItem('admin')) {
-    //   this.administrator = JSON.parse(localStorage.getItem('admin')) 
-    // } else {
-    //   this.router.navigate(['/login'])
-    // }
+    if (localStorage.getItem('admin')) {
+      this.administrator = JSON.parse(localStorage.getItem('admin')) 
+    } else {
+      this.router.navigate(['/login'])
+    }
     forkJoin([
       this.roomService.getRoomNumbers(),
       this.reservationService.getAll()
