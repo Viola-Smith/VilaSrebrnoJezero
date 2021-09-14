@@ -16,7 +16,9 @@ router.route('/available').get(async (req, res) => {
   let adults = req.query.adults
   let kids = req.query.kids
   let rooms = req.query.rooms
-  res.json(await RoomService.getAvailableRooms(date1, date2, adults, kids, rooms))
+  let avRooms = await RoomService.getAvailableRooms(date1, date2, adults, kids, rooms)
+  let allAvRooms = await RoomService.getAllAvailableRooms(date1, date2)
+  res.json({suggest: avRooms, all: allAvRooms})
 });
 
 module.exports = router;

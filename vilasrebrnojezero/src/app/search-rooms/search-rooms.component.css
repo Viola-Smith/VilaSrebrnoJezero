@@ -3,3 +3,54 @@
     padding:20px;
     margin: 20px;
 }
+
+.info {
+    background-color: beige;
+    padding: 8px;
+    border-radius:20px; 
+    /* border:1px solid gray;
+    box-shadow: 2px 1px 8px 2px darkgrey; */
+    border: 2px solid lightgrey; box-shadow: 1px 1px 2px 2px gray;
+}
+
+.roomImage {
+    width:100%;
+    border-radius: 15px;
+    border:1px solid gray;
+    box-shadow: 2px 1px 8px 2px darkgrey;
+}
+
+.allRooms {
+    background: rgba(62, 193, 172, 0.3);
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .5), 3px 3px 8px white inset;
+    margin-bottom:10px
+}
+
+.room-info {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .rooms-header {
+        display: none
+    }
+    .room-info {
+        margin-top:15px;
+        display: block;
+    }
+}
+
+.dateHeading h4 {
+    display:inline
+}
+
+@media screen and (max-width: 1384) {
+    .room-dash {
+        display:none
+    }
+}

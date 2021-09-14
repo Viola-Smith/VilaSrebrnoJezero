@@ -16,9 +16,9 @@ export default class RoomRepo {
         let kidsNum = parseFloat(kids)
         let roomsNum = parseFloat(numRooms)
 
-        let adultsPerRoom = Math.ceil(adultsNum / roomsNum)
-        let kidsPerRoom = Math.ceil(kidsNum / roomsNum)
-        let total = adultsPerRoom + kidsPerRoom
+        // let adultsPerRoom = Math.ceil(adultsNum / roomsNum)
+        // let kidsPerRoom = Math.ceil(kidsNum / roomsNum)
+        // let total = adultsPerRoom + kidsPerRoom
 
         let adultsArray = []
 
@@ -30,41 +30,45 @@ export default class RoomRepo {
         }
 
         let finalRooms = []
-        let roomExistIds: Number[] = []
-            
+        let takenRooms = []
         //let roomsToReturn = []
+        console.log(adultsArray)
         for (let i = 0; i < adultsArray.length; i++) {
             let roomExists = undefined
             let room: any = null
             if (adultsArray[i] == 1) adultsArray[i] = 2
+
+            let reservations = []
             do {
                 room = await Room.findOne(
                     {
-                        '$and': [{ 'id': { $nin: roomExistIds } }, {
+                        '$and': [{ 'id': { $nin: finalRooms.map(r => r.id) } }, { 'id': { $nin: takenRooms.map(r => r.id) } }, {
                             '$or':
                                 [
-                                    { 'adults': total },
-                                    {
-                                        '$and':
-                                            [{ 'adults': adultsArray[i] },
-                                            { 'extra_beds': { $gte: kidsPerRoom } }]
-                                    }
+                                    { 'adults': adultsArray[i] }
+                                    // {
+                                    //     '$and':
+                                    //         [{ 'adults': adultsArray[i] },
+                                    //         { 'extra_beds': { $gte: kidsPerRoom } }]
+                                    // }
                                 ]
                         }],
                     }
                 ).exec()
                 roomExists = finalRooms.find(r => r.id === room.id)
 
-            } while (roomExists && room)
-
-            if (room) {
-                const reservations = await ReservationRepo.checkAvailable(dateFrom, dateTo, room.id)
-                if (reservations.length === 0) {
-                    finalRooms.push(room)
-                    roomExistIds.push(room.id)
+                if (room) {
+                    reservations = await ReservationRepo.checkAvailable(dateFrom, dateTo, room.id)
+                    if (reservations.length === 0) {
+                        finalRooms.push(room)
+                    } else {
+                        takenRooms.push(room)
+                    }
                 }
-            }
-            console.log(roomExistIds)
+
+            } while ((roomExists || reservations.length>0) && room)
+
+         
             // for (let index = 0; index < rooms.length; index++) {
             //     const room = rooms[index]
             //     // let roomExists = roomsToReturn.find(r => r.find(ro => ro.id === room.id))
@@ -75,6 +79,13 @@ export default class RoomRepo {
             // }
             //roomsToReturn.push(finalRooms)
         }
+
+        // if (kidsNum > 0) {
+        //     for (let index = 0; index < finalRooms.length; index++) {
+        //         let room = finalRooms[index];
+                
+        //     }
+        // }
 
         return finalRooms
     }

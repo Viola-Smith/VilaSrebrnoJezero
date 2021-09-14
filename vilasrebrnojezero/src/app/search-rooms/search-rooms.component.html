@@ -1,4 +1,4 @@
-<div class="site-blocks-cover overlay" style="background-image: url(../assets/styles/images/jezero/galery.jpg);"
+<div class="site-blocks-cover overlay" style="background-image: url(../assets/styles/images/vila/cela.jpg);"
     data-aos="fade" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row align-items-center justify-content-center">
@@ -6,11 +6,13 @@
                 <span class="caption mb-3">Vila Srebrno Jezero</span>
                 <h1 class="mb-4">Galerija</h1>
             </div>
-            <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
+            <!-- <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
                 <h2 class="caption" style='margin:0;cursor:pointer'>DETALJNIJE...</h2><br>
                 <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
-            </div>
+            </div> -->
+
         </div>
+
     </div>
 </div>
 
@@ -27,5 +29,130 @@
                 </div>
             </div>
         </div> -->
+        <div class='row info'>
+            <div class='col-lg-3 col-md-3 col-sm-6 text-center my-auto dateHeading'>
+                <h4>{{ formattedDate(date1) }}</h4> <h4 class='room-dash'> - </h4> 
+                <h4>{{ formattedDate(date2) }}</h4>
+            </div>
+            <div class='col-lg-3 col-md-3 col-sm-6 text-center my-auto'>
+                <h4>{{ adults }} x <i class="fas fa-user"></i></h4>
+            </div>
+            <div class='col-lg-3 col-md-3 col-sm-6 text-center my-auto'>
+                <h4>{{ kids }} x <i class="fas fa-child"></i></h4>
+            </div>
+            <div class='col-lg-3 col-md-3 col-sm-6 text-center my-auto'>
+                <h4>{{ rooms }} x <i class="fas fa-bed"></i></h4>
+            </div>
+        </div>
+
+        <br><br>
+
+
+        <div class='row'>
+            <h3>
+                Recommendations
+            </h3>
+        </div>
+
+        <!-- <table>
+            <tr *ngFor='let room of suggest' >
+                <td>
+                    {{ getName(room.name) }}
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table> -->
+
+        <div style='margin-bottom: 40px'>
+            <div *ngFor='let room of suggest' style='background: rgba(255, 198, 159, 0.4); 
+            padding:20px; display: flex; flex-direction: column;
+            border: 1px solid lightgrey; box-shadow: 2px 1px 10px 2px darkgrey; position: relative;'>
+                <div style='display: flex; flex-direction:row; justify-content:space-between'>
+                    <div>
+                        <div>
+                            {{ room.amount }} X {{ getName(room.type) }}
+                        </div>
+                        <div>
+                            {{ room.extra_beds }}
+                        </div>
+                        <div>
+                            {{ room.amount }} X {{ room.price }} = {{ room.amount * room.price }}
+                        </div>
+                    </div>
+                    <!-- <div style='float:right;'>
+                        <img class='roomImage'
+                            src='{{ "../assets/styles/images/sobe/" + getImage(room.type) + ".jpg"  }}'>
+                    </div> -->
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class='row'>
+            <h3>
+                All rooms
+            </h3>
+        </div>
+
+        <div class='row rooms-header'>
+            <div class='col-lg-2 col-md-2 col-sm-6 my-auto'></div>
+            <div class='col-lg-3 col-md-3 col-sm-6 my-auto'>
+                <h5>Name</h5>
+            </div>
+            <div class='col-lg-2 col-md-2 col-sm-2 my-auto'>
+                <h5>Adults</h5>
+            </div>
+            <div class='col-lg-1 col-md-1 col-sm-2 my-auto'>
+                <h5>Kids</h5>
+            </div>
+            <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
+                <h5>Select amount</h5>
+            </div>
+            <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
+                <h5>Price</h5>
+            </div>
+            
+        </div>
+        <div *ngFor='let room of allRooms' class='allRooms'>
+            <div class='row'>
+                <div class='col-lg-2 col-md-2 col-sm-6 my-auto'>
+                    <img class='roomImage'
+                        src='{{ "../assets/styles/images/sobe/" + getImage(room.type) + ".jpg"  }}'>
+                </div>
+                <div class='col-lg-3 col-md-3 col-sm-6 my-auto' style='overflow-wrap:break-word;'>
+                    <h5>
+                        {{ getName(room.type) }}
+                    </h5>
+                </div>
+                <div class='col-lg-2 col-md-2 col-sm-2 my-auto'>
+                    <span class='room-info'>Adults</span>
+                    <i *ngFor='let e of [].constructor(room.rooms[0].adults); let i = index' class="fas fa-user"></i>
+                </div>
+                <div class='col-lg-1 col-md-1 col-sm-2 my-auto'>
+                    <span class='room-info'>Kids</span>
+                    <i *ngFor='let e of [].constructor(room.rooms[0].extra_beds); let i = index' class="fas fa-child"></i>
+                </div>
+                <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
+                    <span class='room-info'>Select amount</span>
+                    <select style='width: 50%;'>
+                        <option *ngFor='let e of [].constructor(room.amount+1); let i = index'>
+                            {{ i }}
+                        </option>
+                    </select>
+                </div>
+                <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
+                    <span class='room-info'>Price</span>
+                    <b>RSD {{ room.price }}</b>
+                </div>
+             
+            </div>
+        </div>
+
     </div>
 </div>
