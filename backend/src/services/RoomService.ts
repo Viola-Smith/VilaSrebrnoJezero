@@ -10,6 +10,10 @@ export default class RoomService {
         return await RoomRepo.getAllRooms()
     }
 
+    public static async getAllRoomsByType(type: string) {
+        return await RoomRepo.getRoomsByType(type)
+    }
+
     public static async getAvailableRooms(date1: any, date2: any, adults: any, kids: any, roomsNum:any) {
         let rooms = await RoomRepo.getAvailableRooms(date1, date2, adults, kids, roomsNum)
         let finalRooms = []

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Room } from 'src/models/room';
+import { ReservationsService } from 'src/services/reservations/reservations.service';
 import { RoomsService } from 'src/services/rooms/rooms.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { RoomsService } from 'src/services/rooms/rooms.service';
 })
 export class SearchRoomsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private roomService: RoomsService) { }
+  constructor(private route: ActivatedRoute, private roomService: RoomsService, private reservationService: ReservationsService) { }
 
   suggest = []
   allRooms = []
@@ -22,6 +23,12 @@ export class SearchRoomsComponent implements OnInit {
   rooms
   kids
   kidsCalculate
+
+  finalReservation
+
+  manualReservationArray = []
+
+  showForm = false
 
   ngOnInit() {
     this.date1 = this.route.snapshot.paramMap.get('date1')
@@ -50,6 +57,15 @@ export class SearchRoomsComponent implements OnInit {
     return moment(date).format("DD/MM/YYYY")
   }
 
+
+  getSumPrice(rooms) {
+    let sum = 0
+    rooms.forEach(room => {
+      sum += room.amount * room.price
+    });
+    return sum
+  }
+
   getName(name) {
     var regex = /\d+/;
     let res = name.match(regex)
@@ -70,31 +86,102 @@ export class SearchRoomsComponent implements OnInit {
 
   hasExtraBeds(rooms) {
     if (this.kidsCalculate > 0) {
-      let str = ''
+      let num = 0
       rooms.forEach(room => {
         if (room.extra_beds) {
           if (room.extra_beds >= this.kidsCalculate) {
-            str += ' +' + this.kidsCalculate + ' extra beds'
+            num += this.kidsCalculate
             this.kidsCalculate = 0
           } else {
             this.kidsCalculate -= room.extra_beds
-            str += ' +' + room.extra_beds + ' extra beds'
+            num += room.extra_beds
           }
         }
       });
-      return str
+      return num
     }
 
   }
 
+  closeForm(value) {
+    this.showForm = value
+  }
+
   getImage(type) {
-    switch(type){
+    switch (type) {
       case '2bed_double': return 'dvokrevetne/1'
       case '2bed_single': return 'dvokrevetne/s1'
       case '3bed': return 'trokrevetne/tr1'
       case '4bed': return 'cetvorokrevetni/c1n'
       case 'lux': return 'cetvorokrevetni/l2'
     }
+  }
+
+  reserve(obj) {
+    this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 } }
+    this.showForm = true
+  }
+
+  reserveSuggest() {
+    this.manualReservationArray = this.suggest
+  }
+
+  selectAmount(amount, room) {
+    let foundRoom = this.manualReservationArray.find(r => r.type === room.type)
+    if (foundRoom) {
+      if (amount == 0) {
+        let index = this.manualReservationArray.indexOf(foundRoom)
+        this.manualReservationArray.splice(index, 1);
+        let el = document.getElementById('roomPrice-' + room.type)
+        if (el) {
+          el.style.fontWeight = 'normal'
+          el.style.color = 'gray'
+        }
+        el = document.getElementById('roomExtra-' + room.type)
+        if (el) {
+          el.style.display = 'none'
+        }
+      } else {
+        foundRoom.amount = amount
+        let el = document.getElementById('roomPrice-' + room.type)
+        if (el) {
+          el.style.fontWeight = 'bold'
+          el.style.color = 'black'
+        }
+        el = document.getElementById('roomExtra-' + room.type)
+        if (el) {
+          el.style.display = 'block'
+        }
+      }
+    } else {
+      let roomCopy = JSON.parse(JSON.stringify(room))
+      roomCopy.amount = amount
+      this.manualReservationArray.push(roomCopy)
+      let el = document.getElementById('roomPrice-' + room.type)
+      if (el) {
+        el.style.fontWeight = 'bold'
+        el.style.color = 'black'
+      }
+      el = document.getElementById('roomExtra-' + room.type)
+      if (el) {
+        el.style.display = 'block'
+      }
+    }
+    console.log(this.manualReservationArray)
+  }
+
+  getPrice(room) {
+    let foundRoom = this.manualReservationArray.find(r => r.type === room.type)
+    if (foundRoom) {
+      return foundRoom.amount * room.price
+    }
+    return room.price
+  }
+
+  getNights(date1, date2) {
+    var timeDiff = Math.abs(new Date(date2).getTime() - new Date(date1).getTime());
+    var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return numberOfNights
   }
 
 }

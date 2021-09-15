@@ -18,6 +18,7 @@ import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
+import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
     DashboardComponent,
     LoginComponent,
     AdminMenuComponent,
-    SearchRoomsComponent
+    SearchRoomsComponent,
+    ReservationFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,85 @@
+<div>
+    <div class="section-center">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="booking-form">
+                    <div class="form-header">
+                        <h1>Make your reservation</h1>
+                    </div>
+                    <div class='closeBook' (click)='closeBook()'>
+                        <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" required [(ngModel)]='name' name='name'>
+                                    <span class="form-label">Name</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class='row'>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="form-control" type="email" required [(ngModel)]='email' name='email'>
+                                    <span class="form-label">Email</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" required [(ngModel)]='phone' name='phone'>
+                                    <span class="form-label">Phone</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style='background-color: lightgrey; color:black;
+                        padding: 10px; text-align: center; margin-bottom: 15px;'>
+                            <div>
+                                {{ reservation.dateRange.date1 }} - {{ reservation.dateRange.date2 }}
+                            </div>
+                            <div>
+                                {{ getNights(reservation.dateRange.date1, reservation.dateRange.date2) }} nights
+                            </div>
+                            <div *ngFor='let res of reservation.res'>
+                                <div>
+                                    {{ res.amount }} X {{ res.type }}
+                                    <span *ngIf='res.extra_beds>0'>
+                                        +{{ res.extra_beds }} extra beds
+                                    </span> = {{ res.amount * res.price }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-btn">
+                            <button class="submit-btn" (click)='reserve()'>Uplati</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script>
+    $('.form-control').each(function () {
+        floatedLabel($(this));
+    });
+
+    $('.form-control').on('input', function () {
+        floatedLabel($(this));
+    });
+
+    function floatedLabel(input) {
+        var $field = input.closest('.form-group');
+        if (input.val()) {
+            $field.addClass('input-not-empty');
+        } else {
+            $field.removeClass('input-not-empty');
+        }
+    }
+</script>

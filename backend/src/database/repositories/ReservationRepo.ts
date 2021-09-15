@@ -12,7 +12,7 @@ export default class ReservationRepo {
     public static async book(reservationObject: any) {
         reservationObject.room = reservationObject.room.id
         reservationObject.id = await this.findLastId();
-        let newReservation = new Reservation(reservationObject); 
+        let newReservation = new Reservation(reservationObject);
 
         // return await Reservation.collection.insertOne(newReservation)
         return await newReservation.save()
@@ -20,6 +20,28 @@ export default class ReservationRepo {
 
     public static async getAllReservations() {
         return await Reservation.find().exec()
+    }
+
+    public static async reservationBefore(date1: any, roomId: number) {
+        return await Reservation.find(
+            {
+                $and: [
+                    { room: roomId },
+                    { date_to: { $lte: new Date(date1) } }
+                ]
+            }
+        ).sort({date_to: -1}).limit(1).exec()
+    }
+
+    public static async reservationAfter(date2: any, roomId: number) {
+        return await Reservation.find(
+            {
+                $and: [
+                    { room: roomId },
+                    { date_from: { $gte: new Date(date2) } }
+                ]
+            }
+        ).sort({date_from: 1}).limit(1).exec()
     }
 
     public static async checkAvailable(date1: any, date2: any, roomId: any) {

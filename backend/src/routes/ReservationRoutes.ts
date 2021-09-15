@@ -12,4 +12,12 @@ router.route('/').get(async (req, res) => {
 	res.json(await ReservationService.getAll())
 });
 
+
+router.route('/reserve').post(async (req, res) => {
+	let reservationObj = req.body
+	console.log(reservationObj.reservation)
+	console.log(reservationObj.dateRange)
+	res.json(await ReservationService.reserve(reservationObj))
+});
+
 module.exports = router;

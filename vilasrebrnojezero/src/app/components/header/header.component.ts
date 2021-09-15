@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
     let el = document.getElementById('booking')
     if (el) {
       el.style.display='block'
+      el.scrollIntoView({ behavior: "smooth" })
     }
   }
 

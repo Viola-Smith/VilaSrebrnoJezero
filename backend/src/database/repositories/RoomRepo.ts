@@ -11,6 +11,10 @@ export default class RoomRepo {
         return await Room.findOne({ id: id }).exec()
     }
 
+    public static async getRoomsByType(name: string) {
+        return await Room.find({ name: name }).exec()
+    }
+
     public static async getAvailableRooms(dateFrom: any, dateTo: any, adults: any, kids: any, numRooms: any) {
         let adultsNum = parseFloat(adults)
         let kidsNum = parseFloat(kids)
