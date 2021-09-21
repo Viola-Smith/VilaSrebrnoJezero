@@ -21,6 +21,8 @@ import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
 import { SuccessPaymentComponent } from './payment/success-payment/success-payment.component';
 import { CancelPaymentComponent } from './payment/cancel-payment/cancel-payment.component';
+import { PaymentFormComponent } from './components/payment-form/payment-form.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -39,13 +41,15 @@ import { CancelPaymentComponent } from './payment/cancel-payment/cancel-payment.
     SearchRoomsComponent,
     ReservationFormComponent,
     SuccessPaymentComponent,
-    CancelPaymentComponent
+    CancelPaymentComponent,
+    PaymentFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPayPalModule
   ],
   providers: [{provide: APP_BASE_HREF, useValue: '/'}],
   bootstrap: [AppComponent]

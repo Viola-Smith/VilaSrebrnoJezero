@@ -139,6 +139,17 @@ export class SearchRoomsComponent implements OnInit {
     this.showForm = value
   }
 
+  showPaymentForm = false
+
+  goToPayment(value) {
+    this.closeForm(false)
+    this.showPaymentForm = value
+  }
+
+  closePayment(value) {
+    this.showPaymentForm = value
+  }
+
   getImage(type) {
     switch (type) {
       case '2bed_double': return 'dvokrevetne/1'

@@ -11,6 +11,8 @@ export class ReservationFormComponent implements OnInit {
   constructor(private reservationService: ReservationsService) { }
 
   @Output() closeForm = new EventEmitter<boolean>()
+  @Output() goToPayment = new EventEmitter<boolean>()
+
   @Input() reservation: any
 
   name: string = ''
@@ -31,6 +33,10 @@ export class ReservationFormComponent implements OnInit {
     this.closeForm.emit(false)
   }
 
+  nextStep() {
+    this.goToPayment.emit(true)
+  }
+
   getNights(date1, date2) {
     var timeDiff = Math.abs(new Date(date2).getTime() - new Date(date1).getTime());
     var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -39,13 +45,6 @@ export class ReservationFormComponent implements OnInit {
 
   reserve() {
     this.reservationService.reserve(this.reservation.res, this.reservation.dateRange).subscribe()
-  }
-
-  pay() {
-    this.reservationService.pay(this.reservation.res, this.reservation.dateRange).subscribe((res: any)=>{
-      console.log(res)
-      window.location = res.forwardLink
-    })
   }
 
 }

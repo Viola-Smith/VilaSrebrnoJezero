@@ -1,0 +1,72 @@
+<div>
+    <div class="section-center" id='reservation-form'>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="booking-form col-lg-5 col-md-5">
+                    <div class="form-header">
+                        <h1>Payment</h1>
+                    </div>
+                    <div class='closeBook' (click)='closeBook()'>
+                        <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
+                    </div>
+                    <div style='color:white' class='row'>
+                        <div class='col-lg-4 col-md-4'>
+                            Uplati : 
+                        </div>
+                        <div class='col-lg-4 col-md-4'>
+                            <input type='radio' value='avans' [(ngModel)]='type' name='type'> Avans 30% 
+                        </div>
+                        <div class='col-lg-4 col-md-4'>
+                            <input type='radio' value='celo' [(ngModel)]='type' name='type'> Punu Cenu 
+                        </div>  
+                    </div>
+                    <!-- <br>
+                    <div>
+                        <img width='100%' src='../../../assets/styles/images/icons/paypal_button.png'>
+                    </div> -->
+                    <br>
+                    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+                    <form action="payment" method="POST">
+                        <script 
+                           src="//checkout.stripe.com/v2/checkout.js"
+                           class="stripe-button"
+                           data-key="<%= key %>"
+                           data-amount="2500"
+                           data-currency="inr"
+                           data-name="Crafty Gourav"
+                           data-description="Handmade Art and Craft Products"
+                           data-locale="auto" >
+                         </script>
+                     </form>
+
+                     <br><br>
+<!-- 
+                     <div class="form-btn">
+                        <button class="submit-btn" (click)='pay()'>Uplati</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script>
+    $('.form-control').each(function () {
+        floatedLabel($(this));
+    });
+
+    $('.form-control').on('input', function () {
+        floatedLabel($(this));
+    });
+
+    function floatedLabel(input) {
+        var $field = input.closest('.form-group');
+        if (input.val()) {
+            $field.addClass('input-not-empty');
+        } else {
+            $field.removeClass('input-not-empty');
+        }
+    }
+</script>

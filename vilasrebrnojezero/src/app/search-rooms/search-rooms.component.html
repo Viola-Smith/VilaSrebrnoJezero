@@ -16,8 +16,11 @@
     </div>
 </div>
 
-<app-reservation-form *ngIf='showForm' (closeForm)='closeForm($event)' [reservation]='finalReservation'>
+<app-reservation-form *ngIf='showForm' (closeForm)='closeForm($event)' (goToPayment)='goToPayment($event)' [reservation]='finalReservation'>
 </app-reservation-form>
+
+<app-payment-form *ngIf='showPaymentForm' (closeForm)='closePayment($event)'>
+</app-payment-form>
 
 <div class="site-section border-top" id='start'>
     <div class="container-fluid" style='padding-left:5%;padding-right:5%'>

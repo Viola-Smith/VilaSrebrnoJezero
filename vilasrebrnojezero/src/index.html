@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  
+
   <title>Vila Srebrno Jezero</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="icon" href="./assets/styles/images/icon.png">
+  <link rel="icon" href="./assets/styles/images/icon.png">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
   <link rel="stylesheet" href="./assets/styles/fonts//icomoon/style.css">
 
@@ -18,23 +19,27 @@
   <link rel="stylesheet" href="./assets/styles/css/animate.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-  
+
   <script src="https://kit.fontawesome.com/ce297d84c8.js" crossorigin="anonymous"></script>
 
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-  
+
   <link rel="stylesheet" href="./assets/styles/fonts//flaticon/font/flaticon.css">
 
   <link rel="stylesheet" href="./assets/styles/css/aos.css">
 
   <link rel="stylesheet" href="./assets/styles/css/style.css">
 
+  <script defer
+          src="https://www.paypal.com/sdk/js?client-id=AUcJ3LBxK2YlX4Pi_OD_BBbnq_bmQfE0VCSUEcytTxEhi8iGDvdJHpgnA9x4chF3ZJJHzjspHRIE2ZvH&currency=EUR">
+  </script>
 
 </head>
+
 <body>
   <app-root></app-root>
 
-  
+
   <script src="./assets/js/jquery-3.3.1.min.js"></script>
   <script src="./assets/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="./assets/js/jquery-ui.js"></script>
@@ -47,41 +52,71 @@
   <script src="./assets/js/bootstrap-datepicker.min.js"></script>
   <script src="./assets/js/aos.js"></script>
 
-  
+
   <script src="./assets/js/mediaelement-and-player.min.js"></script>
 
   <script src="./assets/js/main.js"></script>
-    
+
 
   <script>
-      document.addEventListener('DOMContentLoaded', function() {
-                var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+    document.addEventListener('DOMContentLoaded', function () {
+      var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                for (var i = 0; i < total; i++) {
-                    new MediaElementPlayer(mediaElements[i], {
-                        pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                        shimScriptAccess: 'always',
-                        success: function () {
-                            var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                            for (var j = 0; j < targetTotal; j++) {
-                                target[j].style.visibility = 'visible';
-                            }
-                  }
-                });
-                }
-            });
-    </script>
-
-
-    <script>
-      function setTitle(name) {
-          document.getElementById("klima").innerHTML = name;
-          document.getElementById("klima").style.visibility = "visible";
+      for (var i = 0; i < total; i++) {
+        new MediaElementPlayer(mediaElements[i], {
+          pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+          shimScriptAccess: 'always',
+          success: function () {
+            var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+            for (var j = 0; j < targetTotal; j++) {
+              target[j].style.visibility = 'visible';
+            }
+          }
+        });
       }
-      function unsetTitle() {
-          document.getElementById("klima").style.visibility = "hidden";
+    });
+  </script>
+
+
+  <script>
+    function setTitle(name) {
+      document.getElementById("klima").innerHTML = name;
+      document.getElementById("klima").style.visibility = "visible";
+    }
+    function unsetTitle() {
+      document.getElementById("klima").style.visibility = "hidden";
+    }
+  </script>
+
+<!-- 
+  <script>
+    paypal.Button.render({
+      env: 'sandbox', // Or 'production'
+      // Set up the payment:
+      // 1. Add a payment callback
+      payment: function (data, actions) {
+        // 2. Make a request to your server
+        return actions.request.post('/my-api/create-payment/')
+          .then(function (res) {
+            // 3. Return res.id from the response
+            return res.id;
+          });
+      },
+      // Execute the payment:
+      // 1. Add an onAuthorize callback
+      onAuthorize: function (data, actions) {
+        // 2. Make a request to your server
+        return actions.request.post('/my-api/execute-payment/', {
+          paymentID: data.paymentID,
+          payerID: data.payerID
+        })
+          .then(function (res) {
+            // 3. Show the buyer a confirmation message.
+          });
       }
-    </script>
+    }, '#paypal-button');
+  </script> -->
 
 </body>
+
 </html>

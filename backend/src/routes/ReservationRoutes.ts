@@ -30,6 +30,19 @@ router.route('/reserve').post(async (req, res) => {
 
 router.route('/pay').post(async (req, res) => {
 	let reservation = req.body
+	console.log(reservation)
+	let items: any[] = []
+	let totalPrice = 0
+	reservation.reservation.forEach((res: any) => {
+		items.push({
+			"name": res.type,
+			"sku": "001",
+			"price": res.price,
+			"currency": "EUR",
+			"quantity": res.amount
+		})
+		totalPrice += res.price
+	});
 	const create_payment_json = {
 		"intent": "sale",
 		"payer": {
@@ -41,25 +54,20 @@ router.route('/pay').post(async (req, res) => {
 		},
 		"transactions": [{
 			"item_list": {
-				"items": [{
-					"name": "Redhock Bar Soap",
-					"sku": "001",
-					"price": "25.00",
-					"currency": "USD",
-					"quantity": 1
-				}]
+				"items": items
 			},
 			"amount": {
-				"currency": "USD",
-				"total": "25.00"
+				"currency": "EUR",
+				"total": totalPrice
 			},
+			"payee": "ljiljananikolic3004@gmail.com",
 			"description": "Washing Bar soap"
 		}]
 	};
 	
 	paypal.payment.create(create_payment_json, function (error: any, payment: { links: string | any[]; }) {
 	  if (error) {
-		  throw error;
+		  console.log(error);
 	  } else {
 		  for(let i = 0;i < payment.links.length;i++){
 			if(payment.links[i].rel === 'approval_url'){

@@ -34,11 +34,12 @@ export class ReservationsService {
   }
 
   
-  pay(reservationObj, dates) {
+  pay(reservationObj, dates, user) {
     console.log(reservationObj)
     const data = {
       reservation: reservationObj,
-      dateRange: dates
+      dateRange: dates,
+      user: user
     }
     return this.http.post(`${this.uri}/reservation/pay`, data);
   }
