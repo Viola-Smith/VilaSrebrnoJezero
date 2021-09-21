@@ -15,6 +15,9 @@ let Reservation = new Schema({
 	room: {
         type: Number
     },
+    extra_beds: {
+        type: Number
+    },
 	name: {
         type: String
     },

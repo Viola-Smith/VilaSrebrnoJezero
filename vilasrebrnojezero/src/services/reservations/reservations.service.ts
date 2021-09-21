@@ -33,4 +33,15 @@ export class ReservationsService {
     return this.http.post(`${this.uri}/reservation/reserve`, data);
   }
 
+  
+  pay(reservationObj, dates) {
+    console.log(reservationObj)
+    const data = {
+      reservation: reservationObj,
+      dateRange: dates
+    }
+    return this.http.post(`${this.uri}/reservation/pay`, data);
+  }
+
+
 }

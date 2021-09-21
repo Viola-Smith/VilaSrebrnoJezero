@@ -23,6 +23,7 @@
     "@types/node": "^16.7.10",
     "cors": "^2.8.5",
     "express": "^4.16.3",
-    "mongoose": "^6.0.4"
+    "mongoose": "^6.0.4",
+    "paypal-rest-sdk": "^1.8.1"
   }
 }

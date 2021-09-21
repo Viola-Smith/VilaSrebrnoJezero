@@ -6,6 +6,7 @@ import { ContactComponent } from './contact/contact.component';
 import { EventsComponent } from './events/events.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
+import { SuccessPaymentComponent } from './payment/success-payment/success-payment.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
 
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'admin', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'search', component: SearchRoomsComponent }
+  { path: 'search', component: SearchRoomsComponent },
+  { path: 'success-payment', component: SuccessPaymentComponent }
 ];
 
 @NgModule({

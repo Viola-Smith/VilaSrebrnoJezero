@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
+import { SuccessPaymentComponent } from './payment/success-payment/success-payment.component';
+import { CancelPaymentComponent } from './payment/cancel-payment/cancel-payment.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     LoginComponent,
     AdminMenuComponent,
     SearchRoomsComponent,
-    ReservationFormComponent
+    ReservationFormComponent,
+    SuccessPaymentComponent,
+    CancelPaymentComponent
   ],
   imports: [
     BrowserModule,

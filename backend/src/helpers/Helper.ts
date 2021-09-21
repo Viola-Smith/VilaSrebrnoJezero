@@ -15,4 +15,11 @@ export default class Helper{
         return arr.slice((page_number - 1) * page_size, page_number * page_size)
     }
 
+    public static getNumberOfNights(date1: Date, date2: Date) {
+        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        return numberOfNights
+    }
+
 }

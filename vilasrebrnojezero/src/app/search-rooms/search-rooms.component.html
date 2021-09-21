@@ -67,13 +67,23 @@
                             {{ room.amount }} X {{ getName(room.type) }}
                         </div>
                         <div>
-                            <span *ngIf='room.extra_beds'> +{{ room.extra_beds }}
-                                <span *ngIf='room.extra_beds == 1'>extra bed</span>
-                                <span *ngIf='room.extra_beds > 1'>extra beds</span>
+                            <span *ngFor='let r of room.rooms'>
+                                <span *ngIf='r.extra_beds_used'>
+                                    +{{ r.extra_beds_used }}
+                                    <span *ngIf='r.extra_beds_used == 1'>extra bed</span>
+                                    <span *ngIf='r.extra_beds_used > 1'>extra beds</span>
+                                    <span>
+                                        (
+                                            <span>
+                                               {{ getExtraBedPrice(r).str }}
+                                            </span>
+                                        )
+                                    </span>
+                                </span> 
                             </span>
                         </div>
                         <div>
-                            {{ room.amount }} X {{ room.price }} = {{ room.amount * room.price }}
+                            {{ room.amount }} X  {{ room.price }} {{ getAllExtraBedPrice(room).str }}   = {{ getRoomPrice(room) }}
                         </div>
                     </div>
                     <!-- <div style='float:right;'>

@@ -18,6 +18,9 @@ let Room = new Schema({
 	extra_beds: {
         type: Number
     },
+    extra_beds_price: {
+        type: Array
+    },
 	view: {
         type: Boolean
     }

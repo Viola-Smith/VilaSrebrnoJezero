@@ -42,9 +42,16 @@ export class SearchRoomsComponent implements OnInit {
     this.roomService.getAvailableRooms(this.date1, this.date2, this.adults, this.kids, this.rooms).subscribe((rooms: any) => {
       this.suggest = rooms.suggest
       this.allRooms = rooms.all
-      this.suggest.forEach(r => r.extra_beds = this.hasExtraBeds(r.rooms))
-      // console.log(rooms)
-      console.log(rooms)
+      this.suggest.forEach(r => {
+        for (let index = 0; index < r.rooms.length; index++) {
+          let ebu = this.hasExtraBeds(r.rooms[index])
+          r.rooms[index].extra_beds_used = ebu ? ebu : 0
+          let price = this.getExtraBedPrice(r.rooms[index])
+          r.rooms[index].price = price ? price.number + r.price : r.price
+        }
+      })
+
+      console.log(this.suggest)
     });
 
   }
@@ -57,11 +64,37 @@ export class SearchRoomsComponent implements OnInit {
     return moment(date).format("DD/MM/YYYY")
   }
 
+  getExtraBedPrice(r) {
+    let str = ''
+    let total = 0
+    for (let index = 1; index <= r.extra_beds_used; index++) {
+      const extra_bed = r.extra_beds_price.find(p => p.order === index)
+      let price = extra_bed.price * this.getNights(this.date1, this.date2)
+      total += price
+      str += ' + ' + price + ' RSD'
+    }
+    return { str: str, number: total }
+  }
+
+  getRoomPrice(room) {
+    return room.amount * room.price + this.getAllExtraBedPrice(room).number
+  }
+
+  getAllExtraBedPrice(room) {
+    let str = ''
+    let sum = 0
+    room.rooms.forEach(r => {
+      let price = this.getExtraBedPrice(r)
+      str += price.str
+      sum += price.number
+    });
+    return { str: str, number: sum }
+  }
 
   getSumPrice(rooms) {
     let sum = 0
     rooms.forEach(room => {
-      sum += room.amount * room.price
+      sum += this.getRoomPrice(room)
     });
     return sum
   }
@@ -84,20 +117,19 @@ export class SearchRoomsComponent implements OnInit {
     }
   }
 
-  hasExtraBeds(rooms) {
+  hasExtraBeds(room) {
     if (this.kidsCalculate > 0) {
       let num = 0
-      rooms.forEach(room => {
-        if (room.extra_beds) {
-          if (room.extra_beds >= this.kidsCalculate) {
-            num += this.kidsCalculate
-            this.kidsCalculate = 0
-          } else {
-            this.kidsCalculate -= room.extra_beds
-            num += room.extra_beds
-          }
+      if (room.extra_beds) {
+        if (room.extra_beds >= this.kidsCalculate) {
+          num += this.kidsCalculate
+          this.kidsCalculate = 0
+        } else {
+          this.kidsCalculate -= room.extra_beds
+          num += room.extra_beds
         }
-      });
+      }
+
       return num
     }
 
@@ -118,12 +150,14 @@ export class SearchRoomsComponent implements OnInit {
   }
 
   reserve(obj) {
+    console.log(obj)
     this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 } }
     this.showForm = true
   }
 
   reserveSuggest() {
-    this.manualReservationArray = this.suggest
+    //  this.manualReservationArray = this.suggest
+    this.reserve(this.suggest)
   }
 
   selectAmount(amount, room) {
