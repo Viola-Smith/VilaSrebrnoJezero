@@ -14,9 +14,8 @@ router.route('/available').get(async (req, res) => {
   let date1 = req.query.date1
   let date2 = req.query.date2
   let adults = req.query.adults
-  let kids = req.query.kids
   let rooms = req.query.rooms
-  let avRooms = await RoomService.getAvailableRooms(date1, date2, adults, kids, rooms)
+  let avRooms = await RoomService.getAvailableRooms(date1, date2, adults, rooms)
   let allAvRooms = await RoomService.getAllAvailableRooms(date1, date2)
   res.json({suggest: avRooms, all: allAvRooms})
 });

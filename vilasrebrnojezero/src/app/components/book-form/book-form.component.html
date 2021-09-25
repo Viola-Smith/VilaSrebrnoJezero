@@ -27,19 +27,21 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type='number' class="form-control" required  [(ngModel)]='adults' name='adults'>
+                                    <input type='number' class="form-control" required [(ngModel)]='adults'
+                                        name='adults'>
                                     <span class="form-label">Adults</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type='number' class="form-control" required  [(ngModel)]='kids' name='kids'>
+                                    <input type='number' class="form-control" required [(ngModel)]='kids' name='kids'>
                                     <span class="form-label">Extra beds*</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type='number' class="form-control" required  [(ngModel)]='numRooms' name='numRooms'>
+                                    <input type='number' class="form-control" required [(ngModel)]='numRooms'
+                                        name='numRooms'>
                                     <span class="form-label">Number of rooms</span>
                                 </div>
                             </div>
@@ -50,6 +52,13 @@
                                     <span class="form-label" style='opacity: 1; top:-5px'>
                                         *Only kids under 6 years old
                                     </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row text-center' *ngIf='errorMsg' style='color:red'>
+                            <div class='col'>
+                                <div class="form-group">
+                                    {{ errorMsg }}
                                 </div>
                             </div>
                         </div>
@@ -68,7 +77,7 @@
                             </div>
                         </div> -->
                         <div class="form-btn">
-                            <button class="submit-btn" (click)='redirectTo()' >Proveri Raspoloživost</button>
+                            <button class="submit-btn" (click)='redirectTo()'>Proveri Raspoloživost</button>
                         </div>
                     </form>
                 </div>

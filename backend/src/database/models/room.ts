@@ -21,8 +21,11 @@ let Room = new Schema({
     extra_beds_price: {
         type: Array
     },
-	view: {
+	bookable: {
         type: Boolean
+    },
+    bookable_periods: {
+        type: Array
     }
 }, {collection:"Room"});
 

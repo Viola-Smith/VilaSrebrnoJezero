@@ -39,7 +39,7 @@ export class SearchRoomsComponent implements OnInit {
     this.kidsCalculate = parseInt(this.kids)
     document.getElementById('start').scrollIntoView({ behavior: "smooth" })
 
-    this.roomService.getAvailableRooms(this.date1, this.date2, this.adults, this.kids, this.rooms).subscribe((rooms: any) => {
+    this.roomService.getAvailableRooms(this.date1, this.date2, this.adults, this.rooms).subscribe((rooms: any) => {
       this.suggest = rooms.suggest
       this.allRooms = rooms.all
       this.suggest.forEach(r => {

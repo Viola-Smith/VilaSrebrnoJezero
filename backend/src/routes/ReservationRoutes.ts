@@ -1,4 +1,5 @@
 import express from 'express';
+import ReservationRepo from '../database/repositories/ReservationRepo';
 import ReservationService from '../services/ReservationService';
 
 const paypal = require('paypal-rest-sdk');
@@ -27,6 +28,10 @@ router.route('/reserve').post(async (req, res) => {
 	res.json(await ReservationService.reserve(reservationObj))
 });
 
+
+router.route('/minimum_booking_time').get(async (req, res) => {
+	res.json(await ReservationRepo.getAllMinBookingTimes())
+});
 
 router.route('/pay').post(async (req, res) => {
 	let reservation = req.body

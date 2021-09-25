@@ -1,6 +1,11 @@
+import MinimumBookingTime from "../models/minimumBookingTime";
 import Reservation from "../models/reservation";
 
 export default class ReservationRepo {
+
+    public static async getAllMinBookingTimes() {
+        return await MinimumBookingTime.find().exec()
+    }
 
     public static async findLastId() {
         let lastId = 1

@@ -44,5 +44,9 @@ export class ReservationsService {
     return this.http.post(`${this.uri}/reservation/pay`, data);
   }
 
+  getMinBookingTime(){
+    return this.http.get(`${this.uri}/reservation/minimum_booking_time`);
+  }
+
 
 }

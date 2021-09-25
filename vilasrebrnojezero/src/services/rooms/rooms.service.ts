@@ -14,13 +14,12 @@ export class RoomsService {
     return this.http.get(`${this.uri}/room`);
   }
 
-  getAvailableRooms(date1, date2, adults, kids, rooms) {
+  getAvailableRooms(date1, date2, adults, rooms) {
     return this.http.get(`${this.uri}/room/available`, {
       params: {
         date1: date1,
         date2: date2,
         adults: adults,
-        kids: kids,
         rooms: rooms
       }
     });
