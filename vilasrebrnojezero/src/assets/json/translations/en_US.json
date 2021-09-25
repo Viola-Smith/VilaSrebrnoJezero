@@ -1,0 +1,209 @@
+{
+	"common" 				: {
+		"vilasrebrnojezero"		: "Villa Silver Lake",
+		"rooms"					: "Rooms",
+		"double_single"			: "Double / Single",
+		"1_double_1_single"		: "1 double bed and 1 single bed",
+		"1_double_2_single"		: "1 double bed and 2 single beds",
+		"1_double_and_sofa"		: "1 double bed and sofabed",
+		"2bed"					: "Twoperson bedroom",
+		"2bed_plural"			: "Twoperson bedrooms",
+		"2bed_double"			: "Twoperson double bedroom",
+		"2bed_single"			: "Twoperson single bedroom",
+		"3bed"					: "Threeperson apartment",
+		"3bed_plural"			: "Threeperson apartments",
+		"4bed"					: "Fourperson apartment",
+		"4bed_plural"			: "Fourperson apartments",
+		"lux"					: "Lux apartment",
+		"lux_detailed"			: "Tworoom Lux apartment",
+		"night"					: "night",
+		"nights"				: "nights",
+		"extra_bed"				: "Extra bed",
+		"extra_beds"			: "Extra beds"
+		
+	},
+	
+	"home"					: {
+		"welcome"				: "Welcome",
+		"details"				: "Details...",
+		"unique_experience"		: "Unique experience",
+		"enjoy"					: "Enjoy it with us",
+		"surrounding"			: "Picturesque surroundings",
+		"relax"					: "Relax with a sunset",
+		"about_us"				: "About",
+		"description"			: "Villa \"Silver Lake\" is located only 20m from the lake. When you add its comfortable and functional accommodation, professionalism and kindness of the host, and environment rich with greenery, it seems that the villa \"Silver Lake\" is the right choice for your pleasant stay during which you will enjoy all the benefits of this wonderful place. The Villa has 12 double rooms (6 double and 6 with a separate and extra beds), 2 triple and 2 four-bed apartments, with a mini kitchen and a mini dining room. It is surrounded with shared terraces with their rattan furniture and a common covered summer garden with tables and chairs where guests can arrange breakfast, lunch and dinner or have a drink, relax, play games and the like. There is also the two-room \"LUX\" apartment with a separate terrace, kitchen and restaurant dining room. Each room has its own entrance, bathroom, mini bar, air conditioning, cable TV, wi-fi internet, balcony and mosquito nets on the windows. Parking places are provided for all visitors, and for additional security there is video surveillance. During the beautiful and sunny days you can enjoy the beautiful garden, swimming pool or have recreation on the multifunctional sports field for basketball, volleyball, football and tennis. The villa is open to all guests throughout the year. Visit us and see for yourself the quality of our offer!",
+		
+		"features"				: "Features",
+		"pools"					: "Pools",
+		"table_tennis"			: "Table tennis",
+		"free_wifi"				: "Free WiFi",
+		"parking"				: "Parking",
+		"basketball"			: "Basketball",
+		"proximity_to_beach"	: "Proximity to the beach",
+		"shared_terrace"		: "Shared terrace",
+		"kettle"				: "Kettle",
+		"comments"				: "Comments"
+	},
+	
+	"book-form"				: {
+		"make_reservation"		: "Make your reservation",
+		"check_in"				: "Check-in date",
+		"check_out"				: "Check-out date",
+		"adults"				: "Number of adults",
+		"number_of_room"		: "Number of rooms",
+		"kids_under_6"			: "Only for kids under 6 years of age",
+		"check_availability"	: "Check availability"
+		
+		
+	},
+	
+	"header"				: {
+		"social_distancing"		: "Velika mogućnost socijalnog distanciranja",
+		"no_vauchers"			: "We don't accept vouchers",
+		"about_us"				: "Home",
+		"rooms-prices"			: "Rooms - Prices",
+		"twoperson"				: "Twoperson",
+		"apartments"			: "Apartments",
+		"threeperson"			: "Threeperson",
+		"fourperson"			: "Fourperson",
+		"lux"					: "Lux",
+		"events"				: "Events",
+		"gallery"				: "Gallery",
+		"contact"				: "Contact",
+		"reserve"				: "Reserve"
+	},
+	
+	"footer"				: {
+		"text"					: "Villa \"Silver Lake\" is located only 20m from the lake. Its fashionable exterior and compact offer forms of recreation in the yard, is certainly something that attracts the visitors and sets this villa apart from other places on the lake.",
+								  
+		"read_more"				: "Read more",
+		"social_media"			: "Social media"
+	},
+	
+	"payment-form"			: {
+		"pay"					: "Pay"
+	},
+	"reservation-form"		: {
+		"name"					: "First and last name",
+		"email"					: "E-mail",
+		"phone"					: "Phone number"
+	},
+	
+	"contact"				: {
+		"send_message"			: "Send a message",
+		"contact_us"			: "Contact Us",
+		"contact_info"			: "Contact information",
+		"address"				: "Address",
+		"phone"					: "Phone number",
+		"email_address"			: "E-mail address"
+	},
+	
+	"events"				: {
+		"activities"			: "Activities",
+		"events"				: "Events",
+		"restaurants"			: "Restaurants / Cafes",
+		"tourist"				: "Tourist destinations",
+		"learn_more"			: "Learn more",
+		"aqua_park"				: "Aqua park",
+		"aqua_park_details"		: "As the latest water attraction opened in early June 2011, there is an aqua club with 6 very well designed 0.4-1.35m deep pools, 2 water slides, more waterfalls, children's slides, waterfalls, and similar water combinations on the surface of 2500m2. Additionally, the location of the aqua club is located just fifty meters from the Villa Silver Lake.",
+
+		"danube_cruise"			: "Danube cruise",
+		"danube_cruise_details"	: "The Silver Star is intended for sightseeing tours along the Danube, surrounded by Silver Lake. The capacity of the boat is up to 200 people (indoor and outdoor). The Silver Star cruise will give you an unforgettable experience and an amazing view of the Danube coast.",
+								   
+		"mini_golf"				: "Mini golf",
+		"mini_golf_details"		: "For family or for two, miniature golf is an ideal form of recreation that will relax you, entertain you, and boost your competitive spirit. The mini-golf course contains 12 playing fields.",
+								   
+		"uranak"				: "Uranak Festival",
+		"uranak_details"		: "Music festival, which will be held this year from April 30 to May 3, at one of the most beautiful picnic areas in Serbia - SILVER LAKE. A quality music program has been designed to satisfy everyone's taste. At the Urban stage you will find an electronic school of Belgrade clubing.",
+								   
+		"pasuljijada"			: "Pasuljijada (Beans Festival)",
+		"pasuljijada_details"	: "Pasulijada is one of the most popular events held every year in the city park near the Danube. It is no coincidence that the Pasuljijada is organized in Veliko Gradište, because the most famous bean \"Gradištanac\" comes from Veliki Gradište.",
+								   
+		"alaske_veceri"			: "Fisherman dinners",
+		"alaske_veceri_details"	: "In the well-known environment of flowers and greenery, right next to the Danube, in a town park, 150 cooks from all over Serbia and Romania will prepare unlimited quantities of fish broth. For big fish-lovers, as well as anyone else who enjoys fish specialties, we recommend the superb fish stews that you will have the opportunity to taste, free of charge, at this event.",
+								
+		"rimini"				: "Rimini",
+		"rimini_details"		: "Outstanding Italian cafe restaurant, with beautiful views and delicious food. Of particular delight are their various ice-cream cups.",
+								   
+		"dincic"				: "Restaurant Dinčić",
+		"dincic_details"		: "Local cuisine restaurant.",
+		
+		"beach_bar"				: "Beach Bar",
+		"beach_bar_details"		: "A bar on the very shore of the lake where parties are held every Friday and on weekends.",
+		
+		"tvrdjava_ram"			: "Fortress Ram",
+		"tvrdjava_ram_details"	: "The Ram Fortress is a 15th century fort situated on a steep slope on the right bank of the Danube, in the village of Ram, municipality of Veliko Gradište, eastern Serbia.",
+								 
+		"golubac"				: "Golubac Fortress",
+		"golubac_details"		: "The Golubac Fortress was a medieval fortified town on the south side of the Danube River, 4 km (2.5 mi) downstream from the modern-day town of Golubac, Serbia.",
+								   
+		"viminacijum"			: "Viminacium",
+		"viminacijum_details"	: "Viminacium was a major city (provincial capital) and military camp of the Roman province of Moesia (today's Serbia), and the capital of Moesia Superior (hence once Metropolitan archbishopric, now a Latin titular see). As of 2018, only 3 to 4% of the site has been explored.",
+								   
+		"djerdap"				: "Đerdap national park",
+		"djerdap_details"		: "The Đerdap National Park stretches along the right bank of the Danube River from the Golubac Fortress to the dam near Novi Sip, Serbia. It was established in 1974 and spreads on 63,786.5 ha (157,620 acres). The park management office is in the town of Donji Milanovac on the Danube.",
+								   
+		"lepenski_vir"			: "Lepenski vir",
+		"lepenski_vir_details"	: "Lepenski Vir is an important archaeological site of the Mesolithic Iron Gates culture of the Balkans.",
+								   
+		"tumane"				: "The Tumane Monastery",
+		"tumane_details"		: "The Tumane Monastery is an Orthodox monastery of the Diocese of the Braničevo Serbian Orthodox Church. It is located in the Golubac valley on the shore of the stream of the same name, 12 km away from Golubac."
+	},
+	
+	"gallery"				: {
+		"exterior"				: "Exterior",
+		"silver_lake"			: "Silver Lake"
+	},
+	
+	"rooms"					: {
+		"gallery"				: "Gallery",
+		"prices"				: "Prices",
+		"double_bed"			: "Double bed",
+		"single_bed"			: "Single beds",
+		"contents"				: "Room contents",
+		"ac"					: "air conditioner",
+		"safe"					: "safe",
+		"minibar"				: "minibar",
+		"tv"					: "TV",
+		"towels"				: "towels",
+		"shared_terrace"		: "shared terrace",
+		"kitchen"				: "kitchen",
+		"personal_terrace"		: "personal terrace",
+		"prices_in_RSD"			: "The prices are stated in RSD",
+		"extra_bed_1"			: "Extra bed I - kids up to 6 years of age - 300 RSD",
+		"extra_bed_2"			: "Extra bed II - kids up to 6 years of age - 200 RSD",
+		"new_years"				: "New Year's celebrations",
+		"night"					: "night",
+		"nights"				: "nights",
+		"first_of_may"			: "First of May celebrations"
+		
+	},
+	
+	"months"				: {
+		"january"				: "January",
+		"february"				: "February",
+		"march"					: "March",
+		"april"					: "April",
+		"may"					: "May",
+		"june"					: "June",
+		"july"					: "July",
+		"august"				: "August",
+		"september"				: "September",
+		"october"				: "October",
+		"november"				: "November",
+		"december"				: "December"
+	},
+	
+	"search-rooms"			: {
+		"reserve_rooms"			: "Reserve rooms",
+		"recommendation"		: "Recommendation for ",
+		"reserve_for"			: "Reserve for ",
+		"all_available_rooms"	: "All available rooms",
+		"type"					: "Type of room",
+		"beds"					: "Number of beds",
+		"amount"				: "Amount",
+		"price"					: "Price"
+		
+	}
+
+}

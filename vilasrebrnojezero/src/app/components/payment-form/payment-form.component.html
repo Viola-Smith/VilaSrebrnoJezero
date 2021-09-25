@@ -27,24 +27,7 @@
                     <br>
                     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 
-                    <form action="payment" method="POST">
-                        <script 
-                           src="//checkout.stripe.com/v2/checkout.js"
-                           class="stripe-button"
-                           data-key="<%= key %>"
-                           data-amount="2500"
-                           data-currency="inr"
-                           data-name="Crafty Gourav"
-                           data-description="Handmade Art and Craft Products"
-                           data-locale="auto" >
-                         </script>
-                     </form>
-
                      <br><br>
-<!-- 
-                     <div class="form-btn">
-                        <button class="submit-btn" (click)='pay()'>Uplati</button>
-                    </div> -->
                 </div>
             </div>
         </div>

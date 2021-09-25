@@ -8,7 +8,30 @@
 </div> <!-- .site-mobile-menu -->
 
 
+
 <div class="site-navbar-wrap js-site-navbar bg-white">
+
+    <div class='languages'>
+        <img [src]='"../../../assets/styles/images/" + translations.getLanguage() + ".png"' width='30px' 
+        style='margin-right: 5px;box-shadow: 1px 1px 2px black'
+            (click)='changeLang(translations.getLanguage())'>
+        <i class="fas fa-angle-down" style='color: whitesmoke; cursor: pointer' 
+        (click)='showOtherFlags()'
+            id='arrowDown'></i>
+        <i class="fas fa-angle-up" style='color: whitesmoke; cursor: pointer; display:none' 
+        (click)='showOtherFlags()'
+            id='arrowUp'></i>
+        <br>
+        <div id='otherFlags' style='display:none'>
+            <div *ngFor='let lang of translations.getOtherLanguages()'>
+                <img [src]='"../../../assets/styles/images/"+lang+".png"'  
+                style='cursor:pointer;box-shadow: 1px 1px 2px black' width='30px'
+                (click)='changeLang(lang)'>
+            </div>
+            
+        </div>
+
+    </div>
 
     <div class="container-fluid">
         <div class="site-navbar bg-light">
@@ -17,7 +40,8 @@
                     <div class="col-3">
                         <h2 class="mb-0 site-logo" align='center'><a href="index.html">Vila Srebrno Jezero</a></h2>
                         <p style='color:black;background-color:yellow;font-size:10;margin-left:0;' align='center'>
-                            <b>Velika mogućnost socijalnog distanciranja</b></p>
+                            <b>Velika mogućnost socijalnog distanciranja</b>
+                        </p>
                         <p style='color:black;background-color:yellow;font-size:10;margin-left:0;' align='center'><b>Ne
                                 primamo vaučere</b></p>
                     </div>
@@ -58,11 +82,7 @@
                                     <li class='bookButton'>
                                         <a (click)='showBookModal()'>Rezerviši</a>
                                     </li>
-                                    <li>
-                                        <a href='index_eng.html'>
-                                            <img src='../assets/styles/images/eng.png' width='50px'>
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </nav>

@@ -1,0 +1,273 @@
+{
+	"common" 				: {
+		"vilasrebrnojezero"		: "Vila Srebrno Jezero",
+		"rooms"					: "Sobe",
+		"double_single"			: "Bračna / Singl",
+		"1_double_1_single"		: "1 bračni i 1 singl",
+		"1_double_2_single"		: "1 bračni i 2 singl",
+		"1_double_and_sofa"		: "1 bračni i trosed na razvlačenje",
+		"2bed"					: "Dvokrevetna soba",
+		"2bed_plural"			: "Dvokrevetne sobe",
+		"2bed_double"			: "Dvokrevetna bračna soba",
+		"2bed_single"			: "Dvokrevetna singl soba",
+		"3bed"					: "Trokrevetni apartman",
+		"3bed_plural"			: "Trokrevetni apartmani",
+		"4bed"					: "Četvorokrevetni apartman",
+		"4bed_plural"			: "Četvorokrevetni apartmani",
+		"lux"					: "Lux apartman",
+		"lux_detailed"			: "Dvosoban Lux apartman",
+		"night"					: "noć",
+		"nights"				: "noći"
+		"extra_bed"				: "Pomoćni ležaj",
+		"extra_beds"			: "Pomoćni ležajevi",
+		
+	},
+	
+	"home"					: {
+		"welcome"				: "Dobrodošli",
+		"details"				: "Detaljnije...",
+		"unique_experience"		: "Jedinstveno iskustvo",
+		"enjoy"					: "Uživajte sa nama",
+		"surrounding"			: "Slikovito okruženje",
+		"relax"					: "Opustite se uz zalazak sunca",
+		"about_us"				: "O nama",
+		"description"			: "Vila "Srebrno jezero" je arhitektonski rešena da odezbeđuje veliku mogućnost 
+								  socijalnog distanciranja jer sve sobe imaju zaseban ulaz sa spoljne strane.
+								  Vila je smeštena na svega 20m od samog jezera.
+								  Vila poseduje 12 dvokrevetnih soba (6 sa bračnim i 6 sa zasebnim i pomoćnim ležajevima),
+								  2 trokrevetna i 2 četvorokrevetni apartman, sa svojim mini kuhinjama i 
+								  mini trepezarijama, sa zajedničkim terasama i pripadajućim ratan garniturama za sedenje,
+								  zajedničku natkrivenu letnju baštu sa stolovima i stolicama
+								  gde gosti mogu da organizuju doručak, ručak i večeru u svojoj režiji ili da popiju piće,
+								  odmore se, odigraju društvene igre i slično.
+								  Takođe poseduje dvosobni "LUX" apartman sa odvojenom terasom, kuhinjom, trpezarijom i 
+								  dnevnim boravkom. Svaka soba ima zaseban ulaz, kupatilo, mini bar, 
+								  klimu, kablovsku televiziju, terasu i komarnike na prozorima. 
+								  Svim posetiocima obezbedjeno je parking mesto, 
+								  a zbog dodatnog opreza posedujemo i video nadzor.
+								  Tokom lepih i sunčanih dana možete uzivati u prelepoj bašti, 
+								  kupati se u jednom od dva montažna bazena 
+								  ili se rekreirati na multifunkcionalnom sportskom terenu za košarku, odbojku,
+								  mali fudbal i tenis.
+								  Vila je otvorena za sve goste tokom cele godine. 
+								  Posetite nas i uverite se sami u kvalitet naše ponude!",
+		
+		"features"				: "Pogodnosti",
+		"pools"					: "Bazeni",
+		"table_tennis"			: "Stoni tenis",
+		"free_wifi"				: "Besplatan WiFi",
+		"parking"				: "Parking",
+		"basketball"			: "Košarka",
+		"proximity_to_beach"	: "Blizina plaži",
+		"shared_terrace"		: "Zajednička terasa",
+		"kettle"				: "Kuvalo",
+		"comments"				: "Komentari"
+	},
+	
+	"book-form"				: {
+		"make_reservation"		: "Napravi rezervaciju",
+		"check_in"				: "Datum dolaska",
+		"check_out"				: "Datum odlaska",
+		"adults"				: "Broj odraslih osoba",
+		"number_of_room"		: "Broj soba",
+		"kids_under_6"			: "Samo za decu do 6 godina",
+		"check_availability"	: "Proveri raspoloživost"
+		
+		
+	},
+	
+	"header"				: {
+		"social_distancing"		: "Velika mogućnost socijalnog distanciranja",
+		"no_vauchers"			: "Ne primamo vaučere",
+		"about_us"				: "O nama",
+		"rooms-prices"			: "Sobe - Cenovnik",
+		"twoperson"				: "Dvokrevetne",
+		"apartments"			: "Apartmani",
+		"threeperson"			: "Trokrevetni",
+		"fourperson"			: "Četvorokrevetni",
+		"lux"					: "Lux",
+		"events"				: "Događaji",
+		"gallery"				: "Galerija",
+		"contact"				: "Kontakt",
+		"reserve"				: "Rezerviši"
+	},
+	
+	"footer"				: {
+		"text"					: "Vila "Srebrno jezero" smeštena je na svega 20m od samog jezera. 
+								  Njen moderni eksterijer i kompaktnost ponuda vidova rekreacije u samom dvorištu,
+								  svakako je nešto što privlači pažnju posetilaca i što ovu vilu izdvaja od ostalih 
+								  ugostiteljskih objekata na Jezeru.",
+								  
+		"read_more"				: "Pročitaj više",
+		"social_media"			: "Društvene mreže"
+	},
+	
+	"payment-form"			: {
+		"pay"					: "Uplati"
+	},
+	"reservation-form"		: {
+		"name"					: "Ime i prezime",
+		"email"					: "E-mail",
+		"phone"					: "Telefon"
+	},
+	
+	"contact"				: {
+		"send_message"			: "Pošaljite poruku",
+		"contact_us"			: "Kontaktirajte Nas",
+		"contact_info"			: "Kontakt informacije",
+		"address"				: "Adresa",
+		"phone"					: "Telefon",
+		"email_address"			: "E-mail adresa"
+	},
+	
+	"events"				: {
+		"activities"			: "Aktivnosti",
+		"events"				: "Događaji",
+		"restaurants"			: "Restorani / Kafići",
+		"tourist"				: "Turističke destinacije",
+		"learn_more"			: "Saznaj više",
+		"aqua_park"				: "Akva park",
+		"aqua_park_details"		: "Kao najnovija vodena atrakcija otvorena početkom juna 2011. godine je akva 
+								   klub sa 6 vrlo lepo dizajniranih bazena dubine 0.4-1.35m, 
+								   2 vodena tobogana, više slapova, dečijih tobogana, 
+								   vodopada, i sličnim vodenim kombinacijama na površini 2500m2. 
+								   Inače, velika pogodnost je lokacija akva kluba koji se nalazi na samo pedesetak 
+								   metara od Vile Srebrno jezero.",
+
+		"danube_cruise"			: "Krstarenje Dunavom",
+		"danube_cruise_details"	: "Brod Silver Star namenjen je turističkim obilascima duž Dunava 
+								   a u okruženju Srebrnog jezera.
+								   Kapacitet broda je do 200 ljudi (zatvoreni i otvoreni deo). 
+								   Krstarenje brodom Silver Star pružiće vam nezaboravno 
+								   iskustvo i zadivljujući poged na
+								   dunavsko priobalje.",
+								   
+		"mini_golf"				: "Mini golf",
+		"mini_golf_details"		: "Za porodičnu ili zabavu u dvoje, mini golf je idealan vid 
+								   rekreacije koja će vas opustiti,
+								   zabaviti ali i podstaći takmičarski duh. 
+								   Teren za mini golf sadrži 12 polja za igranje.",
+								   
+		"uranak"				: "Uranak Festival",
+		"uranak_details"		: "Muzički festival, koji će se i ove godine održati u periodu od 30. aprila do 3. maja, 
+								   na jednom od najlepših izletišta u Srbiji - SREBRNOM JEZERU. 
+								   Osmišljen je kvalitetan muzički program koji će zadovoljiti svačiji ukus. 
+								   Na Urban stage-u očekuje vas elektronska škola beogradskog clubinga.",
+								   
+		"pasuljijada"			: "Pasuljijada",
+		"pasuljijada_details"	: "Pasuljijada je jedna od najpopularnijih manifestacija 
+								   koja se održava svake godine u gradskom
+								   parku pored Dunava. Nije slučajno što se Pasuljijada
+								   organizuje baš u Velikom Gradištu,
+								   jer najpoznatiji pasulj “Gradištanac”, potiče iz Velikog Gradišta.",
+								   
+		"alaske_veceri"			: "Alaske večeri",
+		"alaske_veceri_details"	: "U dobro poznatom ambijentu cveća i zelenila, tik uz Dunav, u gradištanskom parku, 150
+								   kulinara iz čitave Srbije i Rumunije pripremiće neograničene količine riblje čorbe. Za
+								   velike meraklije, ali i sve druge koji uživaju u ribljim specijalitetima, kao melem za
+								   dušu preporučujemo vrhunsku riblju čorbu koju će imati priliku besplatno da degustiraju
+                                   svi posetioci manifestacije."
+								
+		"rimini"				: "Rimini",
+		"rimini_details"		: "Izvanredan italijanski kafe restoran, sa prelepim pogledom i ukusnom hranom. 
+								   Posebni užitak su njihovi raznovrsni kupovi.",
+								   
+		"dincic"				: "Restoran Dinčić",
+		"dincic_details"		: "Restoran domaće kuhinje. Izuzetan ambijent sa raskošnom baštom i profesionalna usluga.",
+		
+		"beach_bar"				: "Beach Bar",
+		"beach_bar_details"		: "Bar na samoj obali jezera gde se svakog petka i vikendom održavaju žurke.",
+		
+		"tvrdjava_ram"			: "Tvrđava Ram",
+		"tvrdjava_ram_details"	: "Ovo mesto je naseljavano još od praistorije, 
+								   a po dolasku Rimljana bilo je deo Dunavskog limesa.
+								   Zna se da je 1483. godine po nalogu sultana Bajazita II, na granici sa Ugarskom 
+								   podignuta tvrđava sa topovskim otvorima,
+								   što je Ram učinilo jednom od prvih artiljerijskih
+								   tvrđava na ovom području.",
+								 
+		"golubac"				: "Golubački grad",
+		"golubac_details"		: "Smeštena je na visokim liticama, na mestu na kom se reka sužava, 
+								   na samom ulazu u Đerdapsku klisuru.
+								   Golubac je imao burnu istoriju. 
+								   Tokom srednjeg veka, vodile su se mnoge bitke oko njega, naročito između 
+								   Osmanskog carstva i Kraljevine Mađarske.",
+								   
+		"viminacijum"			: "Viminacijum",
+		"viminacijum_details"	: "Viminacijum je arheološko nalazište u blizini Starog Kostolca, 12 km od Požarevca. 
+								   Rimski vojni logor i grad nastao je u I i trajao do početka VII veka.",
+								   
+		"djerdap"				: "Nacionalni park Đerdap",
+		"djerdap_details"		: "Specifičan istorijski razvoj, vrlo povoljna đerdapska klima, složena mreža klisura,
+								   kanjona i dubokih uvala, ovaj prostor izdvajaju 
+								   kao jedinstven evropski rezervat tercijarne 
+								   flore, vegetacije i faune.",
+								   
+		"lepenski_vir"			: "Lepenski vir",
+		"lepenski_vir_details"	: "Lepenski Vir je mezolitsko i neolitsko nalazište 
+								   na desnoj obali Dunava u Đerdapskoj klisuri. 
+								   Buđenje kulture Lepenskog Vira i uspostavljanje njene svojevrsne umetnosti, 
+								   otpočinje oko 7000. g. stare ere.",
+								   
+		"tumane"				: "Tumane",
+		"tumane_details"		: "Manastir Tumane je pravoslavni manastir Eparhije braničevske Srpske pravoslavne crkve. 
+								   Nalazi u Golubačkoj dolini na samoj obali istoimenog potoka, 12 km udaljen od Golupca."
+	},
+	
+	"gallery"				: {
+		"exterior"				: "Eksterijer",
+		"silver_lake"			: "Srebrno Jezero"
+	},
+	
+	"rooms"					: {
+		"gallery"				: "Galerija",
+		"prices"				: "Cenovnik",
+		"double_bed"			: "Bračne sobe",
+		"single_bed"			: "Singl sobe",
+		"contents"				: "Sobni sadržaj",
+		"ac"					: "klima uređaj",
+		"safe"					: "sef",
+		"minibar"				: "minibar",
+		"tv"					: "TV",
+		"towels"				: "peškiri",
+		"shared_terrace"		: "zajednička terasa",
+		"kitchen"				: "kuhinja",
+		"personal_terrace"		: "Sopstvena terasa",
+		"prices_in_RSD"			: "Cene su izražene u RSD",
+		"extra_bed_1"			: "Pomoćni ležaj I - deca do 6 godina - 300 RSD",
+		"extra_bed_2"			: "Pomoćni ležaj II - deca do 6 godina - 200 RSD",
+		"new_years"				: "Novogodišnji praznici",
+		"night"					: "Noćenje",
+		"nights"				: "Noćenja",
+		"first_of_may"			: "Prvomajski praznici",
+		
+	},
+	
+	"months"				: {
+		"january"				: "Januar",
+		"february"				: "Februar",
+		"march"					: "Mart",
+		"april"					: "April",
+		"may"					: "Maj",
+		"june"					: "Jun",
+		"july"					: "Jul",
+		"august"				: "Avgust",
+		"september"				: "Septembar",
+		"october"				: "Oktobar",
+		"november"				: "Novembar",
+		"december"				: "Decembar"
+	},
+	
+	"search-rooms"			: {
+		"reserve_rooms"			: "Rezerviši sobe",
+		"recommendation"		: "Preporuka za ",
+		"reserve_for"			: "Rezerviši za ",
+		"all_available_rooms"	: "Sve slobodne sobe",
+		"type"					: "Tip sobe",
+		"beds"					: "Broj kreveta",
+		"amount"				: "Količina",
+		"price"					: "Cena",
+		
+	}
+
+}

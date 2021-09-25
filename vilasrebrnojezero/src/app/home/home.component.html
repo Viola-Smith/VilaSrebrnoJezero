@@ -8,12 +8,12 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center" data-aos="fade">
 
-            <h1 class="mb-2">Dobrodošli</h1>
-            <h2 class="caption">Vila Srebrno Jezero</h2>
+            <h1 class="mb-2">{{ translationsService.labels.home.welcome }}</h1>
+            <h2 class="caption">{{ translationsService.labels.common.vilasrebrnojezero }}</h2>
           </div>
 
           <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-            <h2 class="caption" style='margin:0;cursor:pointer'>DETALJNIJE...</h2><br>
+            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translationsService.labels.home.details }}</h2><br>
             <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
           </div>
 
@@ -26,12 +26,12 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center" data-aos="fade">
-            <h1 class="mb-2">Jedinstveno iskustvo</h1>
-            <h2 class="caption">Uživajte sa Nama</h2>
+            <h1 class="mb-2">{{ translationsService.labels.home.unique_experience }}</h1>
+            <h2 class="caption">{{ translationsService.labels.home.enjoy }}</h2>
           </div>
 
           <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-            <h2 class="caption" style='margin:0;cursor:pointer'>DETALJNIJE...</h2><br>
+            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translationsService.labels.home.details }}</h2><br>
             <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
           </div>
 
@@ -44,14 +44,14 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center" data-aos="fade">
-            <h1 class="mb-2">Slikovito Okruženje</h1>
-            <h2 class="caption">Opustite se uz zalazak sunca</h2>
+            <h1 class="mb-2">{{ translationsService.labels.home.surrounding }}</h1>
+            <h2 class="caption">{{ translationsService.labels.home.relax }}</h2>
             <br>
 
           </div>
 
           <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-            <h2 class="caption" style='margin:0;cursor:pointer'>DETALJNIJE...</h2><br>
+            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translationsService.labels.home.details }}</h2><br>
             <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
           </div>
 
@@ -94,26 +94,11 @@
 
 
           <div class="section-heading text-left">
-            <h2 class="mb-5">O Nama</h2>
+            <h2 class="mb-5">{{ translationsService.labels.home.about_us }}</h2>
           </div>
 
-          <p class="mb-4" style='color:black'>Vila "Srebrno jezero" je arhitektonski rešena da odezbeđuje veliku
-            mogućnost <b><u>socijalnog distanciranja</u></b> jer sve sobe imaju zaseban ulaz sa spoljne strane. <br>
-            Vila je smeštena na svega 20m od samog jezera.
-
-            Vila poseduje 12 dvokrevetnih soba (6 sa bračnim i 6 sa zasebnim i pomoćnim ležajevima), 2 trokrevetna i 2
-            četvorokrevetni apartman, sa svojim mini kuhinjama i mini trepezarijama, sa zajedničkim terasama i
-            pripadajućim ratan garniturama za sedenje, zajedničku natkrivenu letnju baštu sa stolovima i stolicama gde
-            gosti mogu da organizuju doručak, ručak i večeru u svojoj režiji ili da popiju piće, odmore se, odigraju
-            društvene igre i slično. Takođe poseduje dvosobni "LUX" apartman sa odvojenom terasom, kuhinjom, trpezarijom
-            i dnevnim boravkom. Svaka soba ima zaseban ulaz, kupatilo, mini bar, klimu, kablovsku televiziju, terasu i
-            komarnike na prozorima. Svim posetiocima obezbedjeno je parking mesto, a zbog dodatnog opreza posedujemo i
-            video nadzor. Tokom lepih i sunčanih dana možete uzivati u prelepoj bašti, kupati se u jednom od dva
-            montažna bazena ili se rekreirati na multifunkcionalnom sportskom terenu za košarku, odbojku, mali fudbal i
-            tenis.
-
-            Vila je otvorena za sve goste tokom cele godine. Posetite nas i uverite se sami u kvalitet naše ponude!
-
+          <p class="mb-4" style='color:black;text-align: justify;' [innerHTML]='translationsService.labels.home.description'>
+            
         </div>
       </div>
     </div>

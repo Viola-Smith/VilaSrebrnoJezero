@@ -6,5 +6,17 @@
 }
 
 .bookButton a {
-    color:wheat
+    color:wheat;
+    padding-right: 10px !important
+}
+
+.languages {
+    position: absolute;
+    top:10px;
+    right:10px;
+    padding:6px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgb(248, 245, 228, 0.3);
+    box-shadow: 1px 1px 2px gray
 }

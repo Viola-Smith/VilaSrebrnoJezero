@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private translationsService: TranslationsService) { }
+
+  commonStrings
+  homeStrings
 
   ngOnInit() {
+    // this.commonStrings = this.translationsService.getCommonStrings()
+    // this.homeStrings = this.translationsService.getHomeStrings()
   }
 
 }
