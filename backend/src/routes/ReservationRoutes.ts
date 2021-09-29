@@ -33,6 +33,13 @@ router.route('/minimum_booking_time').get(async (req, res) => {
 	res.json(await ReservationRepo.getAllMinBookingTimes())
 });
 
+router.route('/delete').post(async (req, res) => {
+	let reservations = req.body
+	console.log(reservations)
+	res.json(await ReservationService.deleteAll(reservations.res))
+});
+
+
 router.route('/pay').post(async (req, res) => {
 	let reservation = req.body
 	console.log(reservation)

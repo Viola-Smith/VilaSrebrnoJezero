@@ -45,10 +45,15 @@ export class BookFormComponent implements OnInit {
     for (let min of this.minBookingTime) {
       let date_start = new Date(year + '-' + min.date_period.date_start)
       let date_end = new Date(year + '-' + min.date_period.date_end)
+      let date_end2 = new Date(date_end)
+      let date_start2 = new Date(date_start)
       if (date_start > date_end) {
-        date_end = new Date(parseInt(year) + 1 + '-' + min.date_period.date_end)
+        date_start2 = new Date(parseInt(year) - 1 + '-' + min.date_period.date_start)
+        date_end2 = new Date(parseInt(year) + 1 + '-' + min.date_period.date_end)
       }
-      if (new Date(this.date1) >= date_start && new Date(this.date1) <= date_end) {
+      
+      let date1 = new Date(this.date1)
+      if ((date1 >= date_start && date1 <= date_end2) || (date1 >= date_start2 && date1 <= date_end)) {
         let dateBookable = new Date()
         dateBookable.setDate(new Date().getDate() + min.days )
         console.log(this.date1)

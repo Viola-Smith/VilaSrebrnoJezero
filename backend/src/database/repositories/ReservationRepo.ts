@@ -23,6 +23,10 @@ export default class ReservationRepo {
         return await newReservation.save()
     }
 
+    public static async delete(resId: number) {
+        return await Reservation.remove( { id: resId } ).exec()
+    }
+
     public static async getAllReservations() {
         return await Reservation.find().exec()
     }

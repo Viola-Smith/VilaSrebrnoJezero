@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="booking-form">
                     <div class="form-header">
-                        <h1>Make your reservation</h1>
+                        <h1>Napravi rezervaciju</h1>
                     </div>
                     <div class='closeBook' (click)='closeBook()'>
                         <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
@@ -14,13 +14,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input class="form-control" type="date" required [(ngModel)]='date1' name='date1'>
-                                    <span class="form-label">Check In</span>
+                                    <span class="form-label">Datum dolaska</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input class="form-control" type="date" required [(ngModel)]='date2' name='date2'>
-                                    <span class="form-label">Check out</span>
+                                    <span class="form-label">Datum odlaska</span>
                                 </div>
                             </div>
                         </div>
@@ -29,13 +29,13 @@
                                 <div class="form-group">
                                     <input type='number' class="form-control" required [(ngModel)]='adults'
                                         name='adults'>
-                                    <span class="form-label">Adults</span>
+                                    <span class="form-label">Broj osoba</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <input type='number' class="form-control" required [(ngModel)]='kids' name='kids'>
-                                    <span class="form-label">Extra beds*</span>
+                                    <span class="form-label">Pomoćni ležaji*</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -50,7 +50,7 @@
                             <div class='col'>
                                 <div class="form-group">
                                     <span class="form-label" style='opacity: 1; top:-5px'>
-                                        *Only kids under 6 years old
+                                        *Samo za decu do 6 godina
                                     </span>
                                 </div>
                             </div>

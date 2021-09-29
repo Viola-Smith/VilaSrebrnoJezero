@@ -14,7 +14,7 @@ export default class RoomService {
         return await RoomRepo.getRoomsByType(type)
     }
 
-    private static async getAvailable (dateFrom: any, dateTo: any, adults: string, numRooms: string) {
+    private static async getAvailable(dateFrom: any, dateTo: any, adults: string, numRooms: string) {
         let adultsNum = parseFloat(adults)
         let roomsNum = parseFloat(numRooms)
 
@@ -29,7 +29,7 @@ export default class RoomService {
 
         let finalRooms = []
         let takenRooms = []
-        
+
         console.log(adultsArray)
         for (let i = 0; i < adultsArray.length; i++) {
             let roomExists = undefined
@@ -38,11 +38,11 @@ export default class RoomService {
 
             let reservations = []
             let isBookable = false
-            
+
             do {
                 room = await RoomRepo.getAvailableRoom(finalRooms.map(r => r.id), takenRooms.map(r => r.id), adultsArray[i])
                 roomExists = finalRooms.find(r => r.id === room.id)
-            
+
                 if (room) {
                     reservations = await ReservationService.checkAvailable(dateFrom, dateTo, room.id)
                     isBookable = this.checkRoomBookable(room, dateFrom, dateTo)
@@ -106,12 +106,16 @@ export default class RoomService {
         for (let b of room.bookable_periods) {
             let start_date = new Date(date1.split('-')[0] + '-' + b.start_date)
             let end_date = new Date(date2.split('-')[0] + '-' + b.end_date)
+            let date_end2 = new Date(end_date)
+            let date_start2 = new Date(start_date)
+
             if (start_date > end_date) {
-                let year = parseInt(date2.split('-')[0]) + 1
-                let date = year + '-' + b.end_date
-                end_date = new Date(date)
+                let year = date2.split('-')[0]
+                date_start2 = new Date(parseInt(year) - 1 + '-' + start_date)
+                date_end2 = new Date(parseInt(year) + 1 + '-' + end_date)
             }
-            if ((new Date(date1)) >= start_date && new Date(date2) <= end_date) {
+            if (((new Date(date1)) >= start_date && new Date(date2) <= date_end2) ||
+                ((new Date(date1)) >= date_start2 && new Date(date2) <= end_date)) {
                 return true
             }
         }

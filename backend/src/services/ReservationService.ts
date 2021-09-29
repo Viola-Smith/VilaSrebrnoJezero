@@ -1,31 +1,35 @@
 import ReservationRepo from "../database/repositories/ReservationRepo";
 import PricelistService from "./PricelistService";
 import RoomService from "./RoomService";
-
+import Reservation from "../database/models/reservation";
 
 
 export default class ReservationService {
-
     public static async book(reservationObject: any) {
-        let reservationsExist = await this.checkAvailable(reservationObject.date_from, reservationObject.date_to, reservationObject.room.id)
-        if (reservationsExist && reservationsExist.length > 0) {
-            return { 'message': 'Room not available for set dates', 'new': null }
-        }
         let price = await PricelistService.calculatePrice(reservationObject.date_from, reservationObject.date_to, reservationObject.room.name)
         if (price) {
             reservationObject.price = price
             delete reservationObject.timestamp
-            try {
-                let outcome = await ReservationRepo.book(reservationObject)
-                if (outcome) {
-                    return { 'message': 'Sucessfully inserted reservation', 'new': outcome }
-                } else {
-                    return { 'message': 'Failed to insert reservation', 'new': null }
-                }
-            } catch (err) {
-                return { 'message': err, 'new': null as Object }
-            }
+            return await this.create(reservationObject)
         }
+    }
+
+    public static async create(reservationObject: any) {
+        let reservationsExist = await this.checkAvailable(reservationObject.date_from, reservationObject.date_to, reservationObject.room.id)
+        if (reservationsExist && reservationsExist.length > 0) {
+            return { 'message': 'Room not available for set dates', 'new': null }
+        }
+        try {
+            let outcome = await ReservationRepo.book(reservationObject)
+            if (outcome) {
+                return { 'message': 'Sucessfully inserted reservation', 'new': outcome }
+            } else {
+                return { 'message': 'Failed to insert reservation', 'new': null }
+            }
+        } catch (err) {
+            return { 'message': err, 'new': null as Object }
+        }
+
     }
 
     public static async checkAvailable(date_from: any, date_to: any, roomId: any) {
@@ -36,16 +40,18 @@ export default class ReservationService {
         return await ReservationRepo.getAllReservations();
     }
 
-    public static async reserve(reservationObj: any) {
+    private static async getRooms(reservationObj: any) {
+        console.log(reservationObj)
         let roomArray = reservationObj.reservation
         let dateRange = reservationObj.dateRange
         let finalRooms = []
         for (let index = 0; index < roomArray.length; index++) {
             let room = roomArray[index];
+            let extra_beds = room.rooms[0].extra_beds_used
             let amount = room.amount
             let roomTypeIds = await RoomService.getAllRoomsByType(room.type)
             let roomsAdded = []
-            for (let i=0; i<roomTypeIds.length; i++) {
+            for (let i = 0; i < roomTypeIds.length; i++) {
                 const tmp = await this.checkAvailable(dateRange.date1, dateRange.date2, roomTypeIds[i].id)
                 if (tmp.length === 0) {
                     let beforeMe = await ReservationRepo.reservationBefore(dateRange.date1, roomTypeIds[i].id)
@@ -60,10 +66,11 @@ export default class ReservationService {
                         var timeDiff = Math.abs(afterMe[0].get('date_from').getTime() - new Date(dateRange.date2).getTime());
                         numberOfNights2 = Math.floor(timeDiff / (1000 * 3600 * 24));
                     }
-                    roomsAdded.push({room:roomTypeIds[i], nightsBefore: numberOfNights1, nightsAfter: numberOfNights2 })
+                    // roomTypeIds.extra_beds_used = extra_beds
+                    roomsAdded.push({ room: roomTypeIds[i], extra_beds: room.extra_beds_used, nightsBefore: numberOfNights1, nightsAfter: numberOfNights2 })
                 }
             }
-            roomsAdded.sort(function(a, b) {
+            roomsAdded.sort(function (a, b) {
                 if (a.nightsBefore != b.nightsBefore) return a.nightsBefore - b.nightsBefore
                 else return a.nightsAfter - b.nightsAfter
             })
@@ -73,6 +80,38 @@ export default class ReservationService {
             }
         }
         console.log(finalRooms)
+        return finalRooms
+    }
+
+    public static async reserve(reservationObj: any) {
+        let rooms = await this.getRooms(reservationObj)
+        let outcomes = []
+        for (let room of rooms) {
+            let res = {
+                date_from: reservationObj.dateRange.date1,
+                date_to: reservationObj.dateRange.date2,
+                room: room.room,
+                extra_beds: room.extra_beds,
+                price: reservationObj.price,
+                payed: 0,
+                person: {
+                    name: '',
+                    email: '',
+                    phone: ''
+                },
+                user_id: 0
+            }
+            let outcome = await this.create(res)
+            outcomes.push(outcome)
+        }
+        return outcomes
+    }
+
+    public static async deleteAll(resIds: any) {
+        for (let res of resIds) {
+            console.log(res.id)
+            await ReservationRepo.delete(res.id)
+        }
     }
 
 }

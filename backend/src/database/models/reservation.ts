@@ -18,8 +18,8 @@ let Reservation = new Schema({
     extra_beds: {
         type: Number
     },
-	name: {
-        type: String
+	person: {
+        type: Object
     },
 	user_id: {
         type: Number

@@ -162,7 +162,7 @@ export class SearchRoomsComponent implements OnInit {
 
   reserve(obj) {
     console.log(obj)
-    this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 } }
+    this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 }, price: this.getSumPrice(obj)}
     this.showForm = true
   }
 

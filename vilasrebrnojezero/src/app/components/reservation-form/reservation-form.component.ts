@@ -19,6 +19,7 @@ export class ReservationFormComponent implements OnInit {
   email: string = ''
   phone: string = ''
 
+  createdReservation
 
   ngOnInit() {
     console.log(this.reservation)
@@ -27,10 +28,24 @@ export class ReservationFormComponent implements OnInit {
     //   el.scrollIntoView({ behavior: "smooth" })
     // }
     window.scrollTo({top: 80, behavior: 'smooth'});
+    this.reservation.res.forEach(roomType => {
+      let extra_beds = 0
+      roomType.rooms.forEach(room => {
+        extra_beds += room.extra_beds_used
+      });
+      roomType.extra_beds_used = extra_beds
+    });
+    this.reservationService.reserve(this.reservation.res, this.reservation.dateRange, this.reservation.price).subscribe((res:any)=>{
+      console.log(res)
+      this.createdReservation = res.map(r => r.new)
+      localStorage.setItem('currentReservation', JSON.stringify(res))
+    })
   }
 
   closeBook() {
-    this.closeForm.emit(false)
+    this.reservationService.delete(this.createdReservation).subscribe(()=>{
+      this.closeForm.emit(false)
+    })
   }
 
   nextStep() {
@@ -43,8 +58,6 @@ export class ReservationFormComponent implements OnInit {
     return numberOfNights
   }
 
-  reserve() {
-    this.reservationService.reserve(this.reservation.res, this.reservation.dateRange).subscribe()
-  }
+  
 
 }

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="booking-form col-lg-5 col-md-5">
                     <div class="form-header">
-                        <h1>Make your reservation</h1>
+                        <h1>Napravi rezervaciju</h1>
                     </div>
                     <div class='closeBook' (click)='closeBook()'>
                         <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
@@ -36,27 +36,42 @@
                             </div>
                         </div>
 
-                        <div style='background-color: lightgrey; color:black;
-                        padding: 10px; text-align: center; margin-bottom: 15px;'>
-                            <div>
-                                {{ reservation.dateRange.date1 }} - {{ reservation.dateRange.date2 }}
+                        <div class='row'>
+                            <div class='col'>
+                                <div style='background-color: lightgrey; color:black;
+                                padding: 10px; text-align: center; margin-bottom: 15px;'>
+                                    <div>
+                                        {{ reservation.dateRange.date1 }} - {{ reservation.dateRange.date2 }}
+                                    </div>
+                                    <div>
+                                        {{ getNights(reservation.dateRange.date1, reservation.dateRange.date2) }} nights
+                                    </div>
+                                    <div *ngFor='let res of reservation.res'>
+                                        <div>
+                                            {{ res.amount }} X {{ res.type }}
+                                            <span *ngIf='res.extra_beds>0'>
+                                                +{{ res.extra_beds }} extra beds
+                                            </span> = {{ res.amount * res.price }}
+                                        </div>
+                                    </div>
+                                </div>
+        
                             </div>
-                            <div>
-                                {{ getNights(reservation.dateRange.date1, reservation.dateRange.date2) }} nights
+                        </div>
+                        
+                        <div class='row'>
+                            <div class='col-6'>
+                                <div class="form-btn">
+                                    <button class="submit-btn" (click)='nextStep()'>Uplati</button>
+                                </div>
                             </div>
-                            <div *ngFor='let res of reservation.res'>
-                                <div>
-                                    {{ res.amount }} X {{ res.type }}
-                                    <span *ngIf='res.extra_beds>0'>
-                                        +{{ res.extra_beds }} extra beds
-                                    </span> = {{ res.amount * res.price }}
+                            <div class='col-6'>
+                                <div class="form-btn">
+                                    <button class="submit-btn" (click)='closeBook()'>Odustani</button>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-btn">
-                            <button class="submit-btn" (click)='nextStep()'>Uplati</button>
-                        </div>
+                        
                     </form>
                 </div>
             </div>

@@ -24,11 +24,12 @@ export class ReservationsService {
     return this.http.get(`${this.uri}/reservation`);
   }
 
-  reserve(reservationObj, dates) {
+  reserve(reservationObj, dates, price) {
     console.log(reservationObj)
     const data = {
       reservation: reservationObj,
-      dateRange: dates
+      dateRange: dates,
+      price: price
     }
     return this.http.post(`${this.uri}/reservation/reserve`, data);
   }
@@ -48,5 +49,11 @@ export class ReservationsService {
     return this.http.get(`${this.uri}/reservation/minimum_booking_time`);
   }
 
-
+  delete(res) {
+    console.log(res)
+    const data = {
+      res: res
+    }
+    return this.http.post(`${this.uri}/reservation/delete`, data);
+  }
 }
