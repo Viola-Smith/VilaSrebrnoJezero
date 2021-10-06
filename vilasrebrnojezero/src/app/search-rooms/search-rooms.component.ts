@@ -26,6 +26,8 @@ export class SearchRoomsComponent implements OnInit {
 
   finalReservation
 
+  createdRes
+
   manualReservationArray = []
 
   showForm = false
@@ -136,19 +138,27 @@ export class SearchRoomsComponent implements OnInit {
   }
 
   closeForm(value) {
-    this.showForm = value
+    console.log(this.createdRes)
+    this.reservationService.delete(this.createdRes).subscribe(()=>{
+      this.showForm = value
+      this.showPaymentForm = value
+      let header = document.getElementById('header')
+      header.style.visibility = 'visible'
+    })
   }
 
   showPaymentForm = false
 
   goToPayment(value) {
-    this.closeForm(false)
+    this.showForm = false
     this.showPaymentForm = value
   }
 
-  closePayment(value) {
-    this.showPaymentForm = value
+  goBack() {
+    this.showPaymentForm = false
+    this.showForm = true
   }
+
 
   getImage(type) {
     switch (type) {
@@ -163,7 +173,14 @@ export class SearchRoomsComponent implements OnInit {
   reserve(obj) {
     console.log(obj)
     this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 }, price: this.getSumPrice(obj)}
-    this.showForm = true
+    this.reservationService.reserve(this.finalReservation.res, this.finalReservation.dateRange, this.finalReservation.price).subscribe((res:any)=>{
+      console.log(res)
+      this.createdRes = res.map(r => r.new)
+      localStorage.setItem('currentReservation', JSON.stringify(res))
+      let header = document.getElementById('header')
+      header.style.visibility = 'hidden'
+      this.showForm = true
+    })
   }
 
   reserveSuggest() {

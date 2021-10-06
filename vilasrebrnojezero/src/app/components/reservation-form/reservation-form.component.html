@@ -2,7 +2,7 @@
     <div class="section-center" id='reservation-form'>
         <div class="container-fluid">
             <div class="row">
-                <div class="booking-form col-lg-5 col-md-5">
+                <div class="booking-form col-lg-5 col-md-5 not-disabled">
                     <div class="form-header">
                         <h1>Napravi rezervaciju</h1>
                     </div>
@@ -62,14 +62,15 @@
                         <div class='row'>
                             <div class='col-6'>
                                 <div class="form-btn">
-                                    <button class="submit-btn" (click)='nextStep()'>Uplati</button>
+                                    <button class="submit-btn" (click)='closeBook()'>Odustani</button>
                                 </div>
                             </div>
                             <div class='col-6'>
                                 <div class="form-btn">
-                                    <button class="submit-btn" (click)='closeBook()'>Odustani</button>
+                                    <button class="submit-btn" (click)='nextStep()'>Dalje</button>
                                 </div>
                             </div>
+                            
                         </div>
                         
                     </form>

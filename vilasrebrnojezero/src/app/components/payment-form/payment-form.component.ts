@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { ReservationsService } from 'src/services/reservations/reservations.service';
 
 @Component({
   selector: 'app-payment-form',
@@ -11,7 +12,7 @@ export class PaymentFormComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
   showSuccess
 
-  constructor() { }
+  constructor(private reservationService: ReservationsService) { }
 
   ngOnInit() {
     this.initConfig();
@@ -19,6 +20,10 @@ export class PaymentFormComponent implements OnInit {
 
   
   @Output() closeForm = new EventEmitter<boolean>()
+  @Output() prevStep = new EventEmitter<boolean>()
+
+  @Input() reservation: any
+
 
   type = 'avans'
 
@@ -119,9 +124,12 @@ export class PaymentFormComponent implements OnInit {
     // })
   }
 
-  
   closeBook() {
     this.closeForm.emit(false)
+  }
+
+  goBack() {
+    this.prevStep.emit(false)
   }
 
 }

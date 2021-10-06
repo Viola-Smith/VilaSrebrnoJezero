@@ -66,3 +66,10 @@
     border-radius: 25px;
     cursor: pointer
 }
+
+.disabled :not(.not-disabled) {
+  pointer-events: none;
+  /* for "disabled" effect */
+  opacity: 0.2;
+  background: #CCC;
+}

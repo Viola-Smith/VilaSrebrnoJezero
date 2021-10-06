@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslationsService } from 'src/services/translations.service';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-header',

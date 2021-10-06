@@ -20,3 +20,10 @@
     background-color: rgb(248, 245, 228, 0.3);
     box-shadow: 1px 1px 2px gray
 }
+
+.disabled :not(.not-disabled) {
+    pointer-events: none;
+    /* for "disabled" effect */
+    opacity: 0.2;
+    background: #CCC;
+  }

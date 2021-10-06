@@ -167,7 +167,7 @@
 	background-color: #e35e0a;
 	font-weight: 700;
 	height: 60px;
-	padding: 10px 30px;
+	padding: 10px 5px;
 	width: 100%;
 	border-radius: 40px;
 	border: none;
@@ -176,6 +176,7 @@
 	letter-spacing: 1.3px;
 	-webkit-transition: 0.2s all;
 	transition: 0.2s all;
+	cursor: pointer
 }
 
 .booking-form .submit-btn:hover,
@@ -194,4 +195,8 @@
     border: 1px solid white;
     box-shadow: inset white 3px 3px 7px;
     cursor: pointer;
+}
+
+.not-disabled {
+	pointer-events: auto !important;
 }

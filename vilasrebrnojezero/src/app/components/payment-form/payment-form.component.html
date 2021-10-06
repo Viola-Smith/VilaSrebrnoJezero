@@ -2,7 +2,7 @@
     <div class="section-center" id='reservation-form'>
         <div class="container-fluid">
             <div class="row">
-                <div class="booking-form col-lg-5 col-md-5">
+                <div class="booking-form col-lg-5 col-md-5 not-disabled">
                     <div class="form-header">
                         <h1>Payment</h1>
                     </div>
@@ -11,23 +11,40 @@
                     </div>
                     <div style='color:white' class='row'>
                         <div class='col-lg-4 col-md-4'>
-                            Uplati : 
+                            Uplati :
                         </div>
                         <div class='col-lg-4 col-md-4'>
-                            <input type='radio' value='avans' [(ngModel)]='type' name='type'> Avans 30% 
+                            <input type='radio' value='avans' [(ngModel)]='type' name='type'> Avans 30%
                         </div>
                         <div class='col-lg-4 col-md-4'>
-                            <input type='radio' value='celo' [(ngModel)]='type' name='type'> Punu Cenu 
-                        </div>  
+                            <input type='radio' value='celo' [(ngModel)]='type' name='type'> Punu Cenu
+                        </div>
                     </div>
                     <!-- <br>
                     <div>
                         <img width='100%' src='../../../assets/styles/images/icons/paypal_button.png'>
                     </div> -->
                     <br>
-                    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    <div class='row'>
+                        <div class='col'>
+                            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                        </div>
+                    </div>
 
-                     <br><br>
+                    <br>
+                    <div class='row'>
+                        <div class='col-6'>
+                            <div class="form-btn">
+                                <button class="submit-btn" (click)='goBack()'>Nazad</button>
+                            </div>
+                        </div>
+                        <div class='col-6'>
+                            <div class="form-btn">
+                                <button class="submit-btn" (click)='closeBook()'>Odustani</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
