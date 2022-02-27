@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('admin')) {
-      this.administrator = JSON.parse(localStorage.getItem('admin')) 
+      this.administrator = 'admin' //JSON.parse(localStorage.getItem('admin')) 
     } else {
       this.router.navigate(['/login'])
     }

@@ -1,8 +1,6 @@
 import ReservationRepo from "../database/repositories/ReservationRepo";
 import PricelistService from "./PricelistService";
 import RoomService from "./RoomService";
-import Reservation from "../database/models/reservation";
-
 
 export default class ReservationService {
     public static async book(reservationObject: any) {
@@ -29,7 +27,22 @@ export default class ReservationService {
         } catch (err) {
             return { 'message': err, 'new': null as Object }
         }
+    }
 
+    
+    public static async checkAll(reservation: any) {
+        for (var roomType of reservation.res) {
+            console.log(roomType)
+            let rooms = await RoomService.getAllRoomsByType(roomType.type)
+            let roomIds = rooms.map(r => r.id)
+            let exists = await ReservationRepo.checkAvailableRooms(reservation.dateRange.date1, reservation.dateRange.date2, roomIds)
+            console.log(reservation.dateRange.date1, reservation.dateRange.date2)
+            console.log(exists)
+            if (exists && (roomIds.length - exists.length) < roomType.amount) {
+                return false
+            }
+        }
+        return true
     }
 
     public static async checkAvailable(date_from: any, date_to: any, roomId: any) {
@@ -42,7 +55,7 @@ export default class ReservationService {
 
     private static async getRooms(reservationObj: any) {
         console.log(reservationObj)
-        let roomArray = reservationObj.reservation
+        let roomArray = reservationObj.res
         let dateRange = reservationObj.dateRange
         let finalRooms = []
         for (let index = 0; index < roomArray.length; index++) {
@@ -95,9 +108,9 @@ export default class ReservationService {
                 price: reservationObj.price,
                 payed: 0,
                 person: {
-                    name: '',
-                    email: '',
-                    phone: ''
+                    name:  reservationObj.person.name + ' ' + reservationObj.person.lname,
+                    email: reservationObj.person.email,
+                    phone: reservationObj.person.phone
                 },
                 user_id: 0
             }

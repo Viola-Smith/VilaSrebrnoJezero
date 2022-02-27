@@ -11,11 +11,12 @@ export class ReservationFormComponent implements OnInit {
   constructor(private reservationService: ReservationsService) { }
 
   @Output() closeForm = new EventEmitter<boolean>()
-  @Output() goToPayment = new EventEmitter<boolean>()
+  @Output() goToPayment = new EventEmitter<{go: boolean, person: any}>()
 
   @Input() reservation: any
 
   name: string = ''
+  lname: string = ''
   email: string = ''
   phone: string = ''
 
@@ -43,7 +44,7 @@ export class ReservationFormComponent implements OnInit {
   }
 
   nextStep() {
-    this.goToPayment.emit(true)
+    this.goToPayment.emit({go: true, person: {name: this.name, lname: this.lname, email: this.email, phone: this.phone}})
   }
 
   getNights(date1, date2) {

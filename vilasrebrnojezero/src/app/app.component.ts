@@ -12,7 +12,11 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   isAdmin() {
-    return (this.router.url.includes('admin') && localStorage.getItem('admin') !== null) || this.router.url.includes('login')
+    return this.router.url.includes('admin') && localStorage.getItem('admin') !== null
+  }
+
+  isLoginPage() {
+    return this.router.url.includes('login')
   }
 
 }

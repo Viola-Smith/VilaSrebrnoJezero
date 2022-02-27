@@ -26,7 +26,7 @@ export class SearchRoomsComponent implements OnInit {
 
   finalReservation
 
-  createdRes
+  // createdRes
 
   manualReservationArray = []
 
@@ -138,20 +138,24 @@ export class SearchRoomsComponent implements OnInit {
   }
 
   closeForm(value) {
-    console.log(this.createdRes)
-    this.reservationService.delete(this.createdRes).subscribe(()=>{
-      this.showForm = value
+    // console.log(this.createdRes)
+    // this.reservationService.delete(this.createdRes).subscribe(()=>{
+    //   this.showForm = value
+    //   this.showPaymentForm = value
+    //   let header = document.getElementById('header')
+    //   header.style.visibility = 'visible'
+    // })
+    this.showForm = value
       this.showPaymentForm = value
-      let header = document.getElementById('header')
-      header.style.visibility = 'visible'
-    })
   }
 
   showPaymentForm = false
 
   goToPayment(value) {
+    console.log(value)
     this.showForm = false
-    this.showPaymentForm = value
+    this.showPaymentForm = value.go
+    this.finalReservation.person = value.person
   }
 
   goBack() {
@@ -173,14 +177,8 @@ export class SearchRoomsComponent implements OnInit {
   reserve(obj) {
     console.log(obj)
     this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 }, price: this.getSumPrice(obj)}
-    this.reservationService.reserve(this.finalReservation.res, this.finalReservation.dateRange, this.finalReservation.price).subscribe((res:any)=>{
-      console.log(res)
-      this.createdRes = res.map(r => r.new)
-      localStorage.setItem('currentReservation', JSON.stringify(res))
-      let header = document.getElementById('header')
-      header.style.visibility = 'hidden'
-      this.showForm = true
-    })
+    localStorage.setItem('currentReservation', JSON.stringify(this.finalReservation))
+    this.showForm = true
   }
 
   reserveSuggest() {

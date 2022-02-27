@@ -24,16 +24,21 @@ export class ReservationsService {
     return this.http.get(`${this.uri}/reservation`);
   }
 
-  reserve(reservationObj, dates, price) {
-    console.log(reservationObj)
+  reserve(reservation) {
+    console.log(reservation)
     const data = {
-      reservation: reservationObj,
-      dateRange: dates,
-      price: price
+      reservation: reservation
     }
     return this.http.post(`${this.uri}/reservation/reserve`, data);
   }
 
+  check(reservation) {
+    console.log(reservation)
+    const data = {
+      reservation: reservation
+    }
+    return this.http.post(`${this.uri}/reservation/check`, data);
+  }
   
   pay(reservationObj, dates, user) {
     console.log(reservationObj)

@@ -87,4 +87,35 @@ export default class ReservationRepo {
         ).exec()
     }
 
+    public static async checkAvailableRooms(date1: any, date2: any, roomIds: any) {
+        return await Reservation.find(
+                {$and: [
+                    { 'room': { $in: roomIds }  },
+                    {
+                        $or: [{
+                            date_from: {
+                                $gte: date1,
+                                $lt: date2
+                            }
+                        }
+                            , {
+                            date_to: {
+                                $gt: date1,
+                                $lte: date2
+                            }
+                        }, {
+                            $and: [{
+                                date_from: {
+                                    $lte: date1,
+                                }
+                            }, {
+                                date_to: {
+                                    $gte: date2
+                                }
+                            }]
+                        }]
+                    }
+                ]}
+            ).exec()
+    }
 }

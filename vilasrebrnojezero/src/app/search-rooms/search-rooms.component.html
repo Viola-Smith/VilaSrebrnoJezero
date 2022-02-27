@@ -23,7 +23,7 @@
     </app-reservation-form>
 
     <app-payment-form *ngIf='showPaymentForm' (closeForm)='closeForm($event)' (prevStep)='goBack($event)'
-    id='payment-form'>
+    id='payment-form' [reservation]='finalReservation'>
     </app-payment-form>
 
     <div class="site-section border-top" id='start'>
