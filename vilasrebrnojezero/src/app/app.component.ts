@@ -11,12 +11,18 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
+  admin = false
+
   isAdmin() {
-    return this.router.url.includes('admin') && localStorage.getItem('admin') !== null
+    return this.admin && localStorage.getItem('admin') !== null
   }
 
   isLoginPage() {
     return this.router.url.includes('login')
+  }
+
+  public onRouterOutletActivate(event : any) {
+    this.admin = typeof event.isAdmin !== undefined
   }
 
 }

@@ -23,6 +23,8 @@ import { SuccessPaymentComponent } from './payment/success-payment/success-payme
 import { CancelPaymentComponent } from './payment/cancel-payment/cancel-payment.component';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { AdminRoomsComponent } from './admin/admin-rooms/admin-rooms.component';
+import { CalendarComponent } from './admin/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ReservationFormComponent,
     SuccessPaymentComponent,
     CancelPaymentComponent,
-    PaymentFormComponent
+    PaymentFormComponent,
+    AdminRoomsComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

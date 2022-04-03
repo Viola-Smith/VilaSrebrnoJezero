@@ -1,4 +1,5 @@
 import ReservationRepo from "../database/repositories/ReservationRepo";
+import MailingService from "./MailingService";
 import PricelistService from "./PricelistService";
 import RoomService from "./RoomService";
 
@@ -20,6 +21,7 @@ export default class ReservationService {
         try {
             let outcome = await ReservationRepo.book(reservationObject)
             if (outcome) {
+                MailingService.mail(reservationObject)
                 return { 'message': 'Sucessfully inserted reservation', 'new': outcome }
             } else {
                 return { 'message': 'Failed to insert reservation', 'new': null }

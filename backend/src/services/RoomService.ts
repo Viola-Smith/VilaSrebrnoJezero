@@ -32,7 +32,6 @@ export default class RoomService {
 
         console.log(adultsArray)
         for (let i = 0; i < adultsArray.length; i++) {
-            let roomExists = undefined
             let room: any = null
             if (adultsArray[i] == 1) adultsArray[i] = 2
 
@@ -41,11 +40,11 @@ export default class RoomService {
 
             do {
                 room = await RoomRepo.getAvailableRoom(finalRooms.map(r => r.id), takenRooms.map(r => r.id), adultsArray[i])
-                roomExists = finalRooms.find(r => r.id === room.id)
 
                 if (room) {
                     reservations = await ReservationService.checkAvailable(dateFrom, dateTo, room.id)
                     isBookable = this.checkRoomBookable(room, dateFrom, dateTo)
+                
                     if (reservations.length === 0 && isBookable) {
                         finalRooms.push(room)
                     } else {
@@ -53,7 +52,7 @@ export default class RoomService {
                     }
                 }
 
-            } while ((roomExists || reservations.length > 0 || !isBookable) && room)
+            } while (finalRooms.length < adultsArray.length && room)
 
         }
 
@@ -114,6 +113,7 @@ export default class RoomService {
                 date_start2 = new Date(parseInt(year) - 1 + '-' + start_date)
                 date_end2 = new Date(parseInt(year) + 1 + '-' + end_date)
             }
+        
             if (((new Date(date1)) >= start_date && new Date(date2) <= date_end2) ||
                 ((new Date(date1)) >= date_start2 && new Date(date2) <= end_date)) {
                 return true

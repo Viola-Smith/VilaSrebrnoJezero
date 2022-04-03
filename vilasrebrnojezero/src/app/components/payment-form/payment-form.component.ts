@@ -29,7 +29,10 @@ export class PaymentFormComponent implements OnInit {
   errorMessage = ''
 
   private initConfig(): void {
-    let resPrice = (this.reservation.price/117).toFixed(2).toString()
+    let resPrice = this.reservation.price/117
+    if (this.type === 'avans') {
+      resPrice = (resPrice*0.3)
+    }
     this.payPalConfig = {
         currency: 'EUR',
         clientId: 'sb',
@@ -38,7 +41,7 @@ export class PaymentFormComponent implements OnInit {
             purchase_units: [{
                 amount: {
                     currency_code: 'EUR',
-                    value: resPrice,
+                    value: resPrice.toFixed(2).toString(),
                 }
             }],
             payer: {
@@ -76,9 +79,11 @@ export class PaymentFormComponent implements OnInit {
             this.reservationService.reserve(this.reservation).subscribe((outcomes: any) => {
               console.log(outcomes)
               if (outcomes) {
-                let failures = outcomes.filter(o => o.new == null)
+                let failures = outcomes.filter(o => o.new === null)
                 if (!failures.length) {
                   alert('Reservation successfull')
+                } else {
+                  alert('Reservation failed')
                 }
               }
             })

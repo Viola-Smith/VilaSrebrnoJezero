@@ -25,10 +25,12 @@ connection.once('open', ()=>{
 var roomRoutes = require('./routes/RoomRoutes');
 var reservationRoutes = require('./routes/ReservationRoutes');
 var paymentRoutes = require('./routes/PaymentRoutes');
+var calendarRoutes = require('./routes/CalendarRoutes');
 
 app.use('/reservation', reservationRoutes)
 app.use('/room', roomRoutes)
 app.use('/payment', paymentRoutes)
+app.use('/calendar', calendarRoutes)
 
 
 app.listen(4000, () => console.log('Express server running on port 4000'));

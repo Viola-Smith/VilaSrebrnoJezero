@@ -21,7 +21,6 @@ export class BookFormComponent implements OnInit {
     this.date2 = this.date2.toISOString().split('T')[0];
     this.reservationService.getMinBookingTime().subscribe((res) => {
       this.minBookingTime = res
-      console.log(res)
     })
   }
 

@@ -4,6 +4,6 @@
 
 <app-book-form></app-book-form>
 
-<router-outlet></router-outlet>
+<router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>
 
 <app-footer *ngIf='!isAdmin() && !isLoginPage()'></app-footer>

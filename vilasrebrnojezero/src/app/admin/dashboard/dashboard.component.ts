@@ -29,6 +29,11 @@ export class DashboardComponent implements OnInit {
   message: string = 'msg'
   dates = this.getAllDates()
 
+  isAdmin () {
+    return true
+  }
+
+
   ngOnInit() {
     if (localStorage.getItem('admin')) {
       this.administrator = 'admin' //JSON.parse(localStorage.getItem('admin')) 
