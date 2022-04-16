@@ -76,7 +76,7 @@ export class PaymentFormComponent implements OnInit {
         },
         onClientAuthorization: (data) => {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-            this.reservationService.reserve(this.reservation).subscribe((outcomes: any) => {
+            this.reservationService.reserve(this.reservation, window.location.href).subscribe((outcomes: any) => {
               console.log(outcomes)
               if (outcomes) {
                 let failures = outcomes.filter(o => o.new === null)

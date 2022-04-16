@@ -36,6 +36,9 @@ let Reservation = new Schema({
     timestamp: {
         type: Date,
         default: Date.now 
+    },
+    googleCalendarEventId: {
+        type: String
     }
 }, {collection:"Reservation"});
 

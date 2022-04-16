@@ -5,7 +5,7 @@ export class Reservation {
     date_from: Date;
     date_to: Date;
     room: Room;
-    name: string;
+    person: Object;
     user_id: number;
     timestamp: Date;
     price: number;

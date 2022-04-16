@@ -22,12 +22,18 @@ export class DashboardComponent implements OnInit {
   dateTo
   roomSelectedId
   name: string
+  email: string
+  phone: string
   notes: string
   rooms: Room[]
   reservations: any
   calendarView: false
   message: string = 'msg'
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  curMonth = this.months[(new Date()).getMonth()]
   dates = this.getAllDates()
+
+  editMode = []
 
   isAdmin () {
     return true
@@ -48,6 +54,7 @@ export class DashboardComponent implements OnInit {
       this.rooms = allResults[0] as Room[]
       this.roomSelectedId = this.rooms[0].id
       this.reservations = allResults[1]
+      this.editMode = Array(this.reservations.length).fill(false)
       this.reservations.forEach(r => r.color = this.colors[Math.floor(Math.random() * this.colors.length)])
       this.dateFrom = new Date()
       this.dateTo = new Date()
@@ -68,16 +75,30 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  deleteRes(resId) {
+    this.reservationService.delete(resId).subscribe(()=>{
+      var removeIndex = this.reservations.map((item:any) => item.id).indexOf(resId);
+      if (removeIndex) {
+        this.reservations.splice(removeIndex, 1);
+      }
+    })
+  }
+
+  updateRes(index) {
+    console.log(this.reservations[index])
+    this.editMode[index] = false
+  }
+
   book() {
     let room = this.rooms.find(r => r.id === parseInt(this.roomSelectedId)) as Room
     console.log(new Date(this.dateFrom + ' 00:00'))
     let reservation: Reservation = {
-      date_from: new Date(this.dateFrom + ' 00:00'), date_to: new Date(this.dateTo + ' 00:00'), id: 0, name: this.name,
+      date_from: new Date(this.dateFrom + ' 00:00'), date_to: new Date(this.dateTo + ' 00:00'), id: 0, person: {name: this.name, email: this.email, phone: this.phone},
       notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null
     }
     console.log(reservation)
-    this.reservationService.book(reservation).subscribe((res: any) => {
-      console.log(res.new)
+    this.reservationService.book(reservation, window.location.href).subscribe((res: any) => {
+      console.log(res)
       this.message = res.message
       this.showModal()
       if (res.new) {
@@ -104,8 +125,8 @@ export class DashboardComponent implements OnInit {
     return moment(date).format("DD/MM/YYYY")
   }
 
-  getAllDates() {
-    var month = (new Date()).getMonth()
+  getAllDates(monthVal = null) {
+    var month = monthVal ? monthVal : (new Date().getMonth())
     var year = (new Date()).getFullYear()
     var date = new Date(year, month, 1);
     var days = [];
@@ -116,6 +137,10 @@ export class DashboardComponent implements OnInit {
     return days;
   }
 
+  changeMonth(val) {
+    this.dates = this.getAllDates(this.months.indexOf(val))
+  }
+
   isBetween(date, date1, date2) {
     return moment(date).isBetween(moment(date1), moment(date2)) || moment(date).isSame(moment(date1)) || moment(date).isSame(moment(date2))
   }
@@ -124,7 +149,7 @@ export class DashboardComponent implements OnInit {
     let res = this.reservations.find(r => r.room === roomId && (new Date(date)).getTime() >= new Date(r.date_from).getTime() && (new Date(date)).getTime() <= new Date(r.date_to).getTime()  )
     if (res) {
       var element = document.getElementById("Reservation " + date.getDate() + "-" + roomId);
-
+      console.log(res)
       if ((this.formattedDate(res.date_from)) == this.formattedDate(date)) {
         element.style.background = 'linear-gradient(to bottom, transparent 50%, '+ res.color +' 50%)';
         return ''
@@ -133,7 +158,7 @@ export class DashboardComponent implements OnInit {
         return ''
       } else {
         element.style.backgroundColor = res.color
-        return res.name
+        return res.person.name
       }
     }
     return ''

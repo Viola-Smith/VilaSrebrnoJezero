@@ -12,10 +12,11 @@ export class ReservationsService {
 
   constructor(private http: HttpClient) { }
 
-  book(reservation: Reservation){
+  book(reservation: Reservation, redirectUri: string){
     console.log(reservation)
     const data = {
-      reservation: reservation
+      reservation: reservation,
+      redirectUri: redirectUri
     }
     return this.http.post(`${this.uri}/reservation`, data);
   }
@@ -24,10 +25,11 @@ export class ReservationsService {
     return this.http.get(`${this.uri}/reservation`);
   }
 
-  reserve(reservation) {
+  reserve(reservation, redirectUri: string) {
     console.log(reservation)
     const data = {
-      reservation: reservation
+      reservation: reservation,
+      redirectUri: redirectUri
     }
     return this.http.post(`${this.uri}/reservation/reserve`, data);
   }
@@ -50,15 +52,19 @@ export class ReservationsService {
     return this.http.post(`${this.uri}/reservation/pay`, data);
   }
 
+  update(resId, reservationObj) {
+    console.log(reservationObj)
+    const data = {
+      reservation: reservationObj,
+    }
+    return this.http.put(`${this.uri}/reservation/${resId}`, data);
+  }
+
   getMinBookingTime(){
     return this.http.get(`${this.uri}/reservation/minimum_booking_time`);
   }
 
-  delete(res) {
-    console.log(res)
-    const data = {
-      res: res
-    }
-    return this.http.post(`${this.uri}/reservation/delete`, data);
+  delete(resId) {
+    return this.http.delete(`${this.uri}/reservation/${resId}`);
   }
 }

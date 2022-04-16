@@ -25,12 +25,6 @@ export class CalendarService {
     return this.http.post(`${this.uri}/calendar/connect`, data);
   }
 
-  createEvent(redirectUri) {
-    const data = {
-      redirectUri: redirectUri
-    }
-    return this.http.post(`${this.uri}/calendar/create`, data);
-  }
 
   hasToken() {
     return this.http.get(`${this.uri}/calendar/token`);

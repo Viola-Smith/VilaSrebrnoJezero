@@ -1,3 +1,4 @@
+import ReservationRepo from "../database/repositories/ReservationRepo";
 import CalendarRepo from "../database/repositories/CalendarRepo";
 
 const {google} = require('googleapis');
@@ -6,6 +7,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar.events'];
 
 const CLIENT_ID = '690794457490-7ctf0qc3274nmrgrop4tjhfcdjlpkhc4.apps.googleusercontent.com'
 const CLIENT_SECRET = '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'
+const REDIRECT_URI = 'http://localhost:4200/calendar'
 
 export default class CalendarService {
 
@@ -71,33 +73,31 @@ export default class CalendarService {
     }
 
     public static async createEvent (redirectUri: any, reservation: any) {
-        const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, redirectUri);
         let token = await CalendarRepo.getToken()
-        console.log(token)
+
         console.log(token.get('token'))
+        console.log(reservation)
         if (token) {
+            const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, redirectUri);
             oAuth2Client.setCredentials(token.get('token'));
             if (!oAuth2Client) {
                 console.log(oAuth2Client)
                 return
             }
+           
             console.log(oAuth2Client)
             const calendar = google.calendar({version: 'v3', oAuth2Client});
             var event = {
-                'summary': 'Google I/O 2015',
-                'location': '800 Howard St., San Francisco, CA 94103',
-                'description': 'A chance to hear more about Google\'s developer products.',
+                'summary': 'Reservation at Vila Srebrno Jezero',
+                'description': 'Reservation for Vila Srebrno Jezero for ' + reservation.person.name + '.',
                 'start': {
-                  'dateTime': '2022-04-10T09:00:00+02:00',
-                  'timeZone' : 'Europe/Belgrade'
+                  'dateTime': reservation.date_from
                 },
                 'end': {
-                  'dateTime': '2022-04-12T17:00:00+02:00',
-                  'timeZone' : 'Europe/Belgrade'
+                  'dateTime': reservation.date_to
                 },
                 'attendees': [
-                  {'email': 'lpage@example.com'},
-                  {'email': 'sbrin@example.com'}
+                  {'email': reservation.person.email}
                 ]
               };
               
@@ -111,11 +111,41 @@ export default class CalendarService {
                     console.log('There was an error contacting the Calendar service: ' + err);
                     return;
                 }
-                console.log('Event created: %s', event.htmlLink);
+                console.log('Event created:');
+                console.log(event.data.id)
+                ReservationRepo.updateGCId(reservation.id, event.data.id)
             });
         } else {
             console.log('no token')
             return false
+        }
+    }
+
+    public static async deleteEvent (googleCalendarEventId: any) {
+        let token = await CalendarRepo.getToken()
+
+        if (token) {
+            const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+      
+            console.log(token)
+            oAuth2Client.setCredentials(token.get('token'));
+            if (!oAuth2Client) {
+                console.log(oAuth2Client)
+                return
+            }
+
+            const calendar = google.calendar({version: 'v3', oAuth2Client});
+            console.log(calendar)
+            calendar.events.delete({calendarId: 'primary', eventId: googleCalendarEventId},
+                function(err: any, event: any) {
+                    if (err) {
+                        console.log('There was an error contacting the Calendar service: ' + err);
+                        return;
+                    }
+                    console.log('Event deleted:');
+                    console.log(event.data.id)
+                });
+           
         }
     }
 

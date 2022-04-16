@@ -2,12 +2,13 @@
     position: fixed;
     bottom:30px;
     right:30px;
-    border-radius: 25px;
+    border-radius: 50%;
     background-color:blanchedalmond;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, .9), 3px 3px 8px white inset;
     padding:15px;
     font-family: cursive;
-    font-size: 20px;
+    font-size: 25px;
+    line-height: 15px;
     cursor: pointer;
     z-index: 110;
 }
@@ -19,7 +20,7 @@
     padding: 20px;
     border-radius: 20px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, .9), 3px 3px 8px white inset;
-    position: absolute;
+    position: fixed;
     bottom:100px;
     right:30px;
 }
@@ -64,6 +65,19 @@
     background-color: #ffffff;
     box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
   }
+
+  .responsive-table .table-row > div{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .responsive-table .table-row > div > img{
+    cursor: pointer;
+    height: 20px
+  }
+
   @media all and (max-width: 767px) {
     .responsive-table .table-header {
       display: none;

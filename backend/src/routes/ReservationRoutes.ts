@@ -5,8 +5,9 @@ import ReservationService from '../services/ReservationService';
 const router = express.Router();
 
 router.route('/').post(async (req, res) => {
-	let reservation = req.body
-	res.json(await ReservationService.book(reservation.reservation))
+	let reservation = req.body.reservation
+	let redirectUri = req.body.redirectUri
+	res.json(await ReservationService.book(reservation, redirectUri))
 });
 
 router.route('/').get(async (req, res) => {
@@ -14,9 +15,10 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/reserve').post(async (req, res) => {
-	let reservationObj = req.body
+	let reservationObj = req.body.reservation
 	console.log(reservationObj.reservation)
-	res.json(await ReservationService.reserve(reservationObj.reservation))
+	let redirectUri = req.body.redirectUri
+	res.json(await ReservationService.reserve(reservationObj, redirectUri))
 });
 
 
@@ -24,10 +26,9 @@ router.route('/minimum_booking_time').get(async (req, res) => {
 	res.json(await ReservationRepo.getAllMinBookingTimes())
 });
 
-router.route('/delete').post(async (req, res) => {
-	let reservations = req.body
-	console.log(reservations)
-	res.json(await ReservationService.deleteAll(reservations.res))
+router.route('/:id').delete(async (req, res) => {
+	let resId = req.params.id
+	res.json(await ReservationService.delete(resId))
 });
 
 router.route('/check').post(async (req, res) => {
@@ -40,6 +41,13 @@ router.route('/pay').post(async (req, res) => {
 	let reservation = req.body
 	console.log(reservation)
 	res.json(await ReservationService.checkAll(reservation.reservation))
+})
+
+router.route('/:id').put(async (req, res) => {
+	let reservation = req.body
+	let id = req.params.id
+	console.log(reservation)
+	res.json(await ReservationService.update(id, reservation.reservation))
 })
 
 module.exports = router;

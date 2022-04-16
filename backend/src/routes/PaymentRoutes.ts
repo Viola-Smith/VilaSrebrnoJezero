@@ -14,7 +14,8 @@ router.route('/paypal/create').post(async (req, res) => {
 
 router.route('/paypal/execute').post(async (req, res) => {
 	let reservation = req.body
-	res.json(await ReservationService.book(reservation.reservation))
+	let redirectUri = req.body.redirectUri
+	res.json(await ReservationService.book(reservation.reservation, redirectUri))
 });
 
 

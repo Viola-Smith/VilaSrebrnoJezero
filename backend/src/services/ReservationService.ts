@@ -1,19 +1,20 @@
 import ReservationRepo from "../database/repositories/ReservationRepo";
+import CalendarService from "./CalendarService";
 import MailingService from "./MailingService";
 import PricelistService from "./PricelistService";
 import RoomService from "./RoomService";
 
 export default class ReservationService {
-    public static async book(reservationObject: any) {
+    public static async book(reservationObject: any, redirectUri: any) {
         let price = await PricelistService.calculatePrice(reservationObject.date_from, reservationObject.date_to, reservationObject.room.name)
         if (price) {
             reservationObject.price = price
             delete reservationObject.timestamp
-            return await this.create(reservationObject)
+            return await this.create(reservationObject, redirectUri)
         }
     }
 
-    public static async create(reservationObject: any) {
+    public static async create(reservationObject: any, redirectUri: any) {
         let reservationsExist = await this.checkAvailable(reservationObject.date_from, reservationObject.date_to, reservationObject.room.id)
         if (reservationsExist && reservationsExist.length > 0) {
             return { 'message': 'Room not available for set dates', 'new': null }
@@ -21,6 +22,8 @@ export default class ReservationService {
         try {
             let outcome = await ReservationRepo.book(reservationObject)
             if (outcome) {
+                console.log(outcome)
+                CalendarService.createEvent(redirectUri, outcome)
                 MailingService.mail(reservationObject)
                 return { 'message': 'Sucessfully inserted reservation', 'new': outcome }
             } else {
@@ -98,7 +101,7 @@ export default class ReservationService {
         return finalRooms
     }
 
-    public static async reserve(reservationObj: any) {
+    public static async reserve(reservationObj: any, redirectUri: any) {
         let rooms = await this.getRooms(reservationObj)
         let outcomes = []
         for (let room of rooms) {
@@ -116,17 +119,23 @@ export default class ReservationService {
                 },
                 user_id: 0
             }
-            let outcome = await this.create(res)
+            let outcome = await this.create(res, redirectUri)
             outcomes.push(outcome)
         }
         return outcomes
     }
 
-    public static async deleteAll(resIds: any) {
-        for (let res of resIds) {
-            console.log(res.id)
-            await ReservationRepo.delete(res.id)
+    public static async delete(resId: any) {
+        let res = await ReservationRepo.get(resId)
+        if (res) {
+            console.log(res.get('googleCalendarEventId'))
+            await CalendarService.deleteEvent(res.get('googleCalendarEventId'))
+            return await ReservationRepo.delete(resId)
         }
+    }
+
+    public static async update(resId: any, res: any) {
+        return await ReservationRepo.update(resId, res)
     }
 
 }

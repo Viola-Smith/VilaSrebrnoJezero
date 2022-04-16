@@ -18,12 +18,6 @@ router.route('/connect').post(async (req, res) => {
     res.json(await CalendarService.createAccessToken(code, redirectUri))
 });
 
-router.route('/create').post(async (req, res) => {
-    let redirectUri = req.body.redirectUri
-    console.log(redirectUri)
-    res.json(await CalendarService.createEvent(redirectUri, {}))
-});
-
 router.route('/disconnect').get(async (req, res) => {
     res.json(await CalendarService.disconnectUser())
 });

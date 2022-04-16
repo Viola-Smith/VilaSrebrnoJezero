@@ -59,10 +59,4 @@ export class CalendarComponent implements OnInit {
    
   }
 
-  createEvent() {
-    this.calendarService.createEvent(window.location.href).subscribe(()=>{
-      console.log('done')
-    })
-  }
-
 }

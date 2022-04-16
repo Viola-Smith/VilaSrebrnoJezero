@@ -27,6 +27,18 @@ export default class ReservationRepo {
         return await Reservation.remove( { id: resId } ).exec()
     }
 
+    public static async update(resId: number, res: any) {
+        return await Reservation.updateOne( { id: resId }, res ).exec()
+    }
+
+    public static async get(resId: number) {
+        return await Reservation.findOne({'id': resId}).exec()
+    }
+
+    public static async updateGCId(resId: number, gcId: any) {
+        return await Reservation.updateOne( { id: resId }, { $set: { googleCalendarEventId : gcId } }, ).exec()
+    }
+
     public static async getAllReservations() {
         return await Reservation.find().exec()
     }
