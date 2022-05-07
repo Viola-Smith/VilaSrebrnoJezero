@@ -12,7 +12,7 @@ export class CalendarComponent implements OnInit {
   constructor(private calendarService: CalendarService, private router: Router) { }
 
   isAdmin () {
-    return true
+    return localStorage.getItem('admin') !== null
   }
 
   hasToken = false

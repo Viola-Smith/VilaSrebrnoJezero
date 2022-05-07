@@ -1,0 +1,48 @@
+.notfications-container {
+    margin-left: 250px;
+    padding-top: 50px;
+}
+
+.notif > div > div {
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    background-color: rgb(236, 236, 236);
+    margin-right: 20px;
+}
+
+.notif textarea, input {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.notif p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.save {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.fade:not(.show) {
+    display: none;
+}
+
+.hide {
+    display: none
+}
+
+#msg-popup {
+    position: absolute;
+    top:50px;
+    right:50px;
+    padding:30px;
+    z-index: 120;
+    background-color:whitesmoke;
+    border-radius: 25px;
+    border: 2px solid #ccc;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, .9), 3px 3px 8px white inset;
+}

@@ -16,7 +16,33 @@
     </li>
     <li>
       <a [routerLink]="['calendar']">
-        Calendar
+        Integrations
+      </a>
+    </li>
+
+    <li>
+      <a [routerLink]="['notifications']">
+        Notifications
+      </a>
+    </li>
+
+    <li>
+      <a [routerLink]="['pricelist']">
+        Pricelist
+      </a>
+    </li>
+
+    <li>
+      <a [routerLink]="['rateplans']">
+        Rate plans
+      </a>
+    </li>
+   
+  </ul>
+  <ul class="sidebar-navigation sidebar-navigation-below">
+    <li>
+      <a (click)="logOut()" [routerLink]="['login']">
+        Log Out
       </a>
     </li>
    

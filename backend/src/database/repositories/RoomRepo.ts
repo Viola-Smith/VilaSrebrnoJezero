@@ -35,4 +35,8 @@ export default class RoomRepo {
 
     }
 
+    public static async update(roomId: number, room: any) {
+        return await Room.updateOne( { id: roomId }, room ).exec()
+    }
+
 }

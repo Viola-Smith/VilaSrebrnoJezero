@@ -7,16 +7,19 @@ const Schema = mongoose.Schema;
 // }
 
 let Pricelist = new Schema({
+    id: {
+        type: Number
+    },
     period: {
         type: String
     },
 	period_dates: {
-        type: Array
+        type: Object
     },
 	room: {
         type: String
     },
-	nights_price: {
+	base_price: {
         type: Array
     }
 }, {collection:"Pricelist"});

@@ -122,4 +122,16 @@ export default class RoomService {
         return false
     }
 
+    public static async updateRoom (roomId: any, room:any) {
+        console.log(roomId)
+        console.log(room)
+        let updated = await RoomRepo.update(roomId, room)
+        console.log(updated)
+        if (updated.modifiedCount > 0) {
+            return { 'message': 'Sucessfully edited room' } 
+        } else {
+            return { 'message': 'Failed to edit room' } 
+        }
+    }
+
 }

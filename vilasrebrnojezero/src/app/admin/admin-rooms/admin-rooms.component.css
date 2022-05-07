@@ -1,0 +1,90 @@
+.editRooms {
+    margin-left: 250px;
+    padding-top: 50px;
+}
+
+
+.rooms {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:10px;
+    justify-content: space-evenly;
+
+}
+
+.room {
+    width: 300px;
+    /* border-bottom: 1px solid lightblue; */
+    box-shadow: 1px 1px 5px lightgrey;
+    border-radius: 25px;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.room > p {
+    margin-bottom: 0;
+}
+
+.room > div > p {
+    margin-bottom: 0;
+}
+
+.room > p:nth-child(1) {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgba(135, 206, 250, 0.5);
+    border-radius: 25px 25px 0 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+/* .room > p:last-child {
+    margin-bottom: 12px;
+} */
+
+.openedRoom {
+    background-color: rgba(0, 255, 0, 0.5);
+    color: darkgreen
+}
+
+.closedRoom {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: whitesmoke
+}
+
+.closedRoom, .openedRoom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px 0 20px 0;
+    padding: 3px;
+}
+
+.room select {
+    border-radius: 10px;
+    text-align: center;
+}
+
+.room input[type=number] {
+    width: 3em;
+    line-height: 16px;
+    text-align: center;
+}
+
+.editIcon {
+    background-color: rgba(173, 216, 230, 0.6);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 0 20px 0 20px;
+    padding: 8px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.editIcon > img {
+    height: 20px;
+}

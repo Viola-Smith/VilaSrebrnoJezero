@@ -32,6 +32,7 @@ export default class CalendarService {
         const authUrl = oAuth2Client.generateAuthUrl({
           access_type: 'offline',
           scope: SCOPES,
+          include_granted_scopes: true
         });
         return authUrl
     }
@@ -50,7 +51,7 @@ export default class CalendarService {
 
 
     private static async listEvents(auth: any) {
-        const calendar = google.calendar({version: 'v3', auth});
+        let calendar = google.calendar({version: 'v3', auth});
         calendar.events.list({
             calendarId: 'primary',
             timeMin: (new Date()).toISOString(),
@@ -72,7 +73,7 @@ export default class CalendarService {
         });
     }
 
-    public static async createEvent (redirectUri: any, reservation: any) {
+    public static async createEvent (redirectUri: any, reservation: any, resId: any) {
         let token = await CalendarRepo.getToken()
 
         console.log(token.get('token'))
@@ -84,68 +85,99 @@ export default class CalendarService {
                 console.log(oAuth2Client)
                 return
             }
+            if (oAuth2Client.isTokenExpiring()) {
+                console.log('token is expiring')
+            }
            
             console.log(oAuth2Client)
-            const calendar = google.calendar({version: 'v3', oAuth2Client});
+            let calendar = google.calendar({version: 'v3', oAuth2Client});
+            let dateFrom = reservation.date_from.split(' ')[0] + 'T14:00:00+02:00'
+            let dateTo = reservation.date_to.split(' ')[0] + 'T11:00:00+02:00'
             var event = {
                 'summary': 'Reservation at Vila Srebrno Jezero',
                 'description': 'Reservation for Vila Srebrno Jezero for ' + reservation.person.name + '.',
                 'start': {
-                  'dateTime': reservation.date_from
+                  'dateTime': dateFrom
                 },
                 'end': {
-                  'dateTime': reservation.date_to
+                  'dateTime': dateTo
                 },
                 'attendees': [
                   {'email': reservation.person.email}
                 ]
               };
               
+              
             console.log(event)
-            calendar.events.insert({
+            let createdEvent = await calendar.events.insert({
                 auth: oAuth2Client,
                 calendarId: 'primary',
                 resource: event,
-            }, function(err: any, event: any) {
-                if (err) {
-                    console.log('There was an error contacting the Calendar service: ' + err);
-                    return;
-                }
-                console.log('Event created:');
-                console.log(event.data.id)
-                ReservationRepo.updateGCId(reservation.id, event.data.id)
-            });
+            })
+            if (createdEvent) {
+                await ReservationRepo.updateGCId(resId, createdEvent.data.id)
+                return createdEvent.data.id
+            } else {
+                return null
+            }
         } else {
             console.log('no token')
-            return false
+            return 0
         }
     }
 
-    public static async deleteEvent (googleCalendarEventId: any) {
+    public static async editEvent (reservation: any, googleCalendarEventId: any, status = 'confirmed') {
         let token = await CalendarRepo.getToken()
 
+        console.log(token.get('token'))
+        console.log(reservation)
         if (token) {
             const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-      
-            console.log(token)
             oAuth2Client.setCredentials(token.get('token'));
             if (!oAuth2Client) {
                 console.log(oAuth2Client)
                 return
             }
-
-            const calendar = google.calendar({version: 'v3', oAuth2Client});
-            console.log(calendar)
-            calendar.events.delete({calendarId: 'primary', eventId: googleCalendarEventId},
-                function(err: any, event: any) {
-                    if (err) {
-                        console.log('There was an error contacting the Calendar service: ' + err);
-                        return;
-                    }
-                    console.log('Event deleted:');
-                    console.log(event.data.id)
-                });
            
+            console.log(oAuth2Client)
+
+            let dateFrom = reservation.date_from.split(' ').length > 1 ? reservation.date_from.split(' ')[0] : (reservation.date_from.split('T')[0])
+            let dateTo = reservation.date_to.split(' ').length > 1 ? reservation.date_to.split(' ')[0] : (reservation.date_to.split('T')[0])
+            
+            let calendar = google.calendar({version: 'v3', oAuth2Client});
+            var event = {
+                'summary': 'Reservation at Vila Srebrno Jezero',
+                'description': 'Reservation for Vila Srebrno Jezero for ' + reservation.person.name + '.',
+                'start': {
+                  'dateTime': dateFrom + 'T14:00:00+02:00'
+                },
+                'end': {
+                  'dateTime': dateTo + 'T11:00:00+02:00'
+                },
+                'attendees': [
+                  {'email': reservation.person.email}
+                ],
+                'status': status
+              };
+
+              
+            console.log(event)
+            calendar.events.update({
+                auth: oAuth2Client,
+                calendarId: 'primary',
+                resource: event,
+                eventId: googleCalendarEventId
+            }, function(err: any, event: any) {
+                if (err) {
+                    console.log('There was an error contacting the Calendar service: ' + err);
+                    return;
+                }
+                console.log('Event updated: ' + status);
+            
+            });
+        } else {
+            console.log('no token')
+            return false
         }
     }
 

@@ -25,6 +25,9 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
 import { NgxPayPalModule } from 'ngx-paypal';
 import { AdminRoomsComponent } from './admin/admin-rooms/admin-rooms.component';
 import { CalendarComponent } from './admin/calendar/calendar.component';
+import { NotificationsComponent } from './admin/notifications/notifications.component';
+import { RateplansComponent } from './admin/rateplans/rateplans.component';
+import { PricelistComponent } from './admin/pricelist/pricelist.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { CalendarComponent } from './admin/calendar/calendar.component';
     CancelPaymentComponent,
     PaymentFormComponent,
     AdminRoomsComponent,
-    CalendarComponent
+    CalendarComponent,
+    NotificationsComponent,
+    RateplansComponent,
+    PricelistComponent
   ],
   imports: [
     BrowserModule,

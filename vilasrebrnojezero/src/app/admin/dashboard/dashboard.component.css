@@ -3,7 +3,7 @@
     bottom:30px;
     right:30px;
     border-radius: 50%;
-    background-color:blanchedalmond;
+    background-color: rgba(135, 206, 235, 0.8);
     box-shadow: 1px 1px 8px rgba(0, 0, 0, .9), 3px 3px 8px white inset;
     padding:15px;
     font-family: cursive;
@@ -58,6 +58,9 @@
     text-transform: uppercase;
     letter-spacing: 0.03em;
   }
+  .responsive-table .table-header > div {
+    width: 15%
+  }
   .responsive-table .table-row {
     text-align: center;
     display: flex;
@@ -71,6 +74,17 @@
     align-content: center;
     align-items: center;
     justify-content: space-evenly;
+    width: 15%
+  }
+
+  .responsive-table .table-row > div > input {
+    width: 100%;
+    text-align: center;
+  }
+
+  .responsive-table .table-row > div > select {
+    width: 100%;
+    text-align: center;
   }
 
   .responsive-table .table-row > div > img{
@@ -203,3 +217,31 @@
   .color-reservation {
       background-color:burlywood;
   }
+
+
+
+.exportBtn {
+  width: 47px;
+  height: 47px;
+  cursor: pointer;
+}
+
+.invoice-table p {
+  margin-bottom: 0;
+  width: 16%;
+  text-align: center;
+}
+
+.resInfo {
+  position:absolute;
+  right: 60px;
+  bottom: 10px;
+  width: 150px;
+  padding: 4px;
+  background-color: lightblue;
+  border-radius: 20px;
+  z-index: 100;
+  border: 1px solid gray;
+  box-shadow: 1px 1px 9px gray;
+  white-space: pre-line
+}

@@ -1,45 +1,86 @@
+import NotificationService from "./NotificationService";
+
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'milicatest265@gmail.com',
-    pass: 'BetonijaTest1'
+    pass: 'AmeliaSendingMail'
   }
 });
 
 
 export default class MailingService {
-    public static mail(reservation: any) {
-        console.log(reservation)
-        let message = "<p>Dear, " + reservation.person.name + "</p><p>Your reservation for Vila Srebrno Jezero is confirmed. <br>The reservation is made from " + reservation.date_from +" to " + reservation.date_to + ". <br>Total price: " + reservation.price + " <br></p><p>Kind regards, <br>Vila Srebrno Jezero</p>"
-        var mailOptions = {
-            from: 'milicatest265@gmail.com',
-            to: reservation.person.email,
-            subject: 'Reservation Confirmation',
-            text: message
-        };
-        transporter.sendMail(mailOptions, function(error:any, info:any){
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
 
-        message = "<p>Hello</p><p>You have a new reservation for Vila Srebrno Jezero. <br>The reservation is made from " + reservation.date_from +" to " + reservation.date_to + ". <br>Total price: " + reservation.price + " <br> The customer is: " + reservation.person.name + ", " + reservation.person.email + ", " + reservation.person.phone + "</p><p>Kind regards, <br>Vila Srebrno Jezero</p>"
-        mailOptions = {
-            from: 'milicatest265@gmail.com',
-            to: 'milicanikolica97@gmail.com',
-            subject: 'Reservation Confirmation',
-            text: message
-        };
-        transporter.sendMail(mailOptions, function(error:any, info:any){
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+    private static sendMail (email: any, msg: any, subject: any) {
+        if (email) {
+            var mailOptions = {
+                from: 'milicatest265@gmail.com',
+                to: email,
+                subject: subject,
+                html: msg
+            };
+            transporter.sendMail(mailOptions, function(error:any, info:any){
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        }
     }
+
+    private static getPlaceholders(reservation: any) {
+        return {
+            '%person_name%': reservation.person.name,
+            '%person_email%': reservation.person.email,
+            '%person_phone%': reservation.person.phone,
+            '%start_date%': reservation.date_from,
+            '%end_date%': reservation.date_to,
+            '%reservation_price%': reservation.price,
+            '%reservation_paid%': reservation.payed,
+            '%reservation_id%': reservation.id
+        }
+    }
+
+    private static replacePlaceholders(text: any, phData: any) {
+        let str = text
+        let phs = Object.keys(phData)
+        phs.forEach((ph:any) => {
+            str = str.replace(new RegExp(ph,"g"), phData[ph]);
+        })
+        return str;
+    }
+
+
+    private static async replaceAndSend (reservation: any, type: any) {
+        console.log(reservation)
+        let notifications = await NotificationService.getByType(type)
+        console.log(notifications)
+        notifications.forEach(notif => {
+            let placeholderData = this.getPlaceholders(reservation)
+            let subject = this.replacePlaceholders(notif.subject, placeholderData)
+            let body = this.replacePlaceholders(notif.text, placeholderData)
+            console.log(body)
+            if (notif.sendTo == 'customer') {
+                this.sendMail(reservation.person.email, body, subject)
+            } else {
+                this.sendMail('milicanikolica97@gmail.com', body, subject)
+            }
+        })
+    }
+
+    public static async updateReservation (reservation: any) {
+        await this.replaceAndSend(reservation, 'altered')
+    }
+
+    public static async cancelReservation (reservation: any) {
+        await this.replaceAndSend(reservation, 'canceled')
+    }
+
+    public static async newReservation(reservation: any) {
+        await this.replaceAndSend(reservation, 'confirmed')
+    }
+
 }

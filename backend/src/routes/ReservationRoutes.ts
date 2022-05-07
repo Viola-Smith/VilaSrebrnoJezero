@@ -47,6 +47,8 @@ router.route('/:id').put(async (req, res) => {
 	let reservation = req.body
 	let id = req.params.id
 	console.log(reservation)
+	console.log(id)
+	console.log('update')
 	res.json(await ReservationService.update(id, reservation.reservation))
 })
 

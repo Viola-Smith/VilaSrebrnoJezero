@@ -20,4 +20,10 @@ router.route('/available').get(async (req, res) => {
   res.json({suggest: avRooms, all: allAvRooms})
 });
 
+router.route('/:roomId').put(async (req, res) => {
+  let roomId = req.params.roomId
+  let room = req.body.room
+  res.json(await RoomService.updateRoom(roomId, room))
+});
+
 module.exports = router;

@@ -22,7 +22,7 @@ export class AppComponent {
   }
 
   public onRouterOutletActivate(event : any) {
-    this.admin = typeof event.isAdmin !== undefined
+    this.admin = event.isAdmin !== undefined && event.isAdmin()
   }
 
 }

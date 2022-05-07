@@ -8,7 +8,6 @@ export default class CalendarRepo {
     }
 
     public static async createToken(token: any) {
-        console.log(token)
         let newToken = new GoogleCalendarTokens({token: token});
         return await newToken.save()
     }

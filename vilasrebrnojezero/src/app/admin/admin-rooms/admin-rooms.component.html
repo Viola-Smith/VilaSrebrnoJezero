@@ -1,1 +1,36 @@
-<p>admin-rooms works!</p>
+<div class="editRooms">
+    <div class="rooms">
+        <div *ngFor="let room of rooms; index as i" class="room">
+            <p>{{ room.id }}</p>
+            <div *ngIf="!editMode[i]">
+                <p>{{ room.name }}</p>
+                <p>floor: {{ room.floor }}</p>
+                <p>adults: {{ room.adults }}</p>
+                <p style="margin-bottom: 10px">extra beds: {{ room.extra_beds }}</p>
+            </div>
+            <div *ngIf="editMode[i]">
+                <select [(ngModel)]="room.name" name="roomName">
+                    <option *ngFor="let type of roomTypes | keyvalue">
+                        {{ type.key }}
+                    </option>
+                </select>
+                <br>
+                <p style="display: inline-block">floor: </p> 
+                <input type="number" [(ngModel)]="room.floor" name="roomFloor"> <br>
+                <p style="display: inline-block">adults: </p> 
+                <input type="number" [(ngModel)]="room.adults" name="roomAdults"> <br>
+                <p style="display: inline-block">extra beds: </p> 
+                <input type="number" [(ngModel)]="room.extra_beds" name="roomExtraBeds"> 
+                
+            </div>
+            
+            <p [style.cursor]="editMode[i] ? 'pointer' : 'auto'" *ngIf="room.bookable" class="openedRoom" (click)="changeBookable(i)">open</p>
+            <p [style.cursor]="editMode[i] ? 'pointer' : 'auto'" *ngIf="!room.bookable" class="closedRoom" (click)="changeBookable(i)">closed</p>
+            <p class="editIcon">
+                <img src="../../../assets/styles/images/edit.png" (click)="editMode[i] = true" *ngIf="!editMode[i]">
+                <img src="../../../assets/styles/images/check.png" (click)="editRoom(i)" *ngIf="editMode[i]">
+            </p>
+              
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import RoomService from "./RoomService";
 export default class ReservationService {
     public static async book(reservationObject: any, redirectUri: any) {
         let price = await PricelistService.calculatePrice(reservationObject.date_from, reservationObject.date_to, reservationObject.room.name)
+        console.log(price)
         if (price) {
             reservationObject.price = price
             delete reservationObject.timestamp
@@ -23,8 +24,12 @@ export default class ReservationService {
             let outcome = await ReservationRepo.book(reservationObject)
             if (outcome) {
                 console.log(outcome)
-                CalendarService.createEvent(redirectUri, outcome)
-                MailingService.mail(reservationObject)
+                let eventId = await CalendarService.createEvent(redirectUri, reservationObject, outcome.id)
+                console.log('after' + eventId)
+                outcome.set('googleCalendarEventId', eventId)
+                console.log(outcome)
+                
+                MailingService.newReservation(reservationObject)
                 return { 'message': 'Sucessfully inserted reservation', 'new': outcome }
             } else {
                 return { 'message': 'Failed to insert reservation', 'new': null }
@@ -128,14 +133,38 @@ export default class ReservationService {
     public static async delete(resId: any) {
         let res = await ReservationRepo.get(resId)
         if (res) {
-            console.log(res.get('googleCalendarEventId'))
-            await CalendarService.deleteEvent(res.get('googleCalendarEventId'))
-            return await ReservationRepo.delete(resId)
+            try {
+                await ReservationRepo.delete(resId)
+                console.log(res.get('googleCalendarEventId'))
+                if (res.get('googleCalendarEventId')) {
+                    console.log(res.get('googleCalendarEventId'))
+                    let resObj = JSON.parse(JSON.stringify(res))
+            
+                    await CalendarService.editEvent(resObj, resObj.googleCalendarEventId, 'cancelled')
+                }
+                MailingService.cancelReservation(res)
+                return { 'message': 'Sucessfully canceled reservation' }
+            } catch (err) {
+                return { 'message': 'Failed to cancel reservation' }
+            }
         }
+        return { 'message': 'Failed to find reservation to cancel' }
     }
 
     public static async update(resId: any, res: any) {
-        return await ReservationRepo.update(resId, res)
+        try {
+            let outcome = await ReservationRepo.update(resId, res)
+            if (outcome.modifiedCount > 0) {
+                console.log(res)
+                await CalendarService.editEvent(res, res.googleCalendarEventId)
+                MailingService.updateReservation(res)
+                return { 'message': 'Sucessfully edited reservation', 'new': outcome }
+            } else {
+                return { 'message': 'Failed to edit reservation', 'new': null }
+            }
+        } catch (err) {
+            return { 'message': err, 'new': null as Object }
+        }
     }
 
 }

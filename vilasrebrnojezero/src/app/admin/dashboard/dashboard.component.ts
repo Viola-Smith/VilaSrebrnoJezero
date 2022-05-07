@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservationsService } from 'src/services/reservations/reservations.service';
 import { Room } from 'src/models/room';
@@ -6,6 +6,8 @@ import { RoomsService } from 'src/services/rooms/rooms.service';
 import { Reservation } from 'src/models/reservation';
 import { forkJoin } from 'rxjs';
 import * as moment from 'moment';
+import jsPDF from 'jspdf';
+import html2canvas, { Options } from 'html2canvas';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router, private roomService: RoomsService, private reservationService: ReservationsService) { }
 
-  colors = ['#ffe2e8', '#eef3f8', '#eafff1', '#eef3f8', '#f6e7ea', '#e6e6fa', '#d7bfb9']
+  // colors = ['#ffe2e8', '#eef3f8', '#eafff1', '#eef3f8', '#f6e7ea', '#e6e6fa', '#d7bfb9']
   administrator: any
   dateFrom
   dateTo
@@ -35,8 +37,10 @@ export class DashboardComponent implements OnInit {
 
   editMode = []
 
+  filteredReservations: any
+
   isAdmin () {
-    return true
+    return localStorage.getItem('admin') !== null
   }
 
 
@@ -54,8 +58,13 @@ export class DashboardComponent implements OnInit {
       this.rooms = allResults[0] as Room[]
       this.roomSelectedId = this.rooms[0].id
       this.reservations = allResults[1]
-      this.editMode = Array(this.reservations.length).fill(false)
-      this.reservations.forEach(r => r.color = this.colors[Math.floor(Math.random() * this.colors.length)])
+      this.reservations.forEach(r => {
+        r.date_from = moment(r.date_from).format("YYYY-MM-DD")
+        r.date_to = moment(r.date_to).format("YYYY-MM-DD")
+        r.color = Math.floor(Math.random() * 361);
+      })
+      this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (new Date()).getMonth())
+      this.editMode = Array(this.filteredReservations.length).fill(false)
       this.dateFrom = new Date()
       this.dateTo = new Date()
       this.dateTo.setDate(this.dateFrom.getDate() + 2)
@@ -76,36 +85,76 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteRes(resId) {
-    this.reservationService.delete(resId).subscribe(()=>{
+    this.reservationService.delete(resId).subscribe((res: any)=>{
+      console.log(res)
+      this.message = res.message
+      this.showModal()
+      console.log(resId)
+      console.log(this.reservations.map((item:any) => item.id))
       var removeIndex = this.reservations.map((item:any) => item.id).indexOf(resId);
-      if (removeIndex) {
+      console.log(removeIndex)
+      if (removeIndex !== -1) {
         this.reservations.splice(removeIndex, 1);
       }
     })
   }
 
-  updateRes(index) {
-    console.log(this.reservations[index])
-    this.editMode[index] = false
+  export () {
+    var data = 'id,name,email,phone,price,paid,room,startDate,endDate,notes\n';
+    this.filteredReservations.forEach(function(e) {
+        data += (e.id || '') + ',' 
+                + (e.person.name || '') + ',' 
+                + (e.person.email || '') + ',' 
+                + (e.person.phone || '') + ',' 
+                + (e.price || '') + ',' 
+                + (e.payed || '') + ',' 
+                + (e.room || '') + ',' 
+                + (e.date_from || '') + ',' 
+                + (e.date_to || '') + ',' 
+                + (e.notes || '') + '\n';
+    });
+    console.log(data)
+    const a = document.createElement('a');
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+
+    a.href = url;
+    a.download = 'Reservations.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  }
+
+  updateRes(id, index) {
+    let res = this.reservations.find(r => r.id === id)
+    this.reservationService.update(id, res).subscribe((res: any) => {
+      console.log(res)
+      this.message = res.message
+      this.showModal()
+      this.editMode[index] = false
+    });
   }
 
   book() {
     let room = this.rooms.find(r => r.id === parseInt(this.roomSelectedId)) as Room
     console.log(new Date(this.dateFrom + ' 00:00'))
     let reservation: Reservation = {
-      date_from: new Date(this.dateFrom + ' 00:00'), date_to: new Date(this.dateTo + ' 00:00'), id: 0, person: {name: this.name, email: this.email, phone: this.phone},
+      date_from: this.dateFrom, date_to: this.dateTo, id: 0, person: {name: this.name, email: this.email, phone: this.phone},
       notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null
     }
     console.log(reservation)
     this.reservationService.book(reservation, window.location.href).subscribe((res: any) => {
       console.log(res)
-      this.message = res.message
-      this.showModal()
       if (res.new) {
-        res.new.color = this.colors[Math.floor(Math.random() * this.colors.length)]
+        res.new.color = Math.floor(Math.random() * 361);
+        res.new.date_from = moment(res.new.date_from).format("YYYY-MM-DD")
+        res.new.date_to = moment(res.new.date_to).format("YYYY-MM-DD")
         this.reservations.push(res.new)
+        this.filteredReservations.push(res.new)
         this.showNewReservation()
       }
+      this.message = res.message
+      this.showModal()
     });
   }
 
@@ -125,6 +174,7 @@ export class DashboardComponent implements OnInit {
     return moment(date).format("DD/MM/YYYY")
   }
 
+
   getAllDates(monthVal = null) {
     var month = monthVal ? monthVal : (new Date().getMonth())
     var year = (new Date()).getFullYear()
@@ -138,7 +188,31 @@ export class DashboardComponent implements OnInit {
   }
 
   changeMonth(val) {
-    this.dates = this.getAllDates(this.months.indexOf(val))
+    let monthVal = this.months.indexOf(val)
+    this.dates = this.getAllDates(monthVal)
+    this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == monthVal)
+  }
+
+  filterReservations () {
+    
+  }
+
+  searchReservations (val) {
+    if (val) {
+      this.filteredReservations = this.reservations.filter(r => r.person.name.toLowerCase().includes(val.toLowerCase()) ||
+      (r.person.email ? r.person.email.toLowerCase().includes(val.toLowerCase()) : false) || 
+      (r.person.phone ? r.person.phone.toLowerCase().includes(val.toLowerCase()) : false))
+    } else {
+      this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (this.months.indexOf(this.curMonth)))
+    }
+  }
+
+  filterByRoom (room) {
+    if (room == 0) {
+      this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (this.months.indexOf(this.curMonth)))
+      return
+    }
+    this.filteredReservations = this.reservations.filter(r => r.room == room) 
   }
 
   isBetween(date, date1, date2) {
@@ -146,25 +220,87 @@ export class DashboardComponent implements OnInit {
   }
 
   getReservation(date, roomId) {
-    let res = this.reservations.find(r => r.room === roomId && (new Date(date)).getTime() >= new Date(r.date_from).getTime() && (new Date(date)).getTime() <= new Date(r.date_to).getTime()  )
-    if (res) {
+    let res = this.filteredReservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00'))  )
+    if (res.length) {
       var element = document.getElementById("Reservation " + date.getDate() + "-" + roomId);
-      console.log(res)
-      if ((this.formattedDate(res.date_from)) == this.formattedDate(date)) {
-        element.style.background = 'linear-gradient(to bottom, transparent 50%, '+ res.color +' 50%)';
-        return ''
-      } else if ((this.formattedDate(res.date_to)) == this.formattedDate(date)) {
-        element.style.background = 'linear-gradient(to bottom, '+ res.color +' 50%, transparent 0%)';
+      if (res.length > 1) {
+        res.sort((a, b) => (new Date(a.date_from).getTime()) - (new Date(b.date_from).getTime()));
+        element.style.background = 'linear-gradient(to bottom, hsl(' + res[0].color + ', 30%, 80%) 50%, hsl(' + res[1].color + ', 30%, 80%) 50%)';
         return ''
       } else {
-        element.style.backgroundColor = res.color
-        return res.person.name
+        let timeDiff = Math.abs((new Date(res[0].date_from).getTime()) - (new Date(res[0].date_to).getTime()));
+        let numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        if ((this.formattedDate(res[0].date_from)) == this.formattedDate(date)) {
+          element.style.background = 'linear-gradient(to bottom, transparent 50%, hsl(' + res[0].color + ', 30%, 80%) 50%)';
+          if (numberOfNights == 1) {
+            element.style.verticalAlign = 'bottom';
+            return res[0].person.name.split(' ')[0]
+          }
+          return ''
+        } else if ((this.formattedDate(res[0].date_to)) == this.formattedDate(date)) {
+          element.style.background = 'linear-gradient(to bottom, hsl(' + res[0].color + ', 30%, 80%) 50%, transparent 0%)';
+          if (numberOfNights == 1) {
+            element.style.verticalAlign = 'top';
+            return res[0].person.name.split(' ')[1]
+          }
+          return ''
+        } else {
+          element.style.backgroundColor = 'hsl(' + res[0].color + ', 30%, 80%)'
+          return res[0].person.name
+        }
       }
     }
     return ''
   }
 
 
+  getDayInfo(date, roomId) {
+    let res = this.filteredReservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00'))  )
+    if (res.length) {
+      if (res.length > 1) {
+        res.sort((a, b) => (new Date(a.date_from).getTime()) - (new Date(b.date_from).getTime()));
+        return 'leaving:\n ' + res[0].person.name + '\n arriving:\n ' + res[1].person.name + ' (' + (parseInt(res[1].price) - parseInt(res[1].payed)) + ' RSD)'
+      } else {
+        let name = res[0].person.name
+        let remainAmount = parseInt(res[0].price) - parseInt(res[0].payed)
+        if ((this.formattedDate(res[0].date_from)) == this.formattedDate(date)) {
+          return 'arriving:\n ' + name + ' (' + remainAmount + ' RSD)'
+        } else if ((this.formattedDate(res[0].date_to)) == this.formattedDate(date)) {
+          return 'leaving:\n ' + name
+        } else {
+          return ''
+        }
+      }
+    }
+    return ''
+  }
+
+  showInfo (date, roomId) {
+    var element = document.getElementById("Info " + date.getDate() + "-" + roomId);
+    element.style.display = 'block'
+  }
+
+  hideInfo (date, roomId) {
+    var element = document.getElementById("Info " + date.getDate() + "-" + roomId);
+    element.style.display = 'none'
+  }
+
+  createInvoice (resId) {
+    let content = document.getElementById('invoice')
+    content.style.display = 'block'
+    console.log(content.innerHTML)
+    html2canvas(content).then(function(canvas) {
+        console.log(canvas)
+        // let imgWidth = content.offsetWidth
+        // let imgHeight = content.offsetHeight
+        const contentDataURL = canvas.toDataURL('image/png')
+        let pdf = new jsPDF('p', 'px', 'a4')
+        var width = pdf.internal.pageSize.getWidth();
+        var height = pdf.internal.pageSize.getHeight();
+        pdf.addImage(contentDataURL, 'png', 2, 0, width, height)
+        pdf.save('invoice.pdf')
+    });  
+  }
 
 
 }

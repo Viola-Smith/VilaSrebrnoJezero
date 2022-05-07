@@ -4,6 +4,9 @@ import { AdminRoomsComponent } from './admin/admin-rooms/admin-rooms.component';
 import { CalendarComponent } from './admin/calendar/calendar.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { LoginComponent } from './admin/login/login.component';
+import { NotificationsComponent } from './admin/notifications/notifications.component';
+import { PricelistComponent } from './admin/pricelist/pricelist.component';
+import { RateplansComponent } from './admin/rateplans/rateplans.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventsComponent } from './events/events.component';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -22,6 +25,9 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'admin', component: DashboardComponent },
   { path: 'editrooms', component: AdminRoomsComponent },
+  { path: 'notifications', component: NotificationsComponent },
+  { path: 'pricelist', component: PricelistComponent },
+  { path: 'rateplans', component: RateplansComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },

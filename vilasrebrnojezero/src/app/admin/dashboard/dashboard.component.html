@@ -39,19 +39,35 @@
     </div>
 
     <div style='display:flex; align-items: center; position:relative; float:right; margin-right: 30px;'>
-        <input type='text' class='form-control' 
+        <input type='text' class='form-control' (input)="searchReservations($event.target.value)"
         style='background: url(../../../assets/styles/images/icons/search.png) no-repeat scroll 7px 7px; padding-left: 50px;'>
     </div>
+
+    <div style="display: flex; justify-content: space-between">
+        <div style="width: 200px; margin-left: 30px">
+            <!-- <span>Month: </span> -->
+            <select class='form-control'  [(ngModel)]="curMonth" class='form-control' name="curMonth" (change)="changeMonth($event.target.value)">
+                <option *ngFor='let month of months'>
+                    {{ month }}
+                </option>
+            </select>
+        </div>
     
-
-    <div style="width: 200px; margin-left: 30px">
-        <select class='form-control'  [(ngModel)]="curMonth" class='form-control' name="curMonth" (change)="changeMonth($event.target.value)">
-            <option *ngFor='let month of months'>
-                {{ month }}
-            </option>
-        </select>
-      </div>
-
+        <div style="margin-right: 30px; display: flex; gap: 10px; align-items: center;">
+            <!-- <span>Room: </span> -->
+            <select class='form-control' style="width: 200px;" (change)="filterByRoom($event.target.value)">
+                <option value="0">
+                    All rooms
+                </option>
+                <option *ngFor='let room of rooms'>
+                    {{ room.id }}
+                </option>
+            </select>
+            <img class="exportBtn" src="../../../assets/styles/images/export.png" (click)="export()">
+        </div>
+    
+    </div>
+    
     <div class="container" *ngIf='!calendarView'>
         <h2>Reservations</h2>
         <ul class="responsive-table" style='padding:0'>
@@ -64,7 +80,7 @@
             <div class="col">Reserved</div>
             <div class="col"></div>
           </li>
-          <li class="table-row" *ngFor='let reservation of reservations; index as i'>
+          <li class="table-row" *ngFor='let reservation of filteredReservations; index as i'>
             <div class="col" data-label="Name">
                 <span *ngIf="!editMode[i]">{{ reservation.person.name }}</span>
                 <input *ngIf="editMode[i]" [(ngModel)]="reservation.person.name" name="personName">
@@ -73,14 +89,28 @@
                 <span *ngIf="!editMode[i]">{{ formattedDate(reservation.date_from) }}</span>
                 <input type="date" class='form-control' *ngIf="editMode[i]" [(ngModel)]="reservation.date_from" name="resDateFrom">
             </div>
-            <div class="col" data-label="Date to">{{ formattedDate(reservation.date_to) }}</div>
-            <div class="col" data-label="Room">{{ reservation.room }}</div>
-            <div class="col" data-label="Paid">{{ reservation.payed }}</div>
+            <div class="col" data-label="Date to">
+                <span *ngIf="!editMode[i]">{{ formattedDate(reservation.date_to) }}</span>
+                <input type="date" class='form-control' *ngIf="editMode[i]" [(ngModel)]="reservation.date_to" name="resDateTo">
+            </div>
+            <div class="col" data-label="Room">
+                <span *ngIf="!editMode[i]">{{ reservation.room }}</span>
+                <select *ngIf="editMode[i]" [(ngModel)]="reservation.room" class='form-control' name="resRoomId">
+                    <option *ngFor='let room of rooms'>
+                        {{ room.id }}
+                    </option>
+                </select>
+            </div>
+            <div class="col" data-label="Paid">
+                <span *ngIf="!editMode[i]">{{ reservation.payed }}</span>
+                <input *ngIf="editMode[i]" [(ngModel)]="reservation.payed" name="resPaid">
+            </div>
             <div class="col" data-label="Reserved">{{ formattedDateTime(reservation.timestamp) }}</div>
             <div class="col" data-label="Edit">
                 <img src="../../../assets/styles/images/edit.png" (click)="editMode[i] = true" *ngIf="!editMode[i]">
-                <img src="../../../assets/styles/images/check.png" (click)="updateRes(i)" *ngIf="editMode[i]">
+                <img src="../../../assets/styles/images/check.png" (click)="updateRes(reservation.id, i)" *ngIf="editMode[i]">
                 <img src="../../../assets/styles/images/trash.png" (click)="deleteRes(reservation.id)">
+                <img src="../../../assets/styles/images/invoice.png" (click)="createInvoice(reservation.id)">
             </div>
           </li>
         </ul>
@@ -97,11 +127,95 @@
                 <td>
                     {{ date.getDate() }}
                 </td>
-                <td *ngFor = 'let room of rooms' [attr.id]="'Reservation ' + date.getDate() +'-' + room.id" style="width:5%">
-                    {{ getReservation(date, room.id) }}
+                <td *ngFor = 'let room of rooms' [attr.id]="'Reservation ' + date.getDate() +'-' + room.id" style="width:5%"  (mouseenter) ="showInfo(date, room.id) "  (mouseleave) ="hideInfo(date, room.id)">
+                    <div style="position: relative; display: block;">
+                        {{ getReservation(date, room.id) }}
+                        <div [attr.id]="'Info ' + date.getDate() +'-' + room.id" style="display: none;">
+                            <div class="resInfo" *ngIf="getDayInfo(date, room.id)">
+                                {{ getDayInfo(date, room.id)  }}
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
       </div>
+
+
+            
+<div>
+    <div id="invoice" style="width: 1000px; height: 1400px; display: none;">
+        <div style="padding: 20px">
+            <h3 style="border-top: 3px solid lightblue; color: lightblue; padding-top: 5px; margin-bottom: 20px;">INVOICE</h3>
+            <div style="display: flex; font-size: 15px; justify-content: space-between;">
+                <div style="width: 30%">
+                    <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Vila Srebrno Jezero</p>
+                    <p style="margin-bottom:0;">Bungalovska 3, 12220 Veliko Gradiste</p>
+                    <p style="margin-bottom:0;">ljiljananikolic3004@gmail.com</p>
+                    <p style="margin-bottom:0;">064/2136721</p>
+                </div>
+                <div style="width: 30%; text-align: center;">
+                    <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Billed To</p>
+                    <p style="margin-bottom:0;">Milica Nikolic</p>
+                    <p style="margin-bottom:0;">1234567890123</p>
+                    <p style="margin-bottom:0;">064/2136721</p>
+                </div>
+                <div style="width: 30%">
+                    <div style="display: flex; justify-content:space-between">
+                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Invoice Number</p>
+                        <p style="margin-bottom:0;">123456</p>    
+                    </div>
+                    <div style="display: flex; justify-content:space-between">
+                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Reservation Number</p>
+                        <p style="margin-bottom:0;">34</p>    
+                    </div>
+                    <div style="display: flex; justify-content:space-between">
+                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Isuue Date</p>
+                        <p style="margin-bottom:0;">25/04/2022</p>    
+                    </div>
+                    <div style="display: flex; justify-content:space-between">
+                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Paid date</p>
+                        <p style="margin-bottom:0;">25/04/2022</p>    
+                    </div>
+                </div>
+            </div>
+            <div class="invoice-table" style="margin-top: 30px;">
+                <div style="display: flex; justify-content: space-around; padding: 10px; background-color: lightblue;">
+                    <p>Room #</p>
+                    <p>Room Type</p>
+                    <p>Date From</p>
+                    <p>Nights</p>
+                    <p>&euro; / Night</p>
+                    <p>Amount (&euro;)</p>
+                </div>
+                <div style="display: flex; justify-content: space-around; padding: 10px; border-bottom: 2px solid lightgray">
+                    <p>5</p>
+                    <p>Twin single room</p>
+                    <p>20/04/2022</p>
+                    <p>5</p>
+                    <p>24</p>
+                    <p>120</p>
+                </div>
+                <div style="float: right;margin-top: 25px;">
+                    <div style="display: flex; justify-content: space-between; width: 300px; padding: 10px; background-color: lightblue;">
+                        <p>Total</p>
+                        <p>&euro;</p>
+                        <p>120</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; width: 300px; padding: 10px; background-color: skyblue;">
+                        <p>Deposit</p>
+                        <p>&euro;</p>
+                        <p>40</p>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; float:left">
+                    <p style="font-size: 20px; width: 100%; font-weight: bold; color: lightblue">Thank you for staying</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
 
 </div>

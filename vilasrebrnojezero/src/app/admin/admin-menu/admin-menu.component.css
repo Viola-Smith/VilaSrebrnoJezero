@@ -75,3 +75,13 @@
 .sidebar-navigation .header::before {
   background-color: transparent;
 }
+
+.sidebar-navigation-below {
+  position: absolute;
+  bottom: 5px;  
+  width: 220px;
+}
+
+.sidebar-navigation-below li::before {
+  background-color: red;
+}
