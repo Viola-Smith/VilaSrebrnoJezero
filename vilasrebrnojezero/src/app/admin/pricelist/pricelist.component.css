@@ -1,0 +1,35 @@
+.pricelistContainer {
+    margin-left: 250px;
+    padding-top: 50px;
+}
+
+.pricelists {
+    display: flex;
+    margin-top:20px;
+}
+
+.pricelist {
+    border: 1px solid black;
+    border-right: none;
+    min-width: 150px;
+}
+
+.pricelist:last-child {
+    border-right: 1px solid black;
+}
+
+.pricelist > div:first-child {
+    margin: 15px;
+    text-align: center;
+}
+
+.pricelist > hr {
+    background: black;
+}
+
+.price {
+    text-align: center;
+    margin-bottom: 5px;
+    color: black;
+    font-size: 18px;
+}

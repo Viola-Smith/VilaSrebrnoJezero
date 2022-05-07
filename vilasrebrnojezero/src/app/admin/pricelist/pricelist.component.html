@@ -1,1 +1,12 @@
-<p>pricelist works!</p>
+<div class="pricelistContainer">
+    double room
+   <div class="pricelists">
+        <div *ngFor="let date of dates; let i = index" class="pricelist">
+            <div>{{ date }}</div>
+            <hr>
+            <div class="price">
+                {{ plShown[i] }} RSD
+            </div>
+        </div>
+   </div>
+</div>

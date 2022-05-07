@@ -10,7 +10,7 @@ let Pricelist = new Schema({
     id: {
         type: Number
     },
-    period: {
+    name: {
         type: String
     },
 	period_dates: {
