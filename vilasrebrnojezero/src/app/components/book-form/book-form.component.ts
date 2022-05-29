@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservationsService } from 'src/services/reservations/reservations.service';
+import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
   selector: 'app-book-form',
@@ -9,7 +10,7 @@ import { ReservationsService } from 'src/services/reservations/reservations.serv
 })
 export class BookFormComponent implements OnInit {
 
-  constructor(private router: Router, private reservationService: ReservationsService) { }
+  constructor(private router: Router, private reservationService: ReservationsService, private translations: TranslationsService) { }
 
   minBookingTime
 
@@ -69,6 +70,7 @@ export class BookFormComponent implements OnInit {
     }
     this.errorMsg = ''
   
+    this.closeBook()
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(['/search', {
         date1: this.date1,

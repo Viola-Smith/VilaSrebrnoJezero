@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="booking-form">
                     <div class="form-header">
-                        <h1>Napravi rezervaciju</h1>
+                        <h1>{{ translations.labels.book_form.make_reservation }}</h1>
                     </div>
                     <div class='closeBook' (click)='closeBook()'>
                         <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
@@ -14,13 +14,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input class="form-control" type="date" required [(ngModel)]='date1' name='date1'>
-                                    <span class="form-label">Datum dolaska</span>
+                                    <span class="form-label">{{ translations.labels.book_form.check_in }}</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input class="form-control" type="date" required [(ngModel)]='date2' name='date2'>
-                                    <span class="form-label">Datum odlaska</span>
+                                    <span class="form-label">{{ translations.labels.book_form.check_out }}</span>
                                 </div>
                             </div>
                         </div>
@@ -29,20 +29,20 @@
                                 <div class="form-group">
                                     <input type='number' class="form-control" required [(ngModel)]='adults'
                                         name='adults'>
-                                    <span class="form-label">Broj osoba</span>
+                                    <span class="form-label">{{ translations.labels.book_form.adults }}</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <input type='number' class="form-control" required [(ngModel)]='kids' name='kids'>
-                                    <span class="form-label">Pomoćni ležaji*</span>
+                                    <span class="form-label">{{ translations.labels.common.extra_beds }}*</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <input type='number' class="form-control" required [(ngModel)]='numRooms'
                                         name='numRooms'>
-                                    <span class="form-label">Number of rooms</span>
+                                    <span class="form-label">{{ translations.labels.book_form.number_of_room }}</span>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             <div class='col'>
                                 <div class="form-group">
                                     <span class="form-label" style='opacity: 1; top:-5px'>
-                                        *Samo za decu do 6 godina
+                                        *{{ translations.labels.book_form.kids_under_6 }}
                                     </span>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                             </div>
                         </div> -->
                         <div class="form-btn">
-                            <button class="submit-btn" (click)='redirectTo()'>Proveri Raspoloživost</button>
+                            <button class="submit-btn" (click)='redirectTo()'>{{ translations.labels.book_form.check_availability }}</button>
                         </div>
                     </form>
                 </div>

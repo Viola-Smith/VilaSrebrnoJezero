@@ -1,19 +1,11 @@
-import express from 'express';
-import NotificationService from '../services/NotificationService';
+import NotificationService from "../services/NotificationService";
+import Routes from "./Routes";
 
-const router = express.Router();
+export default class NotificationRoutes extends Routes {
+	protected service = new NotificationService()
+    constructor() {
+       super()
+    }
+}
 
-
-
-router.route('/').get(async (req, res) => {
-  res.json(await NotificationService.getAll())
-});
-
-
-router.route('/:notifId').put(async (req, res) => {
-  let notifId = req.params.notifId
-  let notif = req.body.notif
-  res.json(await NotificationService.update(notifId, notif))
-});
-
-module.exports = router;
+module.exports = (new NotificationRoutes()).getRouter();

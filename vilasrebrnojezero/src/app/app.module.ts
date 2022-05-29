@@ -28,6 +28,7 @@ import { CalendarComponent } from './admin/calendar/calendar.component';
 import { NotificationsComponent } from './admin/notifications/notifications.component';
 import { RateplansComponent } from './admin/rateplans/rateplans.component';
 import { PricelistComponent } from './admin/pricelist/pricelist.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { PricelistComponent } from './admin/pricelist/pricelist.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    Ng2SearchPipeModule
   ],
   providers: [{provide: APP_BASE_HREF, useValue: '/'}],
   bootstrap: [AppComponent]

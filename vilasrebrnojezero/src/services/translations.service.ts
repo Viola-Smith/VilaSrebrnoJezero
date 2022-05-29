@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import data_sr_RS from '../assets/json/translations/sr_RS.json'
 import data_en_US from '../assets/json/translations/en_US.json'
-import { jsPDF } from "jspdf";
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +47,7 @@ export class TranslationsService {
 
   getOtherLanguages() {
     let arr = this.allLangs.filter(l => l.name !== this.lang)
-    if(arr.length) {
+    if (arr.length) {
       return arr.map(l => l.name)
     }
     return arr

@@ -1,23 +1,29 @@
 import Pricelist from "../models/pricelist";
+import Repo from "./Repo";
 
 
-export default class PriceListRepo {
-
-    public static async getPriceList() {
-        return await Pricelist.collection.find().toArray()
+export default class PriceListRepo extends Repo {
+    constructor () {
+        super(Pricelist)
     }
 
-    public static async addPL(pricelist: any) {
-        let PL = new Pricelist(pricelist);
-        return await PL.save()
+    public async getPriceListByDateAndRoom(date1: any, date2: any, room: any) {
+        return await this.model.collection.find({
+            $and: [
+                { "period_dates.date_from" : date1 },
+                { "period_dates.date_to" : date2 },
+                { "room" : room }
+             ]
+        }).toArray()
     }
 
-    public static async updatePL(plId: number, pl: any) {
-        return await Pricelist.updateOne( { id: plId }, pl ).exec()
+    public async getPriceListByDateRangeAndRoom(date1: any, date2: any, room: any) {
+        return await this.model.collection.find({
+            $and: [
+                { "period_dates.date_from" : { $gte : date1 }},
+                { "period_dates.date_to" : { $lte : date2 } },
+                { "room" : room }
+             ]
+        }).toArray()
     }
-
-    public static async delete(id: number) {
-        return await Pricelist.remove( { id: id } ).exec()
-    }
-
 }

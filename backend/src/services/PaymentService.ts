@@ -1,4 +1,5 @@
 import ReservationService from "./ReservationService";
+import Service from "./Service";
 
 var request = require('request');
 
@@ -7,9 +8,11 @@ var SECRET = 'ECao0JhIWbjAgu9ASuL6sZEu2qt-iioMHPFf34zp9t9MBOOdCea9jJDKDD_QXSpRID
 var PAYPAL_API = 'https://api-m.sandbox.paypal.com';
 
 
-export default class PaymentService {
+export default class PaymentService extends Service {
+    protected name = 'payment'
+
     public static async createPayment(reservation: any) {
-        let ok = await ReservationService.checkAll(reservation)
+        let ok = await new ReservationService().checkAll(reservation)
         if (!ok) return false
         this.createPayPalPayment(reservation.price)
     }

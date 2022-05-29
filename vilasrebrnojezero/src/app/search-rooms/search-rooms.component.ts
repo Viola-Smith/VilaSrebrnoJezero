@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Room } from 'src/models/room';
 import { ReservationsService } from 'src/services/reservations/reservations.service';
 import { RoomsService } from 'src/services/rooms/rooms.service';
+import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
   selector: 'app-search-rooms',
@@ -12,7 +13,7 @@ import { RoomsService } from 'src/services/rooms/rooms.service';
 })
 export class SearchRoomsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private roomService: RoomsService, private reservationService: ReservationsService) { }
+  constructor(private translations: TranslationsService, private route: ActivatedRoute, private roomService: RoomsService, private reservationService: ReservationsService) { }
 
   suggest = []
   allRooms = []
@@ -101,24 +102,6 @@ export class SearchRoomsComponent implements OnInit {
     return sum
   }
 
-  getName(name) {
-    var regex = /\d+/;
-    let res = name.match(regex)
-    if (res) {
-      switch (res[0]) {
-        case '2':
-          if (name.includes('single')) return 'Dvokrevetna singl soba'
-          else return 'Dvokrevetna dubl soba'
-        case '3':
-          return 'Trokrevetni apartman'
-        case '4':
-          return 'Cetvorokrevetni apartman'
-      }
-    } else if (name.includes('lux')) {
-      return 'Lux apartman'
-    }
-  }
-
   hasExtraBeds(room) {
     if (this.kidsCalculate > 0) {
       let num = 0
@@ -146,7 +129,7 @@ export class SearchRoomsComponent implements OnInit {
     //   header.style.visibility = 'visible'
     // })
     this.showForm = value
-      this.showPaymentForm = value
+    this.showPaymentForm = value
   }
 
   showPaymentForm = false

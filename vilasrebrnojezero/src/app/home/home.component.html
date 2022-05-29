@@ -8,12 +8,12 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center" data-aos="fade">
 
-            <h1 class="mb-2">{{ translationsService.labels.home.welcome }}</h1>
-            <h2 class="caption">{{ translationsService.labels.common.vilasrebrnojezero }}</h2>
+            <h1 class="mb-2">{{ translations.labels.home.welcome }}</h1>
+            <h2 class="caption">{{ translations.labels.common.vilasrebrnojezero }}</h2>
           </div>
 
           <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translationsService.labels.home.details }}</h2><br>
+            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translations.labels.home.details }}</h2><br>
             <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
           </div>
 
@@ -26,12 +26,12 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center" data-aos="fade">
-            <h1 class="mb-2">{{ translationsService.labels.home.unique_experience }}</h1>
-            <h2 class="caption">{{ translationsService.labels.home.enjoy }}</h2>
+            <h1 class="mb-2">{{ translations.labels.home.unique_experience }}</h1>
+            <h2 class="caption">{{ translations.labels.home.enjoy }}</h2>
           </div>
 
           <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translationsService.labels.home.details }}</h2><br>
+            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translations.labels.home.details }}</h2><br>
             <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
           </div>
 
@@ -44,14 +44,14 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center" data-aos="fade">
-            <h1 class="mb-2">{{ translationsService.labels.home.surrounding }}</h1>
-            <h2 class="caption">{{ translationsService.labels.home.relax }}</h2>
+            <h1 class="mb-2">{{ translations.labels.home.surrounding }}</h1>
+            <h2 class="caption">{{ translations.labels.home.relax }}</h2>
             <br>
 
           </div>
 
           <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translationsService.labels.home.details }}</h2><br>
+            <h2 class="caption" style='margin:0;cursor:pointer'>{{ translations.labels.common.details }}</h2><br>
             <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
           </div>
 
@@ -94,10 +94,10 @@
 
 
           <div class="section-heading text-left">
-            <h2 class="mb-5">{{ translationsService.labels.home.about_us }}</h2>
+            <h2 class="mb-5">{{ translations.labels.home.about_us }}</h2>
           </div>
 
-          <p class="mb-4" style='color:black;text-align: justify;' [innerHTML]='translationsService.labels.home.description'>
+          <p class="mb-4" style='color:black;text-align: justify;' [innerHTML]='translations.labels.home.description'>
             
         </div>
       </div>
@@ -110,58 +110,58 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-          <h2 class="mb-5">Pogodnosti</h2>
+          <h2 class="mb-5">{{ translations.labels.home.features }}</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/pool.png' width='50%' style='padding-bottom:2%'>
-            <h2 class="h5">Bazeni</h2>
+            <h2 class="h5">{{ translations.labels.home.pool }}</h2>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/pingpong.png' width='50%' style='padding-bottom:2%'>
-            <h2 class="h5">Stoni tenis</h2>
+            <h2 class="h5">{{ translations.labels.home.table_tennis }}</h2>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/wifi.png' width='50%' style='padding-bottom:2%'>
-            <h2 class="h5">Besplatan WiFi</h2>
+            <h2 class="h5">{{ translations.labels.home.free_wifi }}</h2>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/parking.png' width='50%' style='padding-bottom:5%'>
-            <h2 class="h5">Parking</h2>
+            <h2 class="h5">{{ translations.labels.home.parking }}</h2>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/basket.png' width='50%' style='padding-bottom:3%'>
-            <h2 class="h5">Košarka</h2>
+            <h2 class="h5">{{ translations.labels.home.basketball }}</h2>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/beach.png' width='50%' style='padding-bottom:5%'>
-            <h2 class="h5">Blizina plaži</h2>
+            <h2 class="h5">{{ translations.labels.home.proximity_to_beach }}</h2>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/terasa.png' width='50%' style='padding-bottom:3%'>
-            <h2 class="h5">Zajednička terasa</h2>
+            <h2 class="h5">{{ translations.labels.home.shared_terrace }}</h2>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="text-center p-4 item">
             <img src='../assets/styles/images/icons/kettle.png' width='50%' style='padding-bottom:3%'>
-            <h2 class="h5">Kuvalo</h2>
+            <h2 class="h5">{{ translations.labels.home.kettle }}</h2>
           </div>
         </div>
 
@@ -177,7 +177,7 @@
     <div class="container-fluid" style='padding-left:5%;padding-right:5%'>
       <div class="row">
         <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-          <h2 class="mb-5">Sobe</h2>
+          <h2 class="mb-5">{{ translations.labels.common.rooms }}</h2>
         </div>
       </div>
       <div class="row">
@@ -186,8 +186,8 @@
             <a href="rooms2.html" class="d-block mb-0 thumbnail"><img width='100%'
                 src="../assets/styles/images/sobe/dvokrevetne/1.jpg" alt="Image" class="img-fluid"></a>
             <div class="hotel-room-body">
-              <h3 class="heading mb-0"><a href="rooms2.html">Dvokrevetne sobe</a></h3>
-              <strong class="price">Bračna / Singl</strong>
+              <h3 class="heading mb-0"><a href="rooms2.html">{{ translations.labels.common['2bed_plural'] }}</a></h3>
+              <strong class="price">{{ translations.labels.common.double_single }}</strong>
             </div>
           </div>
         </div>
@@ -196,8 +196,8 @@
             <a href="rooms3.html" class="d-block mb-0 thumbnail"><img
                 src="../assets/styles/images/sobe/trokrevetne/tr1.jpg" alt="Image" class="img-fluid"></a>
             <div class="hotel-room-body">
-              <h3 class="heading mb-0"><a href="rooms3.html">Trokrevetni apartmani</a></h3>
-              <strong class="price">1 bračni i 1 singl</strong>
+              <h3 class="heading mb-0"><a href="rooms3.html">{{ translations.labels.common['3bed_plural'] }}</a></h3>
+              <strong class="price">{{ translations.labels.common['1_double_1_single'] }}</strong>
             </div>
           </div>
         </div>
@@ -206,8 +206,8 @@
             <a href="rooms4.html" class="d-block mb-0 thumbnail"><img
                 src="../assets/styles/images/sobe/cetvorokrevetni/c1n.jpg" alt="Image" class="img-fluid"></a>
             <div class="hotel-room-body">
-              <h3 class="heading mb-0"><a href="rooms4.html">Cetvorokrevetni apartmani</a></h3>
-              <strong class="price">1 bračni i 2 singl</strong>
+              <h3 class="heading mb-0"><a href="rooms4.html">{{ translations.labels.common['4bed_plural'] }}</a></h3>
+              <strong class="price">{{ translations.labels.common['1_double_2_single'] }}</strong>
             </div>
           </div>
         </div>
@@ -216,8 +216,8 @@
             <a href="rooms4.html" class="d-block mb-0 thumbnail"><img
                 src="../assets/styles/images/sobe/cetvorokrevetni/l2.jpg" alt="Image" class="img-fluid"></a>
             <div class="hotel-room-body">
-              <h3 class="heading mb-0"><a href="roomsLux.html">Dvosoban Lux apartman</a></h3>
-              <strong class="price">1 bračni i trosed na razvlačenje</strong>
+              <h3 class="heading mb-0"><a href="roomsLux.html">{{ translations.labels.common.lux }}</a></h3>
+              <strong class="price">{{ translations.labels.common['1_double_and_sofa'] }}</strong>
             </div>
           </div>
         </div>
@@ -357,7 +357,7 @@
     <div class="container-fluid" style='padding-left:5%;padding-right:5%'>
       <div class="row">
         <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-          <h2>Komentari</h2>
+          <h2>{{ translations.labels.common.comments }}</h2>
         </div>
       </div>
 

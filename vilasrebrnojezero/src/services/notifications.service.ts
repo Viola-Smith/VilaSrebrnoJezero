@@ -16,7 +16,7 @@ export class NotificationsService {
 
   updateNotification(notfiId, notif) {
     const data = {
-      notif: notif,
+      data: notif,
     }
     return this.http.put(`${this.uri}/notification/${notfiId}`, data);
   }

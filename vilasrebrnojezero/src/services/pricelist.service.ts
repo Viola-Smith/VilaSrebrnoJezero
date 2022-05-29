@@ -15,16 +15,23 @@ export class PricelistService {
 
   updatePricelist(id, pricelist) {
     const data = {
-      notif: pricelist,
+      data: pricelist,
     }
     return this.http.put(`${this.uri}/pricelist/${id}`, data);
   }
 
   addPricelist(pricelist) {
     const data = {
-      notif: pricelist,
+      data: pricelist,
     }
     return this.http.post(`${this.uri}/pricelist`, data);
+  }
+
+  addPricelists(pricelists) {
+    const data = {
+      data: pricelists,
+    }
+    return this.http.post(`${this.uri}/pricelist/multiple`, data);
   }
 
   deletePricelist(id) {

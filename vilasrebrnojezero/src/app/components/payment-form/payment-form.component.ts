@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { ReservationsService } from 'src/services/reservations/reservations.service';
+import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
   selector: 'app-payment-form',
@@ -10,14 +11,15 @@ import { ReservationsService } from 'src/services/reservations/reservations.serv
 export class PaymentFormComponent implements OnInit {
 
   public payPalConfig?: IPayPalConfig;
-  showSuccess = false
+  showSuccess = true
 
-  constructor(private reservationService: ReservationsService) { }
+  constructor(private translations: TranslationsService, private reservationService: ReservationsService) { }
 
   ngOnInit() {
     this.initConfig();
   }
 
+  bookingDone = false
   
   @Output() closeForm = new EventEmitter<boolean>()
   @Output() prevStep = new EventEmitter<boolean>()
@@ -29,10 +31,11 @@ export class PaymentFormComponent implements OnInit {
   errorMessage = ''
 
   private initConfig(): void {
-    let resPrice = this.reservation.price/117
+    let resPrice = this.reservation.price
     if (this.type === 'avans') {
       resPrice = (resPrice*0.3)
     }
+    let amount = resPrice/117
     this.payPalConfig = {
         currency: 'EUR',
         clientId: 'sb',
@@ -41,7 +44,7 @@ export class PaymentFormComponent implements OnInit {
             purchase_units: [{
                 amount: {
                     currency_code: 'EUR',
-                    value: resPrice.toFixed(2).toString(),
+                    value: amount.toFixed(2).toString(),
                 }
             }],
             payer: {
@@ -76,14 +79,17 @@ export class PaymentFormComponent implements OnInit {
         },
         onClientAuthorization: (data) => {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-            this.reservationService.reserve(this.reservation, window.location.href).subscribe((outcomes: any) => {
+            this.reservation.payed = resPrice
+            console.log(this.reservation)
+            this.reservationService.reserve(this.reservation).subscribe((outcomes: any) => {
               console.log(outcomes)
               if (outcomes) {
                 let failures = outcomes.filter(o => o.new === null)
                 if (!failures.length) {
-                  alert('Reservation successfull')
+                  this.bookingDone = true
                 } else {
-                  alert('Reservation failed')
+                  this.bookingDone = false
+                  this.errorMessage = failures[0].message
                 }
               }
             })
@@ -111,13 +117,18 @@ export class PaymentFormComponent implements OnInit {
       };
   }
 
-
   closeBook() {
     this.closeForm.emit(false)
   }
 
   goBack() {
     this.prevStep.emit(false)
+  }
+
+  getNights(date1, date2) {
+    var timeDiff = Math.abs(new Date(date2).getTime() - new Date(date1).getTime());
+    var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return numberOfNights
   }
 
 }

@@ -19,13 +19,12 @@
 		"night"					: "night",
 		"nights"				: "nights",
 		"extra_bed"				: "Extra bed",
-		"extra_beds"			: "Extra beds"
-		
+		"extra_beds"			: "Extra beds",
+		"details"				: "Details..."
 	},
 	
 	"home"					: {
 		"welcome"				: "Welcome",
-		"details"				: "Details...",
 		"unique_experience"		: "Unique experience",
 		"enjoy"					: "Enjoy it with us",
 		"surrounding"			: "Picturesque surroundings",
@@ -45,7 +44,7 @@
 		"comments"				: "Comments"
 	},
 	
-	"book-form"				: {
+	"book_form"				: {
 		"make_reservation"		: "Make your reservation",
 		"check_in"				: "Check-in date",
 		"check_out"				: "Check-out date",
@@ -80,13 +79,28 @@
 		"social_media"			: "Social media"
 	},
 	
-	"payment-form"			: {
-		"pay"					: "Pay"
+	"payment_form"			: {
+		"pay"					: "Pay",
+		"payment"				: "Payment",
+		"deposit"				: "Deposit 30%",
+		"full_price"			: "Full price",
+		"back"					: "Back",
+		"cancel"				: "Cancel",
+		"booking_successfull"	: "Booking successfull",
+		"paid"					: "Paid",
+		"left_to_pay"			: "Left to pay"
 	},
-	"reservation-form"		: {
+	"reservation_form"		: {
 		"name"					: "First and last name",
+		"first_name"			: "First name",
+		"last_name"				: "Last name",
 		"email"					: "E-mail",
-		"phone"					: "Phone number"
+		"phone"					: "Phone number",
+		"next"					: "Next",
+		"name_req"				: "Name field is required",
+		"lname_req"				: "Last name field is required",
+		"phone_req"				: "Phone field is required",
+		"email_req"				: "Email field is required"
 	},
 	
 	"contact"				: {
@@ -100,6 +114,7 @@
 	
 	"events"				: {
 		"activities"			: "Activities",
+		"attractions"			: "Attractions",
 		"events"				: "Events",
 		"restaurants"			: "Restaurants / Cafes",
 		"tourist"				: "Tourist destinations",
@@ -194,7 +209,7 @@
 		"december"				: "December"
 	},
 	
-	"search-rooms"			: {
+	"search_rooms"			: {
 		"reserve_rooms"			: "Reserve rooms",
 		"recommendation"		: "Recommendation for ",
 		"reserve_for"			: "Reserve for ",
@@ -202,7 +217,8 @@
 		"type"					: "Type of room",
 		"beds"					: "Number of beds",
 		"amount"				: "Amount",
-		"price"					: "Price"
+		"price"					: "Price",
+		"name"					: "Name"
 		
 	}
 

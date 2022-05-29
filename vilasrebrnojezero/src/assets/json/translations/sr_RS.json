@@ -19,13 +19,13 @@
 		"night"					: "noć",
 		"nights"				: "noći",
 		"extra_bed"				: "Pomoćni ležaj",
-		"extra_beds"			: "Pomoćni ležajevi"
+		"extra_beds"			: "Pomoćni ležajevi",
+		"details"				: "Detaljnije..."
 		
 	},
 	
 	"home"					: {
 		"welcome"				: "Dobrodošli",
-		"details"				: "Detaljnije...",
 		"unique_experience"		: "Jedinstveno iskustvo",
 		"enjoy"					: "Uživajte sa nama",
 		"surrounding"			: "Slikovito okruženje",
@@ -44,7 +44,7 @@
 		"comments"				: "Komentari"
 	},
 	
-	"book-form"				: {
+	"book_form"				: {
 		"make_reservation"		: "Napravi rezervaciju",
 		"check_in"				: "Datum dolaska",
 		"check_out"				: "Datum odlaska",
@@ -78,13 +78,28 @@
 		"social_media"			: "Društvene mreže"
 	},
 	
-	"payment-form"			: {
-		"pay"					: "Uplati"
+	"payment_form"			: {
+		"pay"					: "Uplati",
+		"payment"				: "Uplata",
+		"deposit"				: "Avans 30%",
+		"full_price"			: "Punu cenu",
+		"back"					: "Nazad",
+		"cancel"				: "Odustani",
+		"booking_successfull"	: "Rezervacija uspešna",
+		"paid"					: "Placeno",
+		"left_to_pay"			: "Puna cena"
 	},
-	"reservation-form"		: {
+	"reservation_form"		: {
 		"name"					: "Ime i prezime",
+		"first_name"			: "Ime",
+		"last_name"				: "Prezime",
 		"email"					: "E-mail",
-		"phone"					: "Telefon"
+		"phone"					: "Telefon",
+		"next"					: "Dalje",
+		"name_req"				: "Ime je obavezno polje",
+		"lname_req"				: "Prezime je obavezno polje",
+		"phone_req"				: "Telefon je obavezno polje",
+		"email_req"				: "Email je obavezno polje"
 	},
 	
 	"contact"				: {
@@ -98,6 +113,7 @@
 	
 	"events"				: {
 		"activities"			: "Aktivnosti",
+		"attractions"			: "Atrakcije",
 		"events"				: "Događaji",
 		"restaurants"			: "Restorani / Kafići",
 		"tourist"				: "Turističke destinacije",
@@ -113,6 +129,7 @@
 		"pasuljijada"			: "Pasuljijada",
 		"pasuljijada_details"	: "Pasuljijada je jedna od najpopularnijih manifestacija koja se održava svake godine u gradskom parku pored Dunava. Nije slučajno što se Pasuljijada organizuje baš u Velikom Gradištu, jer najpoznatiji pasulj “Gradištanac”, potiče iz Velikog Gradišta.",
 		"alaske_veceri"			: "Alaske večeri",
+		"alaske_veceri_details"	: "U dobro poznatom ambijentu cveća i zelenila, tik uz Dunav, u gradištanskom parku, 150 kulinara iz čitave Srbije i Rumunije pripremiće neograničene količine riblje čorbe. Za velike meraklije, ali i sve druge koji uživaju u ribljim specijalitetima, kao melem za dušu preporučujemo vrhunsku riblju čorbu koju će imati priliku besplatno da degustiraju svi posetioci manifestacije.",
 		"rimini"				: "Rimini",
 		"rimini_details"		: "Izvanredan italijanski kafe restoran, sa prelepim pogledom i ukusnom hranom. Posebni užitak su njihovi raznovrsni kupovi.",
 		"dincic"				: "Restoran Dinčić",
@@ -177,7 +194,7 @@
 		"december"				: "Decembar"
 	},
 	
-	"search-rooms"			: {
+	"search_rooms"			: {
 		"reserve_rooms"			: "Rezerviši sobe",
 		"recommendation"		: "Preporuka za ",
 		"reserve_for"			: "Rezerviši za ",
@@ -185,8 +202,8 @@
 		"type"					: "Tip sobe",
 		"beds"					: "Broj kreveta",
 		"amount"				: "Količina",
-		"price"					: "Cena"
-		
+		"price"					: "Cena",
+		"name"					: "Naziv"
 	}
 
 }

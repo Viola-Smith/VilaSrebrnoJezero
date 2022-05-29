@@ -4,10 +4,10 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
                 <span class="caption mb-3"></span>
-                <h1 class="mb-4">Događaji &amp; Atrakcije</h1>
+                <h1 class="mb-4">{{ translations.labels.events.events }} &amp; {{ translations.labels.events.attractions }}</h1>
             </div>
             <div class='detaljnije' onclick='document.getElementById("start").scrollIntoView({behavior: "smooth"});'>
-                <h2 class="caption" style='margin:0;cursor:pointer'>DETALJNIJE...</h2><br>
+                <h2 class="caption" style='margin:0;cursor:pointer'>{{ translations.labels.common.details }}</h2><br>
                 <i style='cursor:pointer' class='fas fa-angle-double-down'></i>
             </div>
         </div>
@@ -24,19 +24,19 @@
         <ul class="nav nav-tabs justify-content-center" style='margin-bottom:5%;' id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                    aria-selected="true">Aktivnosti</a>
+                    aria-selected="true">{{ translations.labels.events.activities }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                    aria-controls="profile" aria-selected="false">Događaji</a>
+                    aria-controls="profile" aria-selected="false">{{ translations.labels.events.events }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                    aria-controls="contact" aria-selected="false">Restorani/Kafići</a>
+                    aria-controls="contact" aria-selected="false">{{ translations.labels.events.restaurants }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="turdes-tab" data-toggle="tab" href="#turdes" role="tab" aria-controls="contact"
-                    aria-selected="false">Turisticke destinacije</a>
+                    aria-selected="false">{{ translations.labels.events.tourist }}</a>
             </li>
         </ul>
 
@@ -83,16 +83,15 @@
 
 
                             </div>
-                            <h2 class="heading mb-0"><a href="https://www.srebrnojezero.com/aktivnosti/aqua-club/">Aqua
-                                    park</a></h2>
+                            <h2 class="heading mb-0"><a href="https://www.srebrnojezero.com/aktivnosti/aqua-club/">
+                                {{ translations.labels.events.aqua_park }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
                             <p>
-                                Kao najnovija vodena atrakcija otvorena početkom juna 2011. godine je akva klub sa 6
-                                vrlo lepo dizajniranih bazena dubine 0.4-1.35m, 2 vodena tobogana, više slapova, dečijih
-                                tobogana, vodopada, i sličnim vodenim kombinacijama na površini 2500m<sup>2</sup>.
-                                Inače, velika pogodnost je lokacija akva kluba koji se nalazi na samo pedesetak metara
-                                od Vile Srebrno jezero.
-                                <br><br><a href='https://www.srebrnojezero.com/aktivnosti/aqua-club/'>Saznaj više</a>
+                                {{ translations.labels.events.aqua_park_details }}
+                                <br><br>
+                                <a href='https://www.srebrnojezero.com/aktivnosti/aqua-club/'>
+                                    {{ translations.labels.events.learn_more }}
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -130,16 +129,18 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a
-                                    href="https://www.srebrnojezero.com/aktivnosti/brod-silver-star/">Krstarenje
-                                    Dunavom</a></h2>
+                            <h2 class="heading mb-0">
+                                <a href="https://www.srebrnojezero.com/aktivnosti/brod-silver-star/">
+                                    {{ translations.labels.events.danube_cruise }}
+                                </a>
+                            </h2>
                             <span class="mb-3 d-block post-date"></span>
                             <p>
-                                Brod Silver Star namenjen je turističkim obilascima duž Dunava a u okruženju Srebrnog
-                                jezera. Kapacitet broda je do 200 ljudi (zatvoreni i otvoreni deo). Krstarenje brodom
-                                Silver Star pružiće vam nezaboravno iskustvo i zadivljujući poged na dunavsko priobalje.
+                                {{ translations.labels.events.danube_cruise_details }}
                             </p>
-                            <a href='https://www.srebrnojezero.com/aktivnosti/brod-silver-star/'>Saznaj više</a>
+                            <a href='https://www.srebrnojezero.com/aktivnosti/brod-silver-star/'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 
@@ -178,23 +179,20 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a
-                                    href="https://www.srebrnojezero.com/aktivnosti/brod-silver-star/">Mini golf</a></h2>
+                            <h2 class="heading mb-0">
+                                <a href="https://www.srebrnojezero.com/aktivnosti/brod-silver-star/">
+                                    {{ translations.labels.events.mini_golf }}
+                                </a>
+                            </h2>
                             <span class="mb-3 d-block post-date"></span>
                             <p>
-                                Za porodičnu ili zabavu u dvoje, mini golf je idealan vid rekreacije koja će vas
-                                opustiti, zabaviti ali i podstaći takmičarski duh. Teren za mini golf sadrži 12 polja za
-                                igranje.
+                                {{ translations.labels.events.mini_golf_details }}
                             </p>
-                            <a href='https://www.srebrnojezero.com/aktivnosti/mini-golf/'>Saznaj više</a>
+                            <a href='https://www.srebrnojezero.com/aktivnosti/mini-golf/'> {{ translations.labels.events.learn_more }}</a>
                         </div>
                     </div>
 
-
                 </div>
-
-
-
             </div>
 
 
@@ -236,14 +234,12 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Uranak Festival</a></h2>
+                            <h2 class="heading mb-0"><a href="#"> {{ translations.labels.events.uranak }}</a></h2>
                             <span class="mb-3 d-block post-date">29.04.2020. - 03.05.2020.</span>
-                            <p>Muzički festival, koji će se i ove godine održati u periodu od 30. aprila do 3. maja, na
-                                jednom od najlepših izletišta u Srbiji - SREBRNOM JEZERU.
-                                Osmišljen je kvalitetan muzički program koji će zadovoljiti svačiji ukus. Na Urban
-                                stage-u očekuje vas elektronska škola beogradskog clubinga.
+                            <p>
+                                {{ translations.labels.events.uranak_details }}
                             </p>
-                            <a href='http://www.uranak.org/'>Saznaj više</a>
+                            <a href='http://www.uranak.org/'> {{ translations.labels.events.learn_more }}</a>
                         </div>
                     </div>
 
@@ -280,13 +276,12 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Pasuljijada</a></h2>
+                            <h2 class="heading mb-0"><a href="#"> {{ translations.labels.events.pasuljijada }}</a></h2>
                             <span class="mb-3 d-block post-date">15.08.2020.</span>
-                            <p> Pasuljijada je jedna od najpopularnijih manifestacija koja se održava svake godine u
-                                gradskom parku pored Dunava. Nije slučajno što se Pasuljijada organizuje baš u Velikom
-                                Gradištu, jer najpoznatiji pasulj “Gradištanac”, potiče iz Velikog Gradišta.
+                            <p> 
+                                {{ translations.labels.events.pasuljijada_details }}
                             </p>
-                            <a href='http://tovg.org/pasuljijada/'>Saznaj više</a>
+                            <a href='http://tovg.org/pasuljijada/'>{{ translations.labels.events.learn_more }}</a>
                         </div>
                     </div>
 
@@ -325,13 +320,10 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Alaske večeri</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.alaske_veceri }}</a></h2>
                             <span class="mb-3 d-block post-date">17.07.2020. - 18.07.2020.</span>
-                            <p> U dobro poznatom ambijentu cveća i zelenila, tik uz Dunav, u gradištanskom parku, 150
-                                kulinara iz čitave Srbije i Rumunije pripremiće neograničene količine riblje čorbe. Za
-                                velike meraklije, ali i sve druge koji uživaju u ribljim specijalitetima, kao melem za
-                                dušu preporučujemo vrhunsku riblju čorbu koju će imati priliku besplatno da degustiraju
-                                svi posetioci manifestacije.
+                            <p> 
+                                {{ translations.labels.events.alaske_veceri_details }}
                             </p>
                             <!--<a href='http://tovg.org/pasuljijada/'>Saznaj više</a>-->
                         </div>
@@ -388,10 +380,10 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Rimini</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.rimini }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p>Izvanredan italijanski kafe restoran, sa prelepim pogledom i ukusnom hranom. Posebni
-                                užitak su njihovi raznovrsni kupovi.
+                            <p>
+                                {{ translations.labels.events.rimini_details }}
                             </p>
 
                         </div>
@@ -429,9 +421,10 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Restoran Dinčić</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.dincic }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Restoran domaće kuhinje. Izuzetan ambijent sa raskošnom baštom i profesionalna usluga.
+                            <p> 
+                                {{ translations.labels.events.dincic_details }}
                             </p>
 
                         </div>
@@ -473,9 +466,10 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Beach Bar</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.beach_bar }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Bar na samoj obali jezera gde se svakog petka i vikendom održavaju žurke.
+                            <p> 
+                                {{ translations.labels.events.beach_bar_details }}
                             </p>
                             <!--<a href='http://tovg.org/pasuljijada/'>Saznaj više</a>-->
                         </div>
@@ -527,16 +521,14 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Tvrđava Ram</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.tvrdjava_ram }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Ovo mesto je naseljavano još od praistorije, a po dolasku Rimljana bilo je deo Dunavskog
-                                limesa. Zna se da je 1483. godine po nalogu sultana Bajazita II, na granici sa Ugarskom
-                                podignuta tvrđava sa topovskim otvorima, što je Ram učinilo jednom od prvih
-                                artiljerijskih tvrđava na ovom području.
+                            <p> 
+                                {{ translations.labels.events.tvrdjava_ram_details }}
                             </p>
-                            <a
-                                href='https://sr.wikipedia.org/sr-el/%D0%A2%D0%B2%D1%80%D1%92%D0%B0%D0%B2%D0%B0_%D0%A0%D0%B0%D0%BC'>Saznaj
-                                više</a>
+                            <a href='https://sr.wikipedia.org/sr-el/%D0%A2%D0%B2%D1%80%D1%92%D0%B0%D0%B2%D0%B0_%D0%A0%D0%B0%D0%BC'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 
@@ -572,15 +564,14 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Golubački grad</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.golubac }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Smeštena je na visokim liticama, na mestu na kom se reka sužava, na samom ulazu u
-                                Đerdapsku klisuru.Golubac je imao burnu istoriju. Tokom srednjeg veka, vodile su se
-                                mnoge bitke oko njega, naročito između Osmanskog carstva i Kraljevine Mađarske.
+                            <p> 
+                                {{ translations.labels.events.golubac_details }}
                             </p>
-                            <a
-                                href='https://sr.wikipedia.org/sr-el/%D0%93%D0%BE%D0%BB%D1%83%D0%B1%D0%B0%D1%87%D0%BA%D0%B8_%D0%93%D1%80%D0%B0%D0%B4'>Saznaj
-                                više</a>
+                            <a href='https://sr.wikipedia.org/sr-el/%D0%93%D0%BE%D0%BB%D1%83%D0%B1%D0%B0%D1%87%D0%BA%D0%B8_%D0%93%D1%80%D0%B0%D0%B4'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 
@@ -619,14 +610,14 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Viminacijum</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.viminacijum }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Viminacijum je arheološko nalazište u blizini Starog Kostolca, 12 km od Požarevca.
-                                Rimski vojni logor i grad nastao je u I i trajao do početka VII veka.
+                            <p> 
+                                {{ translations.labels.events.viminacijum_details }}
                             </p>
-                            <a
-                                href='https://sr.wikipedia.org/sr/%D0%92%D0%B8%D0%BC%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%98%D1%83%D0%BC'>Saznaj
-                                više</a>
+                            <a href='https://sr.wikipedia.org/sr/%D0%92%D0%B8%D0%BC%D0%B8%D0%BD%D0%B0%D1%86%D0%B8%D1%98%D1%83%D0%BC'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 
@@ -662,15 +653,14 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Nacionalni park Đerdap</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.djerdap }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Specifičan istorijski razvoj, vrlo povoljna đerdapska klima, složena mreža klisura,
-                                kanjona i dubokih uvala, ovaj prostor izdvajaju kao jedinstven evropski rezervat
-                                tercijarne flore, vegetacije i faune.
+                            <p> 
+                                {{ translations.labels.events.djerdap_details }}
                             </p>
-                            <a
-                                href='https://sr.wikipedia.org/sr-el/%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D0%BD%D0%B8_%D0%BF%D0%B0%D1%80%D0%BA_%D0%82%D0%B5%D1%80%D0%B4%D0%B0%D0%BF'>Saznaj
-                                više</a>
+                            <a href='https://sr.wikipedia.org/sr-el/%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D0%BD%D0%B8_%D0%BF%D0%B0%D1%80%D0%BA_%D0%82%D0%B5%D1%80%D0%B4%D0%B0%D0%BF'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 
@@ -706,13 +696,14 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Lepenski Vir</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.lepenski_vir }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Lepenski Vir je mezolitsko i neolitsko nalazište na desnoj obali Dunava u Đerdapskoj
-                                klisuri. Buđenje kulture Lepenskog Vira i uspostavljanje njene svojevrsne umetnosti,
-                                otpočinje oko 7000. g. stare ere.
+                            <p> 
+                                {{ translations.labels.events.lepenski_vir_details }}
                             </p>
-                            <a href='https://sh.wikipedia.org/wiki/Lepenski_Vir'>Saznaj više</a>
+                            <a href='https://sh.wikipedia.org/wiki/Lepenski_Vir'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 
@@ -752,12 +743,14 @@
                                 </div>
 
                             </div>
-                            <h2 class="heading mb-0"><a href="#">Manastir Tumane</a></h2>
+                            <h2 class="heading mb-0"><a href="#">{{ translations.labels.events.tumane }}</a></h2>
                             <span class="mb-3 d-block post-date"></span>
-                            <p> Manastir Tumane je pravoslavni manastir Eparhije braničevske Srpske pravoslavne crkve.
-                                Nalazi u Golubačkoj dolini na samoj obali istoimenog potoka, 12 km udaljen od Golupca.
+                            <p> 
+                                {{ translations.labels.events.tumane_details }}
                             </p>
-                            <a href='http://manastirtumane.org/'>Saznaj više</a>
+                            <a href='http://manastirtumane.org/'>
+                                {{ translations.labels.events.learn_more }}
+                            </a>
                         </div>
                     </div>
 

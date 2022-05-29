@@ -1,22 +1,17 @@
 import Room from '../models/room';
-import ReservationRepo from './ReservationRepo';
+import Repo from './Repo';
 
-export default class RoomRepo {
-
-    public static async getAllRooms() {
-        return await Room.collection.find().toArray()
+export default class RoomRepo extends Repo {
+    constructor() {
+        super(Room)
     }
 
-    public static async getRoomById(id: number) {
-        return await Room.findOne({ id: id }).exec()
+    public async getRoomsByType(name: string) {
+        return await this.model.find({ name: name }).exec()
     }
 
-    public static async getRoomsByType(name: string) {
-        return await Room.find({ name: name }).exec()
-    }
-
-    public static async getAvailableRoom(finalRoomIds: any[], takenRoomIds: any[], adultsNum: number) {
-        return await Room.findOne(
+    public async getAvailableRoom(finalRoomIds: any[], takenRoomIds: any[], adultsNum: number) {
+        return await this.model.findOne(
             {
                 '$and': [
                     { 'id': { $nin: finalRoomIds } },
@@ -32,11 +27,6 @@ export default class RoomRepo {
                 ],
             }
         ).exec()
-
-    }
-
-    public static async update(roomId: number, room: any) {
-        return await Room.updateOne( { id: roomId }, room ).exec()
     }
 
 }

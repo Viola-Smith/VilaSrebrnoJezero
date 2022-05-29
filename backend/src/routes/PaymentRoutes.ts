@@ -1,22 +1,24 @@
-import express from 'express';
 import PaymentService from '../services/PaymentService';
-import ReservationRepo from '../database/repositories/ReservationRepo';
 import ReservationService from '../services/ReservationService';
+import Routes from './Routes';
 
+export default class PaymentRoutes extends Routes {
+  protected service = new PaymentService()
+  constructor() {
+    super()
+     
+	this.router.route('/paypal/create').post(async (req, res) => {
+		let reservation = req.body
+		console.log(reservation)
+		res.json(await PaymentService.createPayment(reservation.reservation))
+	});
 
-const router = express.Router();
+	this.router.route('/paypal/execute').post(async (req, res) => {
+		let reservation = req.body
+		res.json(await new ReservationService().book(reservation.reservation))
+	});
+  }
+}
 
-router.route('/paypal/create').post(async (req, res) => {
-	let reservation = req.body
-	console.log(reservation)
-	res.json(await PaymentService.createPayment(reservation.reservation))
-});
+module.exports = (new PaymentRoutes()).getRouter();
 
-router.route('/paypal/execute').post(async (req, res) => {
-	let reservation = req.body
-	let redirectUri = req.body.redirectUri
-	res.json(await ReservationService.book(reservation.reservation, redirectUri))
-});
-
-
-module.exports = router;

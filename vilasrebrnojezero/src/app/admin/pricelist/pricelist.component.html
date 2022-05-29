@@ -1,12 +1,104 @@
 <div class="pricelistContainer">
-    double room
-   <div class="pricelists">
-        <div *ngFor="let date of dates; let i = index" class="pricelist">
-            <div>{{ date }}</div>
-            <hr>
-            <div class="price">
-                {{ plShown[i] }} RSD
+
+    <div class="searchDates">
+        <div>
+            <p>Date from:</p>
+            <input type="date" class='form-control' [(ngModel)]="search.date_from" name="dateFromSearch" (change)="changeDateFrom()">    
+        </div>
+        <div>
+            <p>Date to:</p>
+            <input type="date" class='form-control' [(ngModel)]="search.date_to" name="dateToSearch" (change)="changeDateTo()">    
+        </div>   
+    </div>
+
+    <div *ngFor="let pl of roomPrices; let j = index">
+        <div class="plName">
+            <p>{{ pl.room }}</p>
+            <img src="../../../assets/styles/images/edit.png" (click)="editMode[j] = true" *ngIf="!editMode[j]">
+            <p *ngIf="editMode[j]" class="save" (click)="savePlChange(j)">Save</p>
+            <p (click)="editMode[j] = false" *ngIf="editMode[j]" class="cancel">Cancel</p>
+        </div>
+        <div class="pricelists">
+            <div *ngFor="let date of dates; let i = index" class="pricelist">
+                <div>{{ formatDate(date) }}</div>
+                <hr>
+                <div class="price" *ngIf="!editMode[j]">
+                    {{ pl.plShown[i] }} RSD
+                </div>
+                <div class="price editPrice" *ngIf="editMode[j]">
+                    <input [(ngModel)]="pl.plShown[i]" [name]="plShown+i">
+                </div>
+            </div>
+       </div>
+    </div>
+
+    <div id='msg-popup' class='hide'> {{ message }} </div>
+
+    <div class="bulkBtn" (click)="bulkEdit = true">
+        <p>Bulk edit</p>
+    </div>
+
+
+</div>
+
+<div class="bulkDialog" *ngIf="bulkEdit">
+    <div class="heading">
+        <p class="title">Bulk Edit</p>            
+        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="bulkEdit = false">
+    </div>
+    
+    <div class="bulkOptions">
+        <div>
+            <p>Name:</p>
+            <input type="text" class='form-control' placeholder="Name for pricelist" [(ngModel)]="bulkOptions.name" name="name">
+        </div>
+
+        <div>
+            <p>Room:</p>
+            <div style="position: relative" (click)="expanded = !expanded">
+                <select class="form-control">
+                    <option *ngIf="checkedOptions().length">
+                        <span *ngFor="let r of checkedOptions(); let checkedIndex = index">
+                            {{ r.room }}<span *ngIf="checkedIndex !== checkedOptions().length - 1">, </span>
+                        </span>
+                    </option>
+                    <option value="0" *ngIf="!checkedOptions().length">
+                        All rooms
+                    </option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="checkboxes" *ngIf="expanded">
+                <label [attr.for]="room.room" *ngFor='let room of roomPrices; let i = index '>
+                  <input type="checkbox" [attr.id]="room.room" [(ngModel)]="roomsCheckbox[i].checked" [attr.name]="room.room"/>
+                  {{ room.room }}
+                </label>
             </div>
         </div>
-   </div>
+
+        <div style="position: relative">
+            <p>Date from:</p>
+            <input type="date" class='form-control' [(ngModel)]="bulkOptions.period_dates.date_from" name="dateFrom" [ngStyle]="{'border': msgDate1Req ? '1px solid red' : 'none'}">
+            <span style="position: absolute; bottom: 0">{{ msgDate1Req }}</span>
+        </div>
+        
+        <div style="position: relative">
+            <p>Date to:</p>
+            <input type="date" class='form-control' [(ngModel)]="bulkOptions.period_dates.date_to" name="dateTo" [ngStyle]="{'border': msgDate2Req ? '1px solid red' : 'none'}">
+            <span style="position: absolute; bottom: 0">{{ msgDatae2Req }}</span>
+        </div>
+
+        <div style="position: relative">
+            <p>Base price:</p>
+            <input class='form-control' [(ngModel)]="bulkOptions.base_price" name="basePrice" [ngStyle]="{'border': msgPriceReq ? '1px solid red' : 'none'}">
+            <span style="position: absolute; bottom: 0">{{ msgPriceReq }}</span>
+        </div>
+
+        <p class="save" (click)="bulkPricesChange()">
+            Save
+        </p>
+        
+    </div>
+
+
 </div>

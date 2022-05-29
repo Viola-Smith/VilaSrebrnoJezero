@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="booking-form col-lg-5 col-md-5 not-disabled">
                     <div class="form-header">
-                        <h1>Napravi rezervaciju</h1>
+                        <h1>{{ translations.labels.book_form.make_reservation }}</h1>
                     </div>
                     <div class='closeBook' (click)='closeBook()'>
                         <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
@@ -13,14 +13,17 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" required [(ngModel)]='name' name='name'>
-                                    <span class="form-label">Name</span>
+                                    <input class="form-control" [ngClass]="{'errorBorder':message.name.error}" type="text" required [(ngModel)]='name' name='name'>
+                                    <span class="form-label">{{ translations.labels.reservation_form.first_name }}</span>
+                                    <p class="errorMsg" *ngIf="message.name.error">{{message.name.msg}}</p>
                                 </div>
+                                
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" required [(ngModel)]='lname' name='lname'>
-                                    <span class="form-label">Last name</span>
+                                    <input class="form-control" [ngClass]="{'errorBorder':message.lname.error}" type="text" required [(ngModel)]='lname' name='lname'>
+                                    <span class="form-label">{{ translations.labels.reservation_form.last_name }}</span>
+                                    <p class="errorMsg" *ngIf="message.lname.error">{{message.lname.msg}}</p>
                                 </div>
                             </div>
 
@@ -28,29 +31,30 @@
                         <div class='row'>
                             <div class="col">
                                 <div class="form-group">
-                                    <input class="form-control" type="email" required [(ngModel)]='email' name='email'>
-                                    <span class="form-label">Email</span>
+                                    <input class="form-control" [ngClass]="{'errorBorder':message.phone.error}" type="email" required [(ngModel)]='email' name='email'>
+                                    <span class="form-label">{{ translations.labels.reservation_form.email }}</span>
+                                    <p class="errorMsg" *ngIf="message.email.error">{{message.email.msg}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
                             <div class="col">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" required [(ngModel)]='phone' name='phone'>
-                                    <span class="form-label">Phone</span>
+                                    <input class="form-control" [ngClass]="{'errorBorder':message.phone.error}" type="text" required [(ngModel)]='phone' name='phone'>
+                                    <span class="form-label">{{ translations.labels.reservation_form.phone }}</span>
+                                    <p class="errorMsg" *ngIf="message.phone.error">{{message.phone.msg}}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class='row'>
                             <div class='col'>
-                                <div style='background-color: lightgrey; color:black;
-                                padding: 10px; text-align: center; margin-bottom: 15px;'>
+                                <div class="bookingInfo">
                                     <div>
                                         {{ reservation.dateRange.date1 }} - {{ reservation.dateRange.date2 }}
                                     </div>
                                     <div>
-                                        {{ getNights(reservation.dateRange.date1, reservation.dateRange.date2) }} nights
+                                        {{ getNights(reservation.dateRange.date1, reservation.dateRange.date2) }} {{ translations.labels.common.nights }}
                                     </div>
                                     <div *ngFor='let res of reservation.res'>
                                         <div>
@@ -68,12 +72,12 @@
                         <div class='row'>
                             <div class='col-6'>
                                 <div class="form-btn">
-                                    <button class="submit-btn" (click)='closeBook()'>Odustani</button>
+                                    <button class="submit-btn" (click)='closeBook()'>{{ translations.labels.payment_form.cancel }}</button>
                                 </div>
                             </div>
                             <div class='col-6'>
                                 <div class="form-btn">
-                                    <button class="submit-btn" (click)='nextStep()'>Dalje</button>
+                                    <button class="submit-btn" (click)='nextStep()'>{{ translations.labels.reservation_form.next }}</button>
                                 </div>
                             </div>
                             

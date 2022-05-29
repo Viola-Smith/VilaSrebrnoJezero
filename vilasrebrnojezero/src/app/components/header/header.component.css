@@ -11,14 +11,25 @@
 }
 
 .languages {
-    position: absolute;
-    top:10px;
-    right:10px;
     padding:6px;
-    border: 2px solid white;
+    border: 2px solid lightgray;
     border-radius: 10px;
     background-color: rgb(248, 245, 228, 0.3);
-    box-shadow: 1px 1px 2px gray
+    box-shadow: 1px 1px 8px lightgray;
+    z-index: 100;
+}
+
+.languages > div {
+    cursor: pointer
+}
+
+.languages > div img {
+    margin-right: 5px;
+    width: 30px;
+}
+
+.languages i {
+    color: lightgray;
 }
 
 .disabled :not(.not-disabled) {
@@ -26,4 +37,12 @@
     /* for "disabled" effect */
     opacity: 0.2;
     background: #CCC;
-  }
+}
+
+.scrolled {
+    box-shadow: 0px 0px 20px rgb(165, 164, 164);
+}
+
+.site-logo > a {
+    font-size: 30px;
+}

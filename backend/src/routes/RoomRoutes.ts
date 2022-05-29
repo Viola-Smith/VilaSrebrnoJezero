@@ -1,29 +1,22 @@
-import express from 'express';
 import RoomService from '../services/RoomService';
+import Routes from './Routes';
 
-const router = express.Router();
+export default class RoomRoutes extends Routes {
+  protected service = new RoomService()
+  constructor() {
+    super()
+     
+    this.router.route('/available').get(async (req, res) => {
+      let date1 = req.query.date1
+      let date2 = req.query.date2
+      let adults = req.query.adults
+      let rooms = req.query.rooms
+      let avRooms = await this.service.getAvailableRooms(date1, date2, adults, rooms)
+      let allAvRooms = await this.service.getAllAvailableRooms(date1, date2)
+      res.json({suggest: avRooms, all: allAvRooms})
+    });
+  }
+}
 
+module.exports = (new RoomRoutes()).getRouter();
 
-
-router.route('/').get(async (req, res) => {
-  res.json(await RoomService.getAllRooms())
-});
-
-
-router.route('/available').get(async (req, res) => {
-  let date1 = req.query.date1
-  let date2 = req.query.date2
-  let adults = req.query.adults
-  let rooms = req.query.rooms
-  let avRooms = await RoomService.getAvailableRooms(date1, date2, adults, rooms)
-  let allAvRooms = await RoomService.getAllAvailableRooms(date1, date2)
-  res.json({suggest: avRooms, all: allAvRooms})
-});
-
-router.route('/:roomId').put(async (req, res) => {
-  let roomId = req.params.roomId
-  let room = req.body.room
-  res.json(await RoomService.updateRoom(roomId, room))
-});
-
-module.exports = router;

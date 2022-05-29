@@ -1,3 +1,73 @@
 <div class="ratePlansContainer">
-    <p>rateplans works!</p>
+   <div class="heading">
+        <p class="title">Rate plans</p> 
+        <p class="create" (click)="createRP()">Create</p>
+   </div>
+   <div class="rateplans">
+    <div *ngFor="let rateplan of rateplans" class="rateplan">
+        <div class="title">
+            <p>{{rateplan.name}}</p>
+            <div class="icons">
+                <img src="../../../assets/styles/images/edit.png" (click)="openEditDialog(rateplan)">
+                <img src="../../../assets/styles/images/trash.png" (click)="deleteRP(rateplan)">
+            </div>
+        </div>
+        <p *ngIf="rateplan.minNights">Minimum nights: {{rateplan.minNights}}</p>
+        <p *ngIf="rateplan.maxNights">Maximum nights: {{rateplan.maxNights}}</p>
+        <p>{{rateplan.subtract ? 'Subtract' : 'Add'}} {{ rateplan.base_price_mod + (rateplan.percent ? '%' : 'RSD') }} from base price</p>
+   </div>
+   </div>
+</div>
+
+<div id='msg-popup' class='hide'> {{ message }} </div>
+
+<div *ngIf="openDialog" class="createDialog">
+    <div class="heading">
+        <p class="title">Create Rate plan</p>            
+        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="openDialog = false">
+    </div>
+    <div class="createOptions">
+        <div class="createOptionsMain">
+            <div style="display: flex; align-items: center;">
+                <p style="width: 30%">Name:</p>
+                <input style="width: 70%" type="text" class='form-control' placeholder="Name" [(ngModel)]="newRateplan.name" name="name">
+                <span style="position: absolute; bottom: 0">{{ msgPriceReq }}</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p style="width: 60%">Minimum nights:</p>
+                <input style="width: 40%" type="number" class='form-control' [(ngModel)]="newRateplan.minNights" name="minNights">
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p style="width: 60%">Maximum nights:</p>
+                <input style="width: 40%" type="number" class='form-control' [(ngModel)]="newRateplan.maxNights" name="maxNights">
+            </div>
+            <div>
+                <p>Base price  modification:</p>
+                <div class="mod_sub">
+                    <input type="checkbox" [(ngModel)]="newRateplan.subtract" name="subtract">
+                    <span>Subtract modification from base price</span>
+                </div>
+                <div class="modType">
+                    <select (change)="setModType($event.target.value)" class="form-control flexKid">
+                        <option value="0" [selected]="newRateplan.percent">Percentage</option>
+                        <option value="1" [selected]="!newRateplan.percent">Fixed price</option>
+                    </select>
+                    <div class="flexKid input-icon input-icon-right">
+                        <input class='form-control'  [(ngModel)]="newRateplan.base_price_mod" 
+                        name="base_price_mod" [ngStyle]="{'padding-left': newRateplan.percent ? '25px' : '50px' }">
+                        <i *ngIf="newRateplan.percent">%</i>
+                        <i *ngIf="!newRateplan.percent">RSD</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+        <p class="save" (click)="save()">
+            Save
+        </p>
+
+    </div>
+
+
 </div>

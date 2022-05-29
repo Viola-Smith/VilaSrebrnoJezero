@@ -15,14 +15,15 @@ export class RateplansService {
 
   update(id, rateplan) {
     const data = {
-      notif: rateplan,
+      data: rateplan,
     }
+    console.log(data)
     return this.http.put(`${this.uri}/rateplan/${id}`, data);
   }
 
   add(rateplan) {
     const data = {
-      notif: rateplan,
+      data: rateplan,
     }
     return this.http.post(`${this.uri}/rateplan`, data);
   }

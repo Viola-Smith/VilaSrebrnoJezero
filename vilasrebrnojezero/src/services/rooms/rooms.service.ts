@@ -27,7 +27,7 @@ export class RoomsService {
 
   update(roomId, room) {
     const data = {
-      room: room,
+      data: room,
     }
     return this.http.put(`${this.uri}/room/${roomId}`, data);
   }

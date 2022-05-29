@@ -2,11 +2,11 @@
 export default class Helper{
     
     public static transforDateRange(dateFrom: string | number | Date, dateTo: string | number | Date){
-        if(dateFrom=="" || dateFrom==undefined) {
-            if(dateTo=="" || dateTo==undefined) return { $exists: true }
+        if (dateFrom=="" || dateFrom==undefined) {
+            if (dateTo=="" || dateTo==undefined) return { $exists: true }
             else return {"$lt": new Date(dateTo)}
-        }else {
-            if(dateTo=="" || dateTo==undefined) return { "$gte": new Date(dateFrom) }
+        } else {
+            if (dateTo=="" || dateTo==undefined) return { "$gte": new Date(dateFrom) }
             else return { "$gte": new Date(dateFrom), "$lt": new Date(dateTo) }
         }
     }

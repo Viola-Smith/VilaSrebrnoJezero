@@ -1,18 +1,12 @@
 import Notification from "../models/notification";
+import Repo from "./Repo";
 
-export default class NotificationRepo {
-
-    public static async getAllNotifications() {
-        return await Notification.collection.find().toArray()
+export default class NotificationRepo extends Repo {
+    constructor () {
+        super(Notification)
     }
 
-    public static async update(notifId: number, notif: any) {
-        return await Notification.updateOne( { id: notifId }, notif ).exec()
+    public async getByType(type: any) {
+        return await this.model.collection.find({ 'type': type }).toArray()
     }
-
-    public static async getByType(type: any) {
-        return await Notification.collection.find({ 'type': type }).toArray()
-    }
-
-
 }

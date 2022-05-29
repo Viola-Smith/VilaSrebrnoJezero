@@ -20,7 +20,7 @@ let Pricelist = new Schema({
         type: String
     },
 	base_price: {
-        type: Array
+        type: Number
     }
 }, {collection:"Pricelist"});
 

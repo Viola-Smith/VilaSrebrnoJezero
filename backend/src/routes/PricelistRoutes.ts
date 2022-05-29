@@ -1,30 +1,25 @@
-import express from 'express';
-import ReservationRepo from '../database/repositories/ReservationRepo';
 import PricelistService from '../services/PricelistService';
+import Routes from './Routes';
 
-const router = express.Router();
+export default class PricelistRoutes extends Routes {
+  protected service = new PricelistService()
 
-router.route('/').post(async (req, res) => {
-	let pricelist = req.body.pricelist
-	res.json(await PricelistService.addPricelist(pricelist))
-});
+  postRoute() {
+	this.router.route('/').post(async (req, res) => {
+		let pricelist = req.body.data
+		res.json(await this.service.addPricelist(pricelist))
+	});
+  }
 
-router.route('/').get(async (req, res) => {
-	res.json(await PricelistService.getPricelist())
-});
+  constructor() {
+    super()
+     
+    this.router.route('/multiple').post(async (req, res) => {
+		let pricelists = req.body.data
+		res.json(await this.service.addPricelists(pricelists))
+	});
+	
+  }
+}
 
-router.route('/:id').delete(async (req, res) => {
-	let resId = req.params.id
-	res.json(await PricelistService.removePricelist(parseInt(resId)))
-});
-
-router.route('/:id').put(async (req, res) => {
-	let pricelist = req.body
-	let id = req.params.id
-	console.log(pricelist)
-	console.log(id)
-	console.log('update')
-	res.json(await PricelistService.editPricelist(parseInt(id), pricelist))
-})
-
-module.exports = router;
+module.exports = (new PricelistRoutes()).getRouter();

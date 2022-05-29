@@ -70,6 +70,10 @@ export class DashboardComponent implements OnInit {
       this.dateTo.setDate(this.dateFrom.getDate() + 2)
       this.dateFrom = this.dateFrom.toISOString().split('T')[0];
       this.dateTo = this.dateTo.toISOString().split('T')[0];
+
+
+
+
     })
   }
 
@@ -143,7 +147,7 @@ export class DashboardComponent implements OnInit {
       notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null
     }
     console.log(reservation)
-    this.reservationService.book(reservation, window.location.href).subscribe((res: any) => {
+    this.reservationService.book(reservation).subscribe((res: any) => {
       console.log(res)
       if (res.new) {
         res.new.color = Math.floor(Math.random() * 361);

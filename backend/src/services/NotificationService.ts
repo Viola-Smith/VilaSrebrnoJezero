@@ -1,23 +1,12 @@
 import NotificationRepo from "../database/repositories/NotificationRepo";
+import Service from "./Service";
 
-export default class NotificationService {
+export default class NotificationService extends Service {
+    protected repo = new NotificationRepo()
+    protected name = 'notification'
 
-    public static async getAll() {
-        return await NotificationRepo.getAllNotifications()
-    }
-
-    public static async update (notifId: any, notif:any) {
-        let updated = await NotificationRepo.update(notifId, notif)
-        console.log(updated)
-        if (updated.modifiedCount > 0) {
-            return { 'message': 'Sucessfully edited notification' } 
-        } else {
-            return { 'message': 'Failed to edit notification' } 
-        }
-    }
-
-    public static async getByType (type: any) {
-        return await NotificationRepo.getByType(type)
+    public async getByType (type: any) {
+        return this.repo.getByType(type)
     }
 
 }

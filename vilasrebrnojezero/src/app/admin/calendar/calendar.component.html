@@ -1,6 +1,12 @@
 <div class="calendarForm">
-    <p>Connect with google calendar</p>
-
-    <button (click)="connectToGoogle()">{{ hasToken ? 'Disconnect' : 'Connect' }}</button>
-
+    <div class="integrations">
+        <div *ngFor="let integration of inetgrations" class="integration">
+            <p><span *ngIf="!integration.enabled">Connect</span><span *ngIf="integration.enabled">Connected</span> to {{ integration.name }}</p>
+            <div class="iconAndBtn">
+                <img src="../../../assets/styles/images/integrations/{{integration.imgPath}}">
+                <button (click)="disconnect(integration)" *ngIf="integration.enabled" class="btn btn-danger">Disconnect</button>
+                <button (click)="connect(integration)" *ngIf="!integration.enabled" class="btn btn-success">Connect</button>        
+            </div>
+        </div>
+    </div>
 </div>

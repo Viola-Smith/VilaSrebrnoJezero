@@ -1,14 +1,14 @@
 import RatePlan from "../models/ratePlans";
+import Repo from "./Repo";
 
 
-export default class RatePlanRepo {
-
-    public static async getRatePlans() {
-        return await RatePlan.collection.find().toArray()
+export default class RatePlanRepo extends Repo {
+    constructor () {
+        super(RatePlan)
     }
 
-    public static async getRatePlanByNights(numOfNights: number) {
-        return await RatePlan.collection.findOne({ $and: [
+    public async getRatePlanByNights(numOfNights: number) {
+        return await this.model.collection.findOne({ $and: [
             {
                 minNights : { $lte: numOfNights }
             },
@@ -17,18 +17,4 @@ export default class RatePlanRepo {
             }
         ]})
     }
-
-    public static async addRatePlans(ratePlan: any) {
-        let newRP = new RatePlan(ratePlan);
-        return await newRP.save()
-    }
-
-    public static async updateRatePlan(ratePlanId: number, ratePlan: any) {
-        return await RatePlan.updateOne( { id: ratePlanId }, ratePlan ).exec()
-    }
-
-    public static async delete(id: number) {
-        return await RatePlan.remove( { id: id } ).exec()
-    }
-
 }

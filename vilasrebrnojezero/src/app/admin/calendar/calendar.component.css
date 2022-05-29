@@ -1,4 +1,36 @@
 .calendarForm {
     margin-left: 250px;
-    padding-top: 100px;
+    padding-top: 40px;
+}
+
+.calendarForm p {
+    color:darkslategrey
+}
+
+.calendarForm .integrations {
+    display: flex;
+    gap: 20px;
+}
+
+.calendarForm .integrations .integration {
+    background-color: rgba(236, 236, 236, 0.8);
+    padding: 15px;
+    color: rgb(83, 81, 81);
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 1px 1px 10px rgb(197, 195, 195);
+    border: 1px solid rgb(121, 118, 118);
+    width: 300px;
+}
+
+.calendarForm .integrations .integration img {
+    width: 35px;
+    height: 35px;
+}
+
+.calendarForm .iconAndBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

@@ -1,5 +1,5 @@
+import IntegrationRepo from "../database/repositories/IntegrationRepo";
 import ReservationRepo from "../database/repositories/ReservationRepo";
-import CalendarRepo from "../database/repositories/CalendarRepo";
 
 const {google} = require('googleapis');
 
@@ -11,21 +11,18 @@ const REDIRECT_URI = 'http://localhost:4200/calendar'
 
 export default class CalendarService {
 
-    public static async authorizeUser(redirectUri: string) {
-        const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, redirectUri);
-        let token = await CalendarRepo.getToken()
+    public static async authorizeUser() {
+        const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+        let token = await this.getToken()
         console.log(token)
-        if (!token) {
+        if (Object.keys(token).length === 0) {
             return await this.getAccessToken(oAuth2Client);
         }
     }
 
-    public static async disconnectUser() {
-        return await CalendarRepo.deleteToken()
-    }
-
     public static async getToken() {
-        return (await CalendarRepo.getToken())
+        let gCal = await new IntegrationRepo().getByName('Google Calendar')
+        return gCal.content
     }
 
     private static async getAccessToken(oAuth2Client: any) {
@@ -38,15 +35,15 @@ export default class CalendarService {
     }
 
     public static async createAccessToken(code: string, requestUri: string) {
-        const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, requestUri);
+        const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
         oAuth2Client.getToken(decodeURIComponent(code), (err: any, token: any) => 
             {
                 if (err) return console.error('Error retrieving access token', err);
                 oAuth2Client.setCredentials(token);
-                // Store the token to disk for later program executions
-                CalendarRepo.createToken(token)
+                new IntegrationRepo().addContent('Google Calendar', {token: token})
                 this.listEvents(oAuth2Client);
-            });
+            }
+        );
     }
 
 
@@ -73,13 +70,13 @@ export default class CalendarService {
         });
     }
 
-    public static async createEvent (redirectUri: any, reservation: any, resId: any) {
-        let token = await CalendarRepo.getToken()
+    public static async createEvent (reservation: any, resId: any) {
+        let token = await this.getToken()
 
         console.log(token.get('token'))
         console.log(reservation)
         if (token) {
-            const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, redirectUri);
+            const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
             oAuth2Client.setCredentials(token.get('token'));
             if (!oAuth2Client) {
                 console.log(oAuth2Client)
@@ -115,7 +112,7 @@ export default class CalendarService {
                 resource: event,
             })
             if (createdEvent) {
-                await ReservationRepo.updateGCId(resId, createdEvent.data.id)
+                await new ReservationRepo().updateGCId(resId, createdEvent.data.id)
                 return createdEvent.data.id
             } else {
                 return null
@@ -127,7 +124,7 @@ export default class CalendarService {
     }
 
     public static async editEvent (reservation: any, googleCalendarEventId: any, status = 'confirmed') {
-        let token = await CalendarRepo.getToken()
+        let token = await this.getToken()
 
         console.log(token.get('token'))
         console.log(reservation)

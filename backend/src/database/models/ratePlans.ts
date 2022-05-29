@@ -7,6 +7,9 @@ let RatePlan = new Schema({
     id: {
         type: Number
     },
+    name: {
+        type: String
+    },
 	minNights: {
         type: Number
     },
@@ -17,6 +20,9 @@ let RatePlan = new Schema({
         type: Number
     },
     subtract: {
+        type: Boolean
+    },
+    percent: {
         type: Boolean
     }
 }, {collection:"RatePlan"});

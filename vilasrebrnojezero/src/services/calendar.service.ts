@@ -10,28 +10,24 @@ export class CalendarService {
 
   constructor(private http: HttpClient) { }
 
-  authorizeUser(redirectUri) {
-    const data = {
-      redirectUri: redirectUri
-    }
-    return this.http.post(`${this.uri}/calendar/authorize`, data);
-  }
-
   connectUser(code, redirectUri) {
     const data = {
       code: code,
       redirectUri: redirectUri
     }
-    return this.http.post(`${this.uri}/calendar/connect`, data);
+    return this.http.post(`${this.uri}/integration/connect`, data);
   }
 
-
-  hasToken() {
-    return this.http.get(`${this.uri}/calendar/token`);
+  disconnect(integration) {
+    return this.http.get(`${this.uri}/integration/disconnect/${integration.id}`);
   }
 
-  disconnect() {
-    return this.http.get(`${this.uri}/calendar/disconnect`);
+  connect(integration) {
+    return this.http.get(`${this.uri}/integration/connect/${integration.id}`);
+  }
+
+  getIntegrations() {
+    return this.http.get(`${this.uri}/integration`);
   }
 
 }

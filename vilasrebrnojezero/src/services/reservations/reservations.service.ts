@@ -12,11 +12,10 @@ export class ReservationsService {
 
   constructor(private http: HttpClient) { }
 
-  book(reservation: Reservation, redirectUri: string){
+  book(reservation: Reservation){
     console.log(reservation)
     const data = {
-      reservation: reservation,
-      redirectUri: redirectUri
+      reservation: reservation
     }
     return this.http.post(`${this.uri}/reservation`, data);
   }
@@ -25,11 +24,10 @@ export class ReservationsService {
     return this.http.get(`${this.uri}/reservation`);
   }
 
-  reserve(reservation, redirectUri: string) {
+  reserve(reservation) {
     console.log(reservation)
     const data = {
-      reservation: reservation,
-      redirectUri: redirectUri
+      reservation: reservation
     }
     return this.http.post(`${this.uri}/reservation/reserve`, data);
   }

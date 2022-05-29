@@ -8,14 +8,9 @@ import { TranslationsService } from 'src/services/translations.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private translationsService: TranslationsService) { }
-
-  commonStrings
-  homeStrings
+  constructor(private translations: TranslationsService) { }
 
   ngOnInit() {
-    // this.commonStrings = this.translationsService.getCommonStrings()
-    // this.homeStrings = this.translationsService.getHomeStrings()
   }
 
 }

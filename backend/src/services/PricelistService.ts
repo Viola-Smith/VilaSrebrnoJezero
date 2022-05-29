@@ -1,13 +1,16 @@
 import Helper from "../helpers/Helper";
 import PriceListRepo from "../database/repositories/PriceListRepo";
 import RatePlanRepo from "../database/repositories/RatePlanRepo";
+import Service from "./Service";
 
 
 
-export default class PricelistService {
+export default class PricelistService extends Service {
+    protected repo = new PriceListRepo()
+    protected name = 'prices'
 
-    public static async calculatePrice(dateFrom: string, dateTo: string, room: string) {
-        let pricelist = await this.getPricelist()
+    public async calculatePrice(dateFrom: string, dateTo: string, room: string) {
+        let pricelist = await super.getAll()
         let date1 = new Date(dateFrom)
         let date2 = new Date(dateTo)
 
@@ -15,8 +18,14 @@ export default class PricelistService {
 
         let totalPrice = 0
         let currentDate = new Date(dateFrom);
-        while (currentDate <= date2) {
-            let price = pricelist.find(p => currentDate >= p.period_dates.date_from && currentDate <= p.period_dates.date_to && room.includes(p.room))
+        while (currentDate < date2) {
+            let prices = pricelist.filter((p:any) =>
+                currentDate >= new Date(p.period_dates.date_from) &&
+                currentDate <= new Date(p.period_dates.date_to) &&
+                room.includes(p.room)
+            )
+            
+            let price = prices.length ? prices[prices.length - 1] : null
             if (price) {
                 if (numberOfNights > 0) {
                     totalPrice += price.base_price
@@ -24,15 +33,15 @@ export default class PricelistService {
             }
             currentDate.setDate(currentDate.getDate() + 1);
         }
+    
 
-        let ratePlan = await RatePlanRepo.getRatePlanByNights(numberOfNights)
-        console.log(ratePlan)
+        let ratePlan = await (new RatePlanRepo()).getRatePlanByNights(numberOfNights)
         if (ratePlan) {
-            let modification = (ratePlan.get('base_price_mod')/100)*totalPrice
+            let modification = ratePlan.percent ? (ratePlan.base_price_mod/100)*totalPrice : ratePlan.base_price_mod*numberOfNights
             if (modification) {
-                if (ratePlan.get('subtract') === true) {
+                if (ratePlan.subtract === true) {
                     totalPrice -= modification
-                } else if (ratePlan.get('subtract') === false) {
+                } else if (ratePlan.subtract === false) {
                     totalPrice += modification
                 }
             }
@@ -41,41 +50,40 @@ export default class PricelistService {
         return totalPrice;
     }
 
-    public static async getPricelist () {
-        return await PriceListRepo.getPriceList()
+    public async addPricelist (pls: any) {
+        for (let index = 0; index < pls.length; index++) {
+            try{
+                let foundPl = await this.repo.getPriceListByDateRangeAndRoom(pls[index].period_dates.date_from, pls[index].period_dates.date_to, pls[index].room)
+                console.log(foundPl)
+                for (let i = 0; i < foundPl.length; i++) {
+                    await super.delete(foundPl[i].id)
+                }
+                await super.add(pls[index])
+            } catch (e) {
+                console.log(e)
+                return {'message': 'Failed to change prices'}
+            }
+        }
+        return {'message': 'Succesfully changed prices'}
     }
 
-    public static async addPricelist (pl: any) {
-        return await PriceListRepo.addPL(pl)
+    public async addPricelists (pls: any) {
+        for (let index = 0; index < pls.length; index++) {
+            console.log(pls[index])
+            try{
+                let foundPl = await this.repo.getPriceListByDateAndRoom(pls[index].period_dates.date_from, pls[index].period_dates.date_to, pls[index].room)
+                if (foundPl.length === 0) {
+                    await super.add(pls[index])
+                } else {
+                    pls[index].id = foundPl[0].id
+                    await super.update(foundPl[0].id, pls[index])
+                }
+            } catch (e) {
+                console.log(e)
+                return {'message': 'Failed to change prices'}
+            }
+        }
+        return {'message': 'Succesfully changed prices'}
     }
-
-    public static async editPricelist (id: number, pl: any) {
-        return await PriceListRepo.updatePL(id, pl)
-    }
-
-    public static async removePricelist (id: number) {
-        return await PriceListRepo.delete(id)
-    }
-        
-
-
-// let priceUnit: { [s: string]: any } = numberOfNights <= 7
-//     ? price.nights_price.find((p: {}) => parseInt(Object.keys(p)[0]) === numberOfNights)
-//     : price.nights_price[price.nights_price.length - 1]
-
-// if (month1 === month2) return parseInt(Object.values(priceUnit)[0]) * numberOfNights
-// else {
-//     let pricesMonth2 = pricelist.find(p => p.period_dates.includes(month2) && room.includes(p.room))
-//     let priceUnitMonth2: { [s: string]: any } = numberOfNights <= 7
-//     ? pricesMonth2.nights_price.find((p: {}) => parseInt(Object.keys(p)[0]) === numberOfNights)
-//     : pricesMonth2.nights_price[price.nights_price.length - 1]
-
-//     var firstDay = new Date(date2.getFullYear(), date2.getMonth(), 1);
-//     var lastDay = new Date(date1.getFullYear(), date1.getMonth() + 1, 0);
-//     let nights1 = Helper.getNumberOfNights(date1, lastDay)
-//     let nights2 = Helper.getNumberOfNights(firstDay, date2)
-
-//     return parseInt(Object.values(priceUnit)[0]) * nights1 + parseInt(Object.values(priceUnitMonth2)[0]) * nights2                    
-
        
 }

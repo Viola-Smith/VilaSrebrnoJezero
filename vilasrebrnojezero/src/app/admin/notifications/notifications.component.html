@@ -17,9 +17,9 @@
             <div *ngFor="let notif of customerNotifications">
                 <p>{{ notif.type.charAt(0).toUpperCase() + notif.type.slice(1) }} Notification</p>
                 <span>Subject</span><br>
-                <input [(ngModel)] = "notif.subject" name="subject1" type="text"><br>
+                <input [(ngModel)] = "notif.subject" name="subject1" type="text" class="form-control">
                 <span>Body</span>
-                <textarea [(ngModel)] = "notif.text" name="text1" rows="4">
+                <textarea [(ngModel)] = "notif.text" name="text1" rows="4" class="form-control">
                 </textarea>
                 <div class="save">
                     <button type="button" class="btn btn-success" (click)="save(notif.id, true)">Save</button>
@@ -30,9 +30,9 @@
             <div *ngFor="let notif of providerNotifications">
                 <p>{{ notif.type.charAt(0).toUpperCase() + notif.type.slice(1) }} Notification</p>
                 <span>Subject</span><br>
-                <input [(ngModel)] = "notif.subject" name="subject2" type="text"><br>
+                <input [(ngModel)] = "notif.subject" name="subject2" type="text" class="form-control">
                 <span>Body</span>
-                <textarea [(ngModel)] = "notif.text" name="text2" rows="4">
+                <textarea [(ngModel)] = "notif.text" name="text2" rows="4" class="form-control">
                 </textarea>
                 <div class="save">
                     <button type="button" class="btn btn-success" (click)="save(notif.id)">Save</button>

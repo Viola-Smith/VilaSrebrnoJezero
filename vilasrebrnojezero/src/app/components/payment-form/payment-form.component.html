@@ -2,22 +2,24 @@
     <div class="section-center" id='reservation-form'>
         <div class="container-fluid">
             <div class="row">
-                <div class="booking-form col-lg-5 col-md-5 not-disabled">
+                <div class="booking-form col-lg-5 col-md-5" *ngIf="!bookingDone">
                     <div class="form-header">
-                        <h1>Payment</h1>
+                        <h1>{{ translations.labels.payment_form.payment }}</h1>
                     </div>
                     <div class='closeBook' (click)='closeBook()'>
                         <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
                     </div>
-                    <div style='color:white' class='row'>
+                    <div style='color:rgba(62, 193, 172, 0.9)' class='row'>
                         <div class='col-lg-4 col-md-4'>
-                            Uplati :
+                            {{ translations.labels.payment_form.pay }} :
                         </div>
                         <div class='col-lg-4 col-md-4'>
-                            <input type='radio' value='avans' [(ngModel)]='type' name='type'> Avans 30%
+                            <input type='radio' value='avans' [(ngModel)]='type' name='type'> 
+                            {{ translations.labels.payment_form.deposit }}
                         </div>
                         <div class='col-lg-4 col-md-4'>
-                            <input type='radio' value='celo' [(ngModel)]='type' name='type'> Punu Cenu
+                            <input type='radio' value='celo' [(ngModel)]='type' name='type'>
+                            {{ translations.labels.payment_form.full_price }}
                         </div>
                     </div>
                     <!-- <br>
@@ -31,27 +33,54 @@
                             <!-- <div id="paypal-button"></div> -->
                         </div>
                     </div>
-
                     <br>
                     <div class='row'>
                         <div class='col-6'>
                             <div class="form-btn">
-                                <button class="submit-btn" (click)='goBack()'>Nazad</button>
+                                <button class="submit-btn" (click)='goBack()'>{{ translations.labels.payment_form.back }}</button>
                             </div>
                         </div>
                         <div class='col-6'>
                             <div class="form-btn">
-                                <button class="submit-btn" (click)='closeBook()'>Odustani</button>
+                                <button class="submit-btn" (click)='closeBook()'>{{ translations.labels.payment_form.cancel }}</button>
                             </div>
                         </div>
                     </div>
-                    
                     <p style="color:red">
                         {{ errorMessage }}
                     </p>
-
                 </div>
-               
+                <div *ngIf="bookingDone" class="booking-form col-lg-5 col-md-5">
+                    <div class="form-header">
+                        <h1>{{ translations.labels.payment_form.booking_successfull }}</h1>
+                    </div>
+                    <div class='closeBook' (click)='closeBook()'>
+                        <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
+                    </div>
+                    <div class='row'>
+                        <div class='col'>
+                            <div class="bookingInfo">
+                                <div class="bInfoFlex">
+                                    <span>{{ reservation.dateRange.date1 }} - {{ reservation.dateRange.date2 }}</span>
+                                    <span>{{ getNights(reservation.dateRange.date1, reservation.dateRange.date2) }} {{ translations.labels.common.nights }}</span>
+                                </div>
+                                <div>
+                                   <h5>{{ reservation.person.name }} {{ reservation.person.lname }}</h5>
+                                   <p *ngIf="reservation.person.email">{{ reservation.person.email }}</p>
+                                   <p>{{ reservation.person.phone }}</p>
+                                </div>
+                                <div class="bInfoFlex">
+                                    <p>{{ translations.labels.payment_form.paid }}: {{ type == 'avans' ? reservation.price*0.3 : reservation.price }} RSD</p>
+                                    <p *ngIf="type === 'avans'">
+                                        {{ translations.labels.payment_form.left_to_pay }}:
+                                         {{ reservation.price - reservation.price*0.3 }} RSD
+                                    </p>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
