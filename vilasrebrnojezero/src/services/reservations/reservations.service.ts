@@ -53,7 +53,7 @@ export class ReservationsService {
   update(resId, reservationObj) {
     console.log(reservationObj)
     const data = {
-      reservation: reservationObj,
+      data: reservationObj,
     }
     return this.http.put(`${this.uri}/reservation/${resId}`, data);
   }

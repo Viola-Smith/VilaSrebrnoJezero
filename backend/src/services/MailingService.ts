@@ -55,14 +55,11 @@ export default class MailingService {
 
 
     private static async replaceAndSend (reservation: any, type: any) {
-        console.log(reservation)
         let notifications = await new NotificationService().getByType(type)
-        console.log(notifications)
         notifications.forEach((notif: any) => {
             let placeholderData = this.getPlaceholders(reservation)
             let subject = this.replacePlaceholders(notif.subject, placeholderData)
             let body = this.replacePlaceholders(notif.text, placeholderData)
-            console.log(body)
             if (notif.sendTo == 'customer') {
                 this.sendMail(reservation.person.email, body, subject)
             } else {

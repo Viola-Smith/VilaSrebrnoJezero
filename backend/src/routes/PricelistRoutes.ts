@@ -15,9 +15,14 @@ export default class PricelistRoutes extends Routes {
     super()
      
     this.router.route('/multiple').post(async (req, res) => {
-		let pricelists = req.body.data
-		res.json(await this.service.addPricelists(pricelists))
-	});
+      let pricelists = req.body.data
+      res.json(await this.service.addPricelists(pricelists))
+	  });
+
+    this.router.route('/room/:id').get(async (req, res) => {
+      let roomId = req.params.id
+      res.json(await this.service.getPricelistByRoom(roomId))
+	  });
 	
   }
 }

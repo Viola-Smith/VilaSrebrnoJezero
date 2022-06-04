@@ -13,6 +13,10 @@ export class PricelistService {
     return this.http.get(`${this.uri}/pricelist`);
   }
 
+  getPricelistsByRoom(roomId) {
+    return this.http.get(`${this.uri}/pricelist/room/${roomId}`);
+  }
+
   updatePricelist(id, pricelist) {
     const data = {
       data: pricelist,

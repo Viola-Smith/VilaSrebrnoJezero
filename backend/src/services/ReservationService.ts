@@ -43,7 +43,7 @@ export default class ReservationService extends Service {
                 if (calendarEnabled) {
                     await CalendarService.createEvent(reservationObject, outcome.id)
                 }
-                let success = bookingEnabled ? await BookingService.run(reservationObject) : true
+                let success = bookingEnabled ? await BookingService.makeBooking(reservationObject) : true
                 
                 if (success) {
                     return { 'message': 'Sucessfully inserted reservation', 'new': outcome }
@@ -54,6 +54,7 @@ export default class ReservationService extends Service {
                 return { 'message': 'Failed to insert reservation', 'new': null }
             }
         } catch (err) {
+            console.log(err)
             return { 'message': err, 'new': null as Object }
         }
     }
@@ -165,10 +166,10 @@ export default class ReservationService extends Service {
 
     public async update(resId: number, res: any) {
         try {
+            res.payed = parseInt(res.payed)
             let outcome = await super.update(resId, res)
             if (outcome.outcome) {
                 MailingService.updateReservation(res)
-                console.log(res)
                 await CalendarService.editEvent(res, res.googleCalendarEventId)
                 return outcome
             } else {

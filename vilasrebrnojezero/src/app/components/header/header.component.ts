@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RoomsService } from 'src/services/rooms/rooms.service';
 import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
@@ -9,16 +10,26 @@ import { TranslationsService } from 'src/services/translations.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, private translations: TranslationsService) { }
+  constructor(private router: Router, private translations: TranslationsService, private roomService: RoomsService) { }
 
   chosenLanguage = this.translations.getLanguage()
   otherLanguages = this.translations.getOtherLanguages()
 
+  rooms = []
+
   ngOnInit() {
+    this.roomService.getRoomNumbers().subscribe((rooms:any) => {
+      this.rooms = Object.keys(this.roomService.getRoomTypesFromRooms(rooms)).sort()
+    })
   }
 
   goToRooms(id) {
-    this.router.navigate(['/rooms'], { queryParams: { id: id } });
+    localStorage.setItem('roomId', id)
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/rooms']);
   }
 
   showBookModal() {

@@ -25,7 +25,7 @@
             <div class="row" align='center'>
 
                 <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-                    <h2 class="mb-5">Dvokrevetne sobe</h2>
+                    <h2 class="mb-5">{{ translationService.labels.common[roomId] }}</h2>
 
                 </div>
             </div>
@@ -34,11 +34,11 @@
             <ul class="nav nav-tabs justify-content-center" style='margin-bottom:5%;' id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="gal-tab" data-toggle="tab" href="#gal" role="tab" aria-controls="gal"
-                        aria-selected="true">Galerija</a>
+                        aria-selected="true">{{ translationService.labels.header.gallery }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cenovnik-tab" data-toggle="tab" href="#cenovnik" role="tab"
-                        aria-controls="cenovnik" aria-selected="false">Cenovnik</a>
+                        aria-controls="cenovnik" aria-selected="false">{{ translationService.labels.header.pricelist }}</a>
                 </li>
 
             </ul>
@@ -47,135 +47,23 @@
 
                 <div class="tab-pane fade show active" id="gal" role="tabpanel" aria-labelledby="gal-tab">
 
-                    <!--<h4 align='center'>Galerija</h4><br><br>-->
                     <div class="row">
 
                         <div class='col-md-1 col-lg-1'></div>
                         <div class="col-md-5 col-lg-5 mb-5">
                             <div class="hotel-room text-center">
 
-                                <div class="hotel-room-body" style='background-color:#f0e9e9'>
-                                    <h3 class="heading mb-0">Bračne sobe</h3>
-                                    <strong class="price"></strong>
-                                </div>
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner" style='width:100%;'>
-                                        <div class="carousel-item active">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d6.jpg"
+
+                                        <div *ngFor="let i of numbers10" class="carousel-item" [ngClass]="{'active': i === 0}">
+                                            <a href="../assets/styles/images/sobe/{{roomId}}/{{i+1}}.jpg"
                                                 class="image-popup img-opacity">
                                                 <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d6.jpg"
+                                                    src="../assets/styles/images/sobe/{{roomId}}/{{i+1}}.jpg"
                                                     alt="First slide">
                                             </a>
                                         </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d1.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d1.jpg"
-                                                    alt="Second slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d3.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d3.jpg"
-                                                    alt="Third slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d4.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d4.jpg"
-                                                    alt="Fourth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d7.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d7.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d8.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d8.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d9.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d9.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d5.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d5.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d10.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d10.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d11.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d11.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d12.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d12.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d13.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d13.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d14.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d14.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/d15.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/d15.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
 
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
@@ -195,108 +83,18 @@
 
                         <div class="col-md-5 col-lg-5 mb-5" style='margin:0 !important'>
                             <div class="hotel-room text-center">
-                                <div class="hotel-room-body" style='background-color:#f0e9e9'>
-                                    <h3 class="heading mb-0">Singl sobe</h3>
-                                    <strong class="price"></strong>
-                                </div>
-
-
+                            
                                 <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner" style='width:100% !important'>
-                                        <!--<div class="carousel-item active">
-                    <a href="../assets/styles/images/sobe/dvokrevetne/s1.jpg" class="image-popup img-opacity">
-                    <img class="d-block w-100" src="../assets/styles/images/sobe/dvokrevetne/s1.jpg" alt="First slide">
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <a href="../assets/styles/images/sobe/dvokrevetne/s2.jpg" class="image-popup img-opacity">
-                        <img class="d-block w-100" src="../assets/styles/images/sobe/dvokrevetne/s2.jpg" alt="Second slide">
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <a href="../assets/styles/images/sobe/dvokrevetne/s3.jpg" class="image-popup img-opacity">
-                        <img class="d-block w-100" src="../assets/styles/images/sobe/dvokrevetne/s3.jpg" alt="Third slide">
-                    </a>
-                </div>
-                -->
-                                        <div class="carousel-item active">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s5m.jpg"
+                             
+                                        <div *ngFor="let i of numbers20" class="carousel-item" [ngClass]="{'active': i === 10}">
+                                            <a href="../assets/styles/images/sobe/{{roomId}}/{{i+1}}.jpg"
                                                 class="image-popup img-opacity">
                                                 <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s5m.jpg"
-                                                    alt="Fifth slide">
+                                                    src="../assets/styles/images/sobe/{{roomId}}/{{i+1}}.jpg"
+                                                    alt="First slide">
                                             </a>
                                         </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s6m.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s6m.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s4s.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s4s.jpg"
-                                                    alt="Fourth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s7m.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s7m.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s8m.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s8m.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s9m.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s9m.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s13m.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s13m.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s14m.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s14m.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
-                                        <div class="carousel-item">
-                                            <a href="../assets/styles/images/sobe/dvokrevetne/s15.jpg"
-                                                class="image-popup img-opacity">
-                                                <img class="d-block w-100"
-                                                    src="../assets/styles/images/sobe/dvokrevetne/s15s.jpg"
-                                                    alt="Fifth slide">
-                                            </a>
-                                        </div>
-
 
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
@@ -360,201 +158,35 @@
                 <div class="tab-pane fade" id="cenovnik" role="tabpanel" aria-labelledby="cenovnik-tab">
 
                     <!--<h4 align='center'>Cenovnik</h4>-->
-                    <h6 align='center'>Cene su izražene u RSD</h6><br>
-                    <h6 align='center'>Pomoćni ležaj I - deca do 6 godina - 300 RSD</h6>
-                    <h6 align='center'>Pomoćni ležaj II - deca do 6 godina - 200 RSD</h6>
+                    <h6 align='center'>{{ translationService.labels.rooms.prices_in_RSD }}</h6><br>
+                    <h6 align='center'>{{ translationService.labels.rooms.extra_bed_1 }}</h6>
+                    <h6 align='center'>{{ translationService.labels.rooms.extra_bed_2 }}</h6>
                     <br>
-                    <div class='row' style='margin-right:0%'>
-                        <div class="col-md-6 col-lg-6 col-sm-12" style='border-radius: 25px;'>
+                    <div class='pricelist-room'>
+                        <div *ngFor="let pl of pricelists" style='border-radius: 25px;'>
 
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Novogodišnji praznici (31.12.2020. - 03.01.2021.)
+                            <div class="name">
+                                {{pl.name}}
                             </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>4.400,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>3.800,00/NOĆ</div><br>
-                                <div style='float:left'>3 NOĆENJA</div>
-                                <div style='float:right'>3.200,00/NOĆ</div><br>
-                                <div style='float:left'>4 NOĆENJA</div>
-                                <div style='float:right'>2.800,00/NOĆ</div><br>
-                                <div style='float:left'>5 NOĆENJA</div>
-                                <div style='float:right'>2.400,00/NOĆ</div><br>
-                                <div style='float:left'>6 NOĆENJA</div>
-                                <div style='float:right'>2.200,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
+                            <div class="prices">
+                                <div>
+                                    <div>1 {{ translationService.labels.rooms.night.toUpperCase() }}</div>
+                                    <div>{{ formatPrice(pl.base_price) }}/{{ translationService.labels.common.night }}</div>                              
+                                </div>
+                                <div *ngFor="let rp of rateplans">
+                                    <div>{{ rp.name }}</div>
+                                    <div>{{ formatPrice(getAdjustedPrice(pl.base_price, rp)) }}/{{ translationService.labels.common.night }}</div>
+                                </div>
+                            
+                                
                             </div>
-
-                        </div>
-
-                        <div class="col-md-6 col-lg-6 col-sm-12" style='border-radius: 25px;'>
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Prvomajski praznici (30.04.2021. - 04.05.2021.)
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>4.400,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>3.800,00/NOĆ</div><br>
-                                <div style='float:left'>3 NOĆENJA</div>
-                                <div style='float:right'>3.200,00/NOĆ</div><br>
-                                <div style='float:left'>4 NOĆENJA</div>
-                                <div style='float:right'>2.800,00/NOĆ</div><br>
-                                <div style='float:left'>5 NOĆENJA</div>
-                                <div style='float:right'>2.400,00/NOĆ</div><br>
-                                <div style='float:left'>6 NOĆENJA</div>
-                                <div style='float:right'>2.200,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                            </div>
-
-                        </div>
-
-
-
-                    </div>
-                    <br><br>
-                    <div class='row' style='margin-right:0%'>
-                        <div class="col-md-6 col-lg-6 col-sm-12" style='border-radius: 25px;'>
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Mart/April/Maj
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>2.500,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                                <div style='float:left'>3 i 4 NOĆENJA</div>
-                                <div style='float:right'>1.800,00/NOĆ</div><br>
-                                <div style='float:left'>5 i 6 NOĆENJA</div>
-                                <div style='float:right'>1.600,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA i preko</div>
-                                <div style='float:right'>1.400,00/NOĆ</div><br>
-                            </div>
-
-                        </div>
-                        <br>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Jun
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>3.000,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>2.200,00/NOĆ</div><br>
-                                <div style='float:left'>3 i 4 NOĆENJA</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                                <div style='float:left'>5 i 6 NOĆENJA</div>
-                                <div style='float:right'>1.800,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA i preko</div>
-                                <div style='float:right'>1.600,00/NOĆ</div><br>
-                            </div>
+                        
                         </div>
 
                     </div>
-                    <br>
-                    <div class='row' style='margin-right:0%'>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Jul
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>3.500,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>2.400,00/NOĆ</div><br>
-                                <div style='float:left'>3 i 4 NOĆENJA</div>
-                                <div style='float:right'>2.200,00/NOĆ</div><br>
-                                <div style='float:left'>5 i 6 NOĆENJA</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA i preko</div>
-                                <div style='float:right'>1.800,00/NOĆ</div><br>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Avgust
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>4.000,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>2.600,00/NOĆ</div><br>
-                                <div style='float:left'>3 i 4 NOĆENJA</div>
-                                <div style='float:right'>2.400,00/NOĆ</div><br>
-                                <div style='float:left'>5 i 6 NOĆENJA</div>
-                                <div style='float:right'>2.200,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA i preko</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                            </div>
-                        </div>
-
-                    </div>
-                    <br>
-                    <div class='row' style='margin-right:0%'>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Septembar
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>2.500,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                                <div style='float:left'>3 i 4 NOĆENJA</div>
-                                <div style='float:right'>1.800,00/NOĆ</div><br>
-                                <div style='float:left'>5 i 6 NOĆENJA</div>
-                                <div style='float:right'>1.600,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA i preko</div>
-                                <div style='float:right'>1.400,00/NOĆ</div><br>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-
-                            <div
-                                style='padding:1%;background-color:#c6e2f2;font-weight:bold;color:black;text-align:center;border-radius:15px'>
-                                Decembar/Januar/Februar
-                            </div>
-                            <div style='padding:2%;background-color:#fcd5ae;color:black;border-radius:20px'>
-                                <div style='float:left'>1 NOĆENJE</div>
-                                <div style='float:right'>4.000,00/NOĆ</div><br>
-                                <div style='float:left'>2 NOĆENJA</div>
-                                <div style='float:right'>2.600,00/NOĆ</div><br>
-                                <div style='float:left'>3 i 4 NOĆENJA</div>
-                                <div style='float:right'>2.400,00/NOĆ</div><br>
-                                <div style='float:left'>5 i 6 NOĆENJA</div>
-                                <div style='float:right'>2.200,00/NOĆ</div><br>
-                                <div style='float:left'>7 NOĆENJA i preko</div>
-                                <div style='float:right'>2.000,00/NOĆ</div><br>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
+               </div>
             </div>
-
             <br><br>
-
         </div>
     </div>
 </div>

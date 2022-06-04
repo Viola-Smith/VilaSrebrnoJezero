@@ -11,7 +11,8 @@ export default class RoomRoutes extends Routes {
       let date2 = req.query.date2
       let adults = req.query.adults
       let rooms = req.query.rooms
-      let avRooms = await this.service.getAvailableRooms(date1, date2, adults, rooms)
+      let kids = req.query.kids
+      let avRooms = await this.service.getAvailableRooms(date1, date2, adults, rooms, kids)
       let allAvRooms = await this.service.getAllAvailableRooms(date1, date2)
       res.json({suggest: avRooms, all: allAvRooms})
     });

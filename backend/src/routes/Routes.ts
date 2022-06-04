@@ -9,6 +9,11 @@ export default class Routes {
         this.router.route('/').get(async (req, res) => {
             res.json(await this.service.getAll())
         });
+
+        this.router.route('/:id').get(async (req, res) => {
+            let id = req.params.id
+            res.json(await this.service.getById(parseInt(id)))
+        });
     }
 
     postRoute() {

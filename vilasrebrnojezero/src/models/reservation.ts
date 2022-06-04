@@ -11,4 +11,5 @@ export class Reservation {
     price: number;
     payed: number;
     notes: string;
+    googleCalendarEventId: string;
 }

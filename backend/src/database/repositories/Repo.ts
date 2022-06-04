@@ -21,14 +21,14 @@ export default abstract class Repo {
         return lastId
     }
 
-    public async add(ratePlan: any) {
-        ratePlan.id = await this.findLastId();
-        let newRP = new this.model(ratePlan);
+    public async add(data: any) {
+        data.id = await this.findLastId();
+        let newRP = new this.model(data);
         return await newRP.save()
     }
 
-    public async update(ratePlanId: number, ratePlan: any) {
-        return await this.model.updateOne( { id: ratePlanId }, ratePlan ).exec()
+    public async update(id: number, data: any) {
+        return await this.model.updateOne( { id: id }, data ).exec()
     }
 
     public async delete(id: number) {

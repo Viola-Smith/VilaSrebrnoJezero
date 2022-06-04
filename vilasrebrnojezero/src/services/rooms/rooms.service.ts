@@ -14,13 +14,23 @@ export class RoomsService {
     return this.http.get(`${this.uri}/room`);
   }
 
-  getAvailableRooms(date1, date2, adults, rooms) {
+  getRoomTypesFromRooms(rooms) {
+    let roomTypes = rooms.reduce(function (r, a) {
+      r[a.name] = r[a.name] || [];
+      r[a.name].push(a.name);
+      return r;
+    }, Object.create(null))
+    return roomTypes
+  }
+
+  getAvailableRooms(date1, date2, adults, rooms, kids) {
     return this.http.get(`${this.uri}/room/available`, {
       params: {
         date1: date1,
         date2: date2,
         adults: adults,
-        rooms: rooms
+        rooms: rooms,
+        kids: kids
       }
     });
   }
@@ -30,6 +40,10 @@ export class RoomsService {
       data: room,
     }
     return this.http.put(`${this.uri}/room/${roomId}`, data);
+  }
+
+  getRoom(id) {
+    return this.http.get(`${this.uri}/room/` + id);
   }
 
 

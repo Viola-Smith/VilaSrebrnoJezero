@@ -3,6 +3,7 @@ import PricelistService from "./PricelistService";
 import Service from "./Service"
 import { Document } from 'bson';
 import ReservationRepo from '../database/repositories/ReservationRepo';
+import BookingService from './BookingService';
 
 export default class RoomService extends Service {
     protected repo = new RoomRepo()
@@ -81,46 +82,61 @@ export default class RoomService extends Service {
         return finalRooms
     }
 
-    public async getAvailableRooms(date1: any, date2: any, adults: any, roomsNum: any) {
-        let rooms = await this.getAvailable(date1, date2, adults, roomsNum)
-        let finalRooms = []
-        for (let index = 0; index < rooms.length; index++) {
-            let room = rooms[index]
-            let foundRoom = finalRooms.find(r => r.type === room.name)
+    public async getAvailableRooms(date1: any, date2: any, adults: any, roomsNum: any, kids: any) {
+        // let rooms = await this.getAvailable(date1, date2, adults, roomsNum)
+        // let finalRooms = []
+        // for (let index = 0; index < rooms.length; index++) {
+        //     let room = rooms[index]
+        //     let foundRoom = finalRooms.find(r => r.type === room.name)
 
-            if (foundRoom) {
-                foundRoom.rooms.push(room)
-                foundRoom.amount++
-            } else {
-                finalRooms.push({ rooms: [room], amount: 1, type: room.name, price: await this.priceService.calculatePrice(date1, date2, room.name) })
+        //     if (foundRoom) {
+        //         foundRoom.rooms.push(room)
+        //         foundRoom.amount++
+        //     } else {
+        //         finalRooms.push({ rooms: [room], amount: 1, type: room.name, price: await this.priceService.calculatePrice(date1, date2, room.name) })
+        //     }
+        // }
+        // return finalRooms
+        let availableRooms = []
+        let rooms =  await BookingService.getAvailable(date1, date2, adults, roomsNum, kids)
+        if (rooms) {
+            for (let index = 0; index < rooms.length; index++) {
+                let r = await this.repo.getRoomsByType(rooms[index].type)
+                if (r.length) {
+                    console.log(rooms[index].amount)
+                    console.log(r[0])
+                    availableRooms.push(Object.assign({}, r[0].toObject(), {amount: rooms[index].amount, price: await this.priceService.calculatePrice(date1, date2, rooms[index].type)}))
+                }
             }
+            console.log(availableRooms)
         }
-        return finalRooms
+        
+        return availableRooms
     }
 
     public async getAllAvailableRooms(date1: any, date2: any) {
-        let allRooms = await this.getAll()
-        let finalRooms: Document[] = []
-        for (let index = 0; index < allRooms.length; index++) {
-            let room = allRooms[index]
+        // let allRooms = await this.getAll()
+        // let finalRooms: Document[] = []
+        // for (let index = 0; index < allRooms.length; index++) {
+        //     let room = allRooms[index]
 
-            if (room.bookable && this.checkRoomBookable(room, date1, date2)) {
-                const reservations = await this.resRepo.checkAvailable(date1, date2, room.id)
-                if (reservations.length === 0) {
-                    let foundRoom = finalRooms.find(r => r.type === room.name)
+        //     if (room.bookable && this.checkRoomBookable(room, date1, date2)) {
+        //         const reservations = await this.resRepo.checkAvailable(date1, date2, room.id)
+        //         if (reservations.length === 0) {
+        //             let foundRoom = finalRooms.find(r => r.type === room.name)
 
-                    if (foundRoom) {
-                        foundRoom.rooms.push(room)
-                        foundRoom.amount++
-                    } else {
-                        finalRooms.push({ rooms: [room], amount: 1, type: room.name, price: await this.priceService.calculatePrice(date1, date2, room.name) })
-                    }
-                }
-            }
+        //             if (foundRoom) {
+        //                 foundRoom.rooms.push(room)
+        //                 foundRoom.amount++
+        //             } else {
+        //                 finalRooms.push({ rooms: [room], amount: 1, type: room.name, price: await this.priceService.calculatePrice(date1, date2, room.name) })
+        //             }
+        //         }
+        //     }
 
-        }
+        // }
 
-        return finalRooms
+        // return finalRooms
     }
 
 }

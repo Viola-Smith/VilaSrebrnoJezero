@@ -26,4 +26,9 @@ export default class PriceListRepo extends Repo {
              ]
         }).toArray()
     }
+
+    public async getPriceListByRoom(room:any){
+        return await this.model.collection.find({ "room" : room }).toArray()
+    }
+
 }

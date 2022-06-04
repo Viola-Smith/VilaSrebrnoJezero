@@ -25,6 +25,8 @@ export default abstract class Service {
 
     public async update (id: number, data: any) {
         try {
+            console.log(data)
+            console.log(id)
             let updated = await this.repo.update(id, data)
             if (updated.modifiedCount > 0) {
                 return {'message': 'Succesfully updated ' + this.name, outcome: true, 'new': updated}

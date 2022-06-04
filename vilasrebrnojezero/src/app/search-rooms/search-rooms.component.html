@@ -48,7 +48,7 @@
             <br><br>
 
 
-            <div class='row'>
+            <!-- <div class='row'>
                 <h3>
                     {{ translations.labels.search_rooms.recommendation }}{{ getNights(date1, date2) }} {{ translations.labels.common.nights }}
                 </h3>
@@ -85,9 +85,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div style='background: rgba(177, 245, 233, 0.4); 
+                <!-- <div style='background: rgba(177, 245, 233, 0.4); 
             padding:10px; cursor:pointer; text-align: center;
             border: 1px solid rgba(62, 193, 172, 0.9);' (click)='reserveSuggest()'>
 
@@ -95,7 +95,7 @@
 
                 </div>
 
-            </div>
+            </div> -->
 
 
 
@@ -106,7 +106,11 @@
                 </h3>
             </div>
 
-            <div class='row'>
+            <div *ngIf="loading" class="loading">
+                <img src="../../../assets/styles/images/loader1.gif" style="width: 200px;height: 200px">
+            </div>
+
+            <div *ngIf="!loading" class='row'>
                 <div class='col-lg-12 col-md-12 col-sm-12'>
                     <div class='row rooms-header text-center'>
                         <div class='col-lg-2 col-md-2 col-sm-6 my-auto'></div>
@@ -128,41 +132,44 @@
                         <div class='row text-center'>
                             <div class='col-lg-2 col-md-2 col-sm-6 my-auto'>
                                 <img class='roomImage'
-                                    src='{{ "../assets/styles/images/sobe/" + getImage(room.type) + ".jpg"  }}'>
+                                    src='{{ "../assets/styles/images/sobe/" + getImage(room.name) + ".jpg"  }}'>
                             </div>
                             <div class='col-lg-3 col-md-3 col-sm-6 my-auto' style='overflow-wrap:break-word;'>
                                 <h5>
-                                    {{ translations.labels.common[room.type] }}
+                                    {{ translations.labels.common[room.name] }}
                                 </h5>
                             </div>
                             <div class='col-lg-3 col-md-3 col-sm-4 my-auto'>
                                 <span class='room-info'>{{ translations.labels.search_rooms.beds }}</span>
-                                <i *ngFor='let e of [].constructor(room.rooms[0].adults); let i = index'
+                                <i *ngFor='let e of [].constructor(room.adults); let i = index'
                                     class="fas fa-user" style='margin-right:3px'></i>
-                                <span *ngIf='room.rooms[0].extra_beds>0'> + </span>
-                                <i *ngFor='let e of [].constructor(room.rooms[0].extra_beds); let i = index'
+                                <span *ngIf='room.extra_beds > 0'> + </span>
+                                <i *ngFor='let e of [].constructor(room.extra_beds); let i = index'
                                     class="fas fa-child" style='margin-right:3px'></i>
                             </div>
                             <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
                                 <span class='room-info'>{{ translations.labels.search_rooms.amount }}</span>
-                                <select [id]="'roomAmount-' + room.type" style='width: 3em'
+                                <select [id]="'roomAmount-' + room.name" style='width: 3em'
                                     (change)="selectAmount($event.target.value, room)">
                                     <option *ngFor='let e of [].constructor(room.amount+1); let i = index'>
                                         {{ i }}
                                     </option>
                                 </select>
-                                <div *ngIf='room.rooms[0].extra_beds'>
-                                    <div [id]="'roomExtra-' + room.type" style='padding-top: 15px;display: none'>
-                                        <input type='checkbox' name='extra_bed'>
-                                        <label for="extra_bed">{{ translations.labels.common.extra_bed }}</label>
+                                <div *ngIf='room.extra_beds > 0 && roomSelected(room)'>
+                                    <div style='padding-top: 5px;'
+                                    *ngFor='let extraBed of [].constructor(room.extra_beds); let i = index'>
+                                        <input type='checkbox' name='extra_bed' (change)="selectExtraBed(room, $event.currentTarget.checked)">
+                                        <label style="margin:0" for="extra_bed">{{ translations.labels.common.extra_bed }} {{i+1}}</label>
+
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
                                 <span class='room-info'>{{ translations.labels.search_rooms.price }}</span>
-                                <span [id]="'roomPrice-' + room.type">RSD {{ getPrice(room) }}</span>
+                                <span [id]="'roomPrice-' + room.name" 
+                                [ngStyle]="{'font-weight' : roomSelected(room) ? 'bold' : 'normal', 'color': roomSelected(room) ? 'black' : 'rgba(0, 0, 0, 0.5)'}">
+                                    {{ getPrice(room).toFixed(2) }} RSD
+                                </span>
                             </div>
 
                         </div>
@@ -174,10 +181,10 @@
             </div>
 
 
-            <div *ngIf='getSumPrice(manualReservationArray) > 0' class='row text-center reserveButton'>
+            <div *ngIf='!loading && getSumPrice(manualReservationArray) > 0' class='row text-center reserveButton'>
                 <div class='col'>
                     <button (click)='reserve(manualReservationArray)'>
-                        {{ translations.labels.search_rooms.reserve_for }}{{ getSumPrice(manualReservationArray) }}
+                        {{ translations.labels.search_rooms.reserve_for }}{{ getSumPrice(manualReservationArray).toFixed(2) }} RSD
                     </button>
                 </div>
             </div>

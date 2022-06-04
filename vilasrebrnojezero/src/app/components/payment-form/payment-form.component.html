@@ -2,7 +2,7 @@
     <div class="section-center" id='reservation-form'>
         <div class="container-fluid">
             <div class="row">
-                <div class="booking-form col-lg-5 col-md-5" *ngIf="!bookingDone">
+                <div class="booking-form col-lg-5 col-md-5" *ngIf="!bookingDone && !loading">
                     <div class="form-header">
                         <h1>{{ translations.labels.payment_form.payment }}</h1>
                     </div>
@@ -49,6 +49,10 @@
                     <p style="color:red">
                         {{ errorMessage }}
                     </p>
+                </div>
+                <div *ngIf="loading && !bookingDone" class="booking-form col-lg-5 col-md-5" style="width: 500px; height: 500px; display: flex;
+                justify-content: center;align-items: center;">
+                    <img src="../../../assets/styles/images/loader1.gif" style="width: 200px;height: 200px">
                 </div>
                 <div *ngIf="bookingDone" class="booking-form col-lg-5 col-md-5">
                     <div class="form-header">

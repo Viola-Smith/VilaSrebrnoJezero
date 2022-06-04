@@ -85,5 +85,9 @@ export default class PricelistService extends Service {
         }
         return {'message': 'Succesfully changed prices'}
     }
+
+    public async getPricelistByRoom(room:any) {
+        return await this.repo.getPriceListByRoom(room)
+    }
        
 }

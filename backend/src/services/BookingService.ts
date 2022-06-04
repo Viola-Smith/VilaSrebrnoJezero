@@ -4,13 +4,10 @@ const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/
 
 export default class BookingService {
 
-    public static async run (reservation: any) {
-
+    public static async makeBooking (reservation: any) {
         const browser = await puppeteer.launch({headless: true});
-
         const context = await browser.createIncognitoBrowserContext();
         const page = await context.newPage();
-        
 
         await page.setViewport({
             width: 1920 + Math.floor(Math.random() * 100),
@@ -36,7 +33,7 @@ export default class BookingService {
         }))
 
         console.log(reservation)
-    
+
         let roomType = '0'
         switch(reservation.room) {
             case 1: case 16: roomType = '4'
@@ -109,4 +106,104 @@ export default class BookingService {
     
         return true
     }
+
+
+
+    public static async getAvailable (date1:any, date2:any, adults: any, roomsNum: any, kids: any) {
+        const browser = await puppeteer.launch({headless: true});
+        const context = await browser.createIncognitoBrowserContext();
+        const page = await context.newPage();
+
+        await page.setViewport({
+            width: 1920 + Math.floor(Math.random() * 100),
+            height: 3000 + Math.floor(Math.random() * 100),
+            deviceScaleFactor: 1,
+            hasTouch: false,
+            isLandscape: false,
+            isMobile: false,
+        });
+
+   
+        await page.setUserAgent(USER_AGENT);
+        await page.setJavaScriptEnabled(true);
+        await page.setDefaultNavigationTimeout(0);
+    
+        await page.setRequestInterception(true);
+        page.on('request', ((req:any) => {
+            if(req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image'){
+                req.abort();
+            } else {
+                req.continue();
+            }
+        }))
+
+        console.log(adults)
+        console.log(kids)
+        console.log(roomsNum)
+
+        let checkinArr = date1.split('-')
+        let checkoutArr = date2.split('-')
+        
+        if (checkinArr.length === 0 || checkoutArr.length === 0) {
+            return
+        }
+
+        let checkinYear = checkinArr[0]
+        let checkinMonth = checkinArr[1]
+        let checkinDay = checkinArr[2]
+        let checkoutYear = checkoutArr[0]
+        let checkoutMonth = checkoutArr[1]
+        let checkoutDay = checkoutArr[2]
+        
+        let availableRooms = []
+
+        try{
+            await page.goto('https://www.booking.com/hotel/rs/vila-srebrno-jezero.html?checkin_year=' + checkinYear + '&checkin_month=' + checkinMonth + '&checkin_monthday=' + checkinDay + '&checkout_year='
+             + checkoutYear + '&checkout_month=' + checkoutMonth + '&checkout_monthday=' + checkoutDay
+             + '&no_rooms=' + roomsNum + ';req_adults=' + adults + ';req_children=' + kids
+            );
+
+            await page.waitForSelector('[data-room-id*="502402701"]');
+            let data = await page.evaluate(() => {
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402701_335372905_2_0_0"] option'))
+                return arrs.map(a => a.textContent)
+            })
+            availableRooms.push({type: '2bed_double', amount: data.length ? data.length - 1 : 0})
+
+            data = await page.evaluate(() => {
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402702_335372905_2_0_0"] option'))
+                return arrs.map(a => a.textContent)
+            })
+            availableRooms.push({type: '2bed_single', amount: data.length ? data.length - 1 : 0})
+
+            data = await page.evaluate(() => {
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402703_335372905_2_0_0"] option'))
+                return arrs.map(a => a.textContent)
+            })
+            availableRooms.push({type: '3bed', amount: data.length ? data.length - 1 : 0})
+
+            data = await page.evaluate(() => {
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402704_335372905_2_0_0"] option'))
+                return arrs.map(a => a.textContent)
+            })
+            availableRooms.push({type: '4bed', amount: data.length ? data.length - 1 : 0})
+
+            data = await page.evaluate(() => {
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402705_335372905_2_0_0"] option'))
+                return arrs.map(a => a.textContent)
+            })
+            availableRooms.push({type: 'lux', amount: data.length ? data.length - 1 : 0})
+
+            console.log(availableRooms)
+
+        } catch (e) {
+            console.log(e)
+            return false
+        } finally {
+            browser.close();
+        }
+    
+        return availableRooms
+    }
+
 }

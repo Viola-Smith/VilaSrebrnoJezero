@@ -33,9 +33,11 @@
                                 <li class="has-children">
                                     <a href="index.html#sobe">{{ translations.labels.header['rooms-prices'] }}</a>
                                     <ul class="dropdown arrow-top">
-                                        <li><a (click)="goToRooms(2)">{{ translations.labels.header.twoperson }}</a></li>
+                                        <li *ngFor="let room of rooms; let i = index" [ngStyle]="{'border-top': i!==0 ? '1px dashed lightgray' : 'none'}">
+                                            <a (click)="goToRooms(room)">{{ translations.labels.common[room] }}</a>
+                                        </li>
 
-                                        <li class="has-children">
+                                        <!-- <li class="has-children">
                                             <a href="index.html#sobe">{{ translations.labels.header.apartments }}</a>
                                             <ul class="dropdown">
                                                 <li><a (click)="goToRooms(3)">{{ translations.labels.header.threeperson }}</a></li>
@@ -44,7 +46,7 @@
 
 
                                             </ul>
-                                        </li>
+                                        </li> -->
 
                                     </ul>
                                 </li>

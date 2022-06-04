@@ -20,7 +20,6 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'rooms', component: RoomsComponent },
-  { path: 'rooms/:id', component: RoomsComponent },
   { path: 'events', component: EventsComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'admin', component: DashboardComponent },

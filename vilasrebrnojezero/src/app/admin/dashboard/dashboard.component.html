@@ -1,27 +1,8 @@
-<button class='newReservationButton' (click)='showNewReservation()'>
+
+
+<button class='newReservationButton' (click)='showNewReservation()' *ngIf="!reservationDialog">
     +
 </button>
-
-
-<div id='reservationForm'>
-    <form>
-        From: <input type='date' class='form-control' [(ngModel)]="dateFrom" name="dateFrom">
-        To: <input type='date' class='form-control' [(ngModel)]="dateTo" name="dateTo">
-        Room: 
-        <select [(ngModel)]="roomSelectedId" class='form-control' name="roomSelectedId">
-            <option *ngFor='let room of rooms'>
-                {{ room.id }}
-            </option>
-        </select>
-        Name: <input class='form-control' type='text' [(ngModel)]="name" name="name">
-        Email: <input class='form-control' type='text' [(ngModel)]="email" name="email">
-        Phone: <input class='form-control' type='text' [(ngModel)]="phone" name="phone">
-        Notes: <textarea class='form-control' [(ngModel)]="notes" name="notes"></textarea> <br>
-        <input class='form-control' type='button' value='Book' (click)='book()'>
-    </form>
-</div>
-
-
 
 <div class="content-container">
 
@@ -64,13 +45,14 @@
                 </option>
             </select>
             <img class="exportBtn" src="../../../assets/styles/images/export.png" (click)="export()">
+            <img *ngIf="checkedRes.length" class="invoiceBtn" src="../../../assets/styles/images/invoice.png" (click)="invoiceMultiple()">
         </div>
     
     </div>
     
     <div class="container" *ngIf='!calendarView'>
         <h2>Reservations</h2>
-        <ul class="responsive-table" style='padding:0'>
+        <ul class="responsive-table" style='padding:0'  *ngIf="!loading">
           <li class="table-header">
             <div class="col">Name</div>
             <div class="col">Date from</div>
@@ -82,43 +64,37 @@
           </li>
           <li class="table-row" *ngFor='let reservation of filteredReservations; index as i'>
             <div class="col" data-label="Name">
-                <span *ngIf="!editMode[i]">{{ reservation.person.name }}</span>
-                <input *ngIf="editMode[i]" [(ngModel)]="reservation.person.name" name="personName">
+                <input type="checkbox" (change)="includeRes($event, reservation)" style="width: 20px">
+                <span>{{ reservation.person.name }}</span>
             </div>
             <div class="col" data-label="Date from">
-                <span *ngIf="!editMode[i]">{{ formattedDate(reservation.date_from) }}</span>
-                <input type="date" class='form-control' *ngIf="editMode[i]" [(ngModel)]="reservation.date_from" name="resDateFrom">
+                <span>{{ formattedDate(reservation.date_from) }}</span>
             </div>
             <div class="col" data-label="Date to">
-                <span *ngIf="!editMode[i]">{{ formattedDate(reservation.date_to) }}</span>
-                <input type="date" class='form-control' *ngIf="editMode[i]" [(ngModel)]="reservation.date_to" name="resDateTo">
+                <span>{{ formattedDate(reservation.date_to) }}</span>
             </div>
             <div class="col" data-label="Room">
-                <span *ngIf="!editMode[i]">{{ reservation.room }}</span>
-                <select *ngIf="editMode[i]" [(ngModel)]="reservation.room" class='form-control' name="resRoomId">
-                    <option *ngFor='let room of rooms'>
-                        {{ room.id }}
-                    </option>
-                </select>
+                <span>{{ reservation.room }}</span>
             </div>
             <div class="col" data-label="Paid">
-                <span *ngIf="!editMode[i]">{{ reservation.payed }}</span>
-                <input *ngIf="editMode[i]" [(ngModel)]="reservation.payed" name="resPaid">
+                <span>{{ reservation.payed }}</span>
             </div>
             <div class="col" data-label="Reserved">{{ formattedDateTime(reservation.timestamp) }}</div>
             <div class="col" data-label="Edit">
-                <img src="../../../assets/styles/images/edit.png" (click)="editMode[i] = true" *ngIf="!editMode[i]">
-                <img src="../../../assets/styles/images/check.png" (click)="updateRes(reservation.id, i)" *ngIf="editMode[i]">
+                <img src="../../../assets/styles/images/edit.png" (click)="editDialog(reservation)">
                 <img src="../../../assets/styles/images/trash.png" (click)="deleteRes(reservation.id)">
-                <img src="../../../assets/styles/images/invoice.png" (click)="createInvoice(reservation.id)">
+                <img src="../../../assets/styles/images/invoice.png" (click)="singleInvoice(reservation)">
             </div>
           </li>
         </ul>
+        <div *ngIf="loading" class="loading">
+            <img src="../../../assets/styles/images/loader1.gif" style="width: 200px;height: 200px">
+        </div>
       </div>
 
 
       <div *ngIf='calendarView' style='margin: 20px'>
-        <table width='100%' class='calendarView'>
+        <table width='100%' class='calendarView' *ngIf="!loading">
             <tr>
                 <td></td>
                 <td *ngFor='let room of rooms'>{{ room.id }}</td>
@@ -139,6 +115,9 @@
                 </td>
             </tr>
         </table>
+        <div *ngIf="loading" class="loading">
+            <img src="../../../assets/styles/images/loader1.gif" style="width: 200px;height: 200px">
+        </div>
       </div>
 
 
@@ -156,59 +135,69 @@
                 </div>
                 <div style="width: 30%; text-align: center;">
                     <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Billed To</p>
-                    <p style="margin-bottom:0;">Milica Nikolic</p>
-                    <p style="margin-bottom:0;">1234567890123</p>
-                    <p style="margin-bottom:0;">064/2136721</p>
+                    <p style="margin-bottom:0;" id="invoiceName"></p>
+                    <p style="margin-bottom:0;" id="invoiceJmbg"></p>
+                    <p style="margin-bottom:0;" id="invoicePhone"></p>
                 </div>
                 <div style="width: 30%">
-                    <div style="display: flex; justify-content:space-between">
-                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Invoice Number</p>
-                        <p style="margin-bottom:0;">123456</p>    
-                    </div>
-                    <div style="display: flex; justify-content:space-between">
+                    <!-- <div style="display: flex; justify-content:space-between">
                         <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Reservation Number</p>
-                        <p style="margin-bottom:0;">34</p>    
+                        <p style="margin-bottom:0;" id="invoiceId"></p>
+                    </div> -->
+                    <div style="display: flex; justify-content:space-evenly">
+                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Isue Date</p>
+                        <p style="margin-bottom:0;">___________________</p>
                     </div>
-                    <div style="display: flex; justify-content:space-between">
-                        <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Isuue Date</p>
-                        <p style="margin-bottom:0;">25/04/2022</p>    
-                    </div>
-                    <div style="display: flex; justify-content:space-between">
+                    <div style="display: flex; justify-content:space-evenly">
                         <p style="margin-bottom:0;font-size: 16px;font-weight: bold;">Paid date</p>
-                        <p style="margin-bottom:0;">25/04/2022</p>    
+                        <p style="margin-bottom:0;">___________________</p>
                     </div>
                 </div>
             </div>
             <div class="invoice-table" style="margin-top: 30px;">
                 <div style="display: flex; justify-content: space-around; padding: 10px; background-color: lightblue;">
-                    <p>Room #</p>
+                    <p>Reservation #</p>
                     <p>Room Type</p>
                     <p>Date From</p>
                     <p>Nights</p>
-                    <p>&euro; / Night</p>
-                    <p>Amount (&euro;)</p>
+                    <p>RSD / Night</p>
+                    <p>Amount (RSD)</p>
                 </div>
-                <div style="display: flex; justify-content: space-around; padding: 10px; border-bottom: 2px solid lightgray">
-                    <p>5</p>
-                    <p>Twin single room</p>
-                    <p>20/04/2022</p>
-                    <p>5</p>
-                    <p>24</p>
-                    <p>120</p>
+                <div *ngIf="checkedRes.length">
+                    <div *ngFor="let res of checkedRes" style="display: flex; align-items: center; justify-content: space-around; padding: 10px; border-bottom: 2px solid lightgray">
+                        <p>{{ res.id }}</p>
+                        <p>{{ getRoomType(res.room) }}</p>
+                        <p>{{ formattedDate(res.date_from) }}</p>
+                        <p>{{ getNights(res.date_from, res.date_to) }}</p>
+                        <p>{{ (res.price/getNights(res.date_from, res.date_to)).toFixed(2) }}</p>
+                        <p>{{ (res.price).toFixed(2) }}</p>
+                    </div>
                 </div>
-                <div style="float: right;margin-top: 25px;">
-                    <div style="display: flex; justify-content: space-between; width: 300px; padding: 10px; background-color: lightblue;">
+                <div *ngIf="checkedRes.length === 0">
+                    <div style="display: flex; align-items: center; justify-content: space-around; padding: 10px; border-bottom: 2px solid lightgray">
+                        <p id="invoiceRoomNumber"></p>
+                        <p id="invoiceRoomType"></p>
+                        <p id="invoiceDateFrom"></p>
+                        <p id="invoiceNights"></p>
+                        <p id="invoicePricePerNight"></p>
+                        <p id="invoicePrice"></p>
+                    </div>
+                </div>
+                <div style="float: right;margin-top: 40px;">
+                    <div style="display: flex; justify-content: space-around; width: 400px; padding: 10px; background-color: lightblue;">
                         <p>Total</p>
-                        <p>&euro;</p>
-                        <p>120</p>
+                        <p>RSD</p>
+                        <p *ngIf="checkedRes.length">{{ getTotalPrice('price') }}</p>
+                        <p *ngIf="checkedRes.length === 0" id="invoiceTotalPrice"></p>
                     </div>
-                    <div style="display: flex; justify-content: space-between; width: 300px; padding: 10px; background-color: skyblue;">
+                    <div style="display: flex; justify-content: space-around; width: 400px; margin-right: 10px; padding: 10px; background-color: skyblue;">
                         <p>Deposit</p>
-                        <p>&euro;</p>
-                        <p>40</p>
+                        <p>RSD</p>
+                        <p *ngIf="checkedRes.length">{{ getTotalPrice('payed') }}</p>
+                        <p *ngIf="checkedRes.length === 0" id="invoiceTotalDeposit"></p>
                     </div>
                 </div>
-                <div style="margin-top: 25px; float:left">
+                <div style="margin-top: 40px; float:left">
                     <p style="font-size: 20px; width: 100%; font-weight: bold; color: lightblue">Thank you for staying</p>
                 </div>
             </div>
@@ -216,6 +205,73 @@
     </div>
   </div>
 
+</div>
 
 
+
+<div *ngIf="reservationDialog" class="newDialog">
+    <div class="heading" [ngStyle]="{'margin-bottom' : reservationId ? '0' : '20px'}">
+        <p class="title">{{ reservationId ? 'Edit' : 'New'}} reservation</p>
+        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="unsetReservation()">
+    </div>
+    <p *ngIf="reservationId">Reservation id: {{ reservationId }}</p>
+    <div class="newOptions">
+        <div class="newOptionsMain">
+            <div>
+                <p>From:</p>
+                <input type='date' class='form-control' [(ngModel)]="dateFrom" name="dateFrom">
+                <span style="position: absolute; bottom: 0">{{ msgPriceReq }}</span>
+            </div>
+            <div>
+                <p>To:</p>
+                <input type='date' class='form-control' [(ngModel)]="dateTo" name="dateTo">
+            </div>
+            <div>
+                <p>Room type:</p>
+                <select [(ngModel)]="roomSelectedType" class='form-control' name="roomSelectedType">
+                    <option *ngFor='let room of roomTypes' [value]="room">
+                        {{ translations.labels.common[room] }}
+                    </option>
+                </select>    
+            </div>
+            <div>
+                <p>Room:</p>
+                <select [(ngModel)]="roomSelectedId" class='form-control' name="roomSelectedId">
+                    <option value="0">
+                        Any room
+                    </option>
+                    <option *ngFor='let room of rooms'>
+                        {{ room.id }}
+                    </option>
+                </select>    
+            </div>
+            <div>
+                <p>Name:</p>
+                <input class='form-control' type='text' [(ngModel)]="name" name="name">
+            </div>
+            <div>
+                <p>Email:</p>
+                <input class='form-control' type='text' [(ngModel)]="email" name="email">
+            </div>
+            <div>
+                <p>Phone:</p>
+                <input class='form-control' type='text' [(ngModel)]="phone" name="phone">
+            </div>
+            <div>
+                <p>Notes:</p>
+                <textarea class='form-control' type='text' [(ngModel)]="notes" name="notes"></textarea>
+            </div>
+            <div>
+                <p>Paid:</p>
+                <input class='form-control' type='text' [(ngModel)]="paid" name="paid">
+            </div>
+        </div>
+    
+        <p class="save" (click)="book()" *ngIf="!reservationId">
+            Save
+        </p>
+        <p class="save" (click)="updateRes()" *ngIf="reservationId">
+            Save
+        </p>
+    </div>
 </div>

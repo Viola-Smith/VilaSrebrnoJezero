@@ -81,6 +81,7 @@ export class PaymentFormComponent implements OnInit {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
             this.reservation.payed = resPrice
             console.log(this.reservation)
+            this.loading = true
             this.reservationService.reserve(this.reservation).subscribe((outcomes: any) => {
               console.log(outcomes)
               if (outcomes) {
@@ -92,6 +93,7 @@ export class PaymentFormComponent implements OnInit {
                   this.errorMessage = failures[0].message
                 }
               }
+              this.loading = false
             })
         },
         onCancel: (data, actions) => {
@@ -124,6 +126,8 @@ export class PaymentFormComponent implements OnInit {
   goBack() {
     this.prevStep.emit(false)
   }
+
+  loading = false
 
   getNights(date1, date2) {
     var timeDiff = Math.abs(new Date(date2).getTime() - new Date(date1).getTime());

@@ -72,12 +72,11 @@ export default class CalendarService {
 
     public static async createEvent (reservation: any, resId: any) {
         let token = await this.getToken()
-
-        console.log(token.get('token'))
+        console.log(token)
         console.log(reservation)
         if (token) {
             const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-            oAuth2Client.setCredentials(token.get('token'));
+            oAuth2Client.setCredentials(token.token);
             if (!oAuth2Client) {
                 console.log(oAuth2Client)
                 return
@@ -126,17 +125,14 @@ export default class CalendarService {
     public static async editEvent (reservation: any, googleCalendarEventId: any, status = 'confirmed') {
         let token = await this.getToken()
 
-        console.log(token.get('token'))
-        console.log(reservation)
         if (token) {
             const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
-            oAuth2Client.setCredentials(token.get('token'));
+            oAuth2Client.setCredentials(token.token);
             if (!oAuth2Client) {
                 console.log(oAuth2Client)
                 return
             }
            
-            console.log(oAuth2Client)
 
             let dateFrom = reservation.date_from.split(' ').length > 1 ? reservation.date_from.split(' ')[0] : (reservation.date_from.split('T')[0])
             let dateTo = reservation.date_to.split(' ').length > 1 ? reservation.date_to.split(' ')[0] : (reservation.date_to.split('T')[0])
@@ -158,7 +154,6 @@ export default class CalendarService {
               };
 
               
-            console.log(event)
             calendar.events.update({
                 auth: oAuth2Client,
                 calendarId: 'primary',

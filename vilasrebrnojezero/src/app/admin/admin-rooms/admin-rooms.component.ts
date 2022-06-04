@@ -18,11 +18,7 @@ export class AdminRoomsComponent implements OnInit {
     this.roomService.getRoomNumbers().subscribe((rooms: any) => {
         console.log(rooms)
         this.rooms = rooms
-        this.roomTypes = rooms.reduce(function (r, a) {
-          r[a.name] = r[a.name] || [];
-          r[a.name].push(a.name);
-          return r;
-        }, Object.create(null))
+        this.roomTypes = this.roomService.getRoomTypesFromRooms(rooms)
         this.editMode = Array(rooms.length).fill(false)
         console.log(this.roomTypes)
     })

@@ -31,6 +31,7 @@ export class SearchRoomsComponent implements OnInit {
 
   manualReservationArray = []
 
+  loading = false
   showForm = false
 
   ngOnInit() {
@@ -42,18 +43,11 @@ export class SearchRoomsComponent implements OnInit {
     this.kidsCalculate = parseInt(this.kids)
     document.getElementById('start').scrollIntoView({ behavior: "smooth" })
 
-    this.roomService.getAvailableRooms(this.date1, this.date2, this.adults, this.rooms).subscribe((rooms: any) => {
+    this.loading = true
+    this.roomService.getAvailableRooms(this.date1, this.date2, this.adults, this.rooms, this.kids).subscribe((rooms: any) => {
       this.suggest = rooms.suggest
-      this.allRooms = rooms.all
-      this.suggest.forEach(r => {
-        for (let index = 0; index < r.rooms.length; index++) {
-          let ebu = this.hasExtraBeds(r.rooms[index])
-          r.rooms[index].extra_beds_used = ebu ? ebu : 0
-          let price = this.getExtraBedPrice(r.rooms[index])
-          r.rooms[index].price = price ? price.number + r.price : r.price
-        }
-      })
-
+      this.allRooms = rooms.suggest
+      this.loading = false
       console.log(this.suggest)
     });
 
@@ -67,67 +61,69 @@ export class SearchRoomsComponent implements OnInit {
     return moment(date).format("DD/MM/YYYY")
   }
 
-  getExtraBedPrice(r) {
-    let str = ''
-    let total = 0
-    for (let index = 1; index <= r.extra_beds_used; index++) {
-      const extra_bed = r.extra_beds_price.find(p => p.order === index)
-      let price = extra_bed.price * this.getNights(this.date1, this.date2)
-      total += price
-      str += ' + ' + price + ' RSD'
+  // getExtraBedPrice(r) {
+  //   let str = ''
+  //   let total = 0
+  //   for (let index = 1; index <= r.extra_beds_used; index++) {
+  //     const extra_bed = r.extra_beds_price.find(p => p.order === index)
+  //     let price = extra_bed.price * this.getNights(this.date1, this.date2)
+  //     total += price
+  //     str += ' + ' + price + ' RSD'
+  //   }
+  //   return { str: str, number: total }
+  // }
+
+  // getRoomPrice(room) {
+  //   return room.amount * room.price + parseInt(room.amount)*room.extra_bed
+  // }
+
+  // getAllExtraBedPrice(room) {
+  //   let str = ''
+  //   let sum = 0
+  //   console.log(room)
+  //   for (let i = 0; i < parseInt(room.amount); i++) {
+  //     let price = this.getExtraBedPrice()
+  //     sum += 
+  //   }
+  //   // room.rooms.forEach(r => {
+   
+  //   // });
+  //   return { str: str, number: 0 }
+  // }
+
+
+  getExtraBedsPrice (room) {
+    if (room.extra_beds_selected) {
+      return room.extra_beds_price[0].price + (room.extra_beds_selected > 1 ? room.extra_beds_price[1].price : 0)
     }
-    return { str: str, number: total }
-  }
-
-  getRoomPrice(room) {
-    return room.amount * room.price + this.getAllExtraBedPrice(room).number
-  }
-
-  getAllExtraBedPrice(room) {
-    let str = ''
-    let sum = 0
-    room.rooms.forEach(r => {
-      let price = this.getExtraBedPrice(r)
-      str += price.str
-      sum += price.number
-    });
-    return { str: str, number: sum }
+    return 0
   }
 
   getSumPrice(rooms) {
     let sum = 0
     rooms.forEach(room => {
-      sum += this.getRoomPrice(room)
+      sum += room.price*room.amount + this.getExtraBedsPrice(room)*room.amount
     });
     return sum
   }
 
-  hasExtraBeds(room) {
-    if (this.kidsCalculate > 0) {
-      let num = 0
-      if (room.extra_beds) {
-        if (room.extra_beds >= this.kidsCalculate) {
-          num += this.kidsCalculate
-          this.kidsCalculate = 0
-        } else {
-          this.kidsCalculate -= room.extra_beds
-          num += room.extra_beds
-        }
+  selectExtraBed (room, checked) {
+    let r = this.manualReservationArray.find(r => r.name === room.name)
+    if (r) {
+      if (checked) {
+        r.extra_beds_selected = r.extra_beds_selected ? r.extra_beds_selected + 1 : 1
+      } else {
+        r.extra_beds_selected = r.extra_beds_selected ? r.extra_beds_selected - 1 : 0
       }
-
-      return num
     }
+  }
 
+  roomSelected (room) {
+    let selectedRoom =  this.manualReservationArray.find(r => r.name === room.name)
+    return selectedRoom ? selectedRoom.amount > 0 : false
   }
 
   closeForm(value) {
-    // console.log(this.createdRes)
-    // this.reservationService.delete(this.createdRes).subscribe(()=>{
-    //   this.showForm = value
-    //   this.showPaymentForm = value
-    //   let header = document.getElementById('header')
-    //   header.style.visibility = 'visible'
-    // })
     this.showForm = value
     this.showPaymentForm = value
   }
@@ -170,55 +166,25 @@ export class SearchRoomsComponent implements OnInit {
   }
 
   selectAmount(amount, room) {
-    let foundRoom = this.manualReservationArray.find(r => r.type === room.type)
+    let foundRoom = this.manualReservationArray.find(r => r.name === room.name)
     if (foundRoom) {
-      if (amount == 0) {
-        let index = this.manualReservationArray.indexOf(foundRoom)
-        this.manualReservationArray.splice(index, 1);
-        let el = document.getElementById('roomPrice-' + room.type)
-        if (el) {
-          el.style.fontWeight = 'normal'
-          el.style.color = 'gray'
-        }
-        el = document.getElementById('roomExtra-' + room.type)
-        if (el) {
-          el.style.display = 'none'
-        }
-      } else {
-        foundRoom.amount = amount
-        let el = document.getElementById('roomPrice-' + room.type)
-        if (el) {
-          el.style.fontWeight = 'bold'
-          el.style.color = 'black'
-        }
-        el = document.getElementById('roomExtra-' + room.type)
-        if (el) {
-          el.style.display = 'block'
-        }
-      }
+        foundRoom.amount = parseInt(amount)    
     } else {
       let roomCopy = JSON.parse(JSON.stringify(room))
-      roomCopy.amount = amount
+      roomCopy.amount = parseInt(amount)
       this.manualReservationArray.push(roomCopy)
-      let el = document.getElementById('roomPrice-' + room.type)
-      if (el) {
-        el.style.fontWeight = 'bold'
-        el.style.color = 'black'
-      }
-      el = document.getElementById('roomExtra-' + room.type)
-      if (el) {
-        el.style.display = 'block'
-      }
     }
     console.log(this.manualReservationArray)
   }
 
+
+
   getPrice(room) {
-    let foundRoom = this.manualReservationArray.find(r => r.type === room.type)
+    let foundRoom = this.manualReservationArray.find(r => r.name === room.name)
     if (foundRoom) {
-      return foundRoom.amount * room.price
+      return foundRoom.amount * foundRoom.price + this.getExtraBedsPrice(foundRoom) * foundRoom.amount
     }
-    return room.price
+    return room.price  + this.getExtraBedsPrice(room)
   }
 
   getNights(date1, date2) {

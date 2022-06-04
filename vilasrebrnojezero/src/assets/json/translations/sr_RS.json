@@ -69,7 +69,8 @@
 		"events"				: "Događaji",
 		"gallery"				: "Galerija",
 		"contact"				: "Kontakt",
-		"reserve"				: "Rezerviši"
+		"reserve"				: "Rezerviši",
+		"pricelist"				: "Cenovnik"
 	},
 	
 	"footer"				: {

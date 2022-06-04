@@ -69,7 +69,8 @@
 		"events"				: "Events",
 		"gallery"				: "Gallery",
 		"contact"				: "Contact",
-		"reserve"				: "Reserve"
+		"reserve"				: "Reserve",
+		"pricelist"				: "Pricelist"
 	},
 	
 	"footer"				: {

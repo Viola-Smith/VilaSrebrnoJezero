@@ -75,3 +75,9 @@
   opacity: 0.2;
   background: #CCC;
 }
+
+
+.loading {
+    margin:auto;
+    text-align: center;
+  }

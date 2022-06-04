@@ -8,6 +8,7 @@ import { forkJoin } from 'rxjs';
 import * as moment from 'moment';
 import jsPDF from 'jspdf';
 import html2canvas, { Options } from 'html2canvas';
+import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,17 +17,23 @@ import html2canvas, { Options } from 'html2canvas';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router, private roomService: RoomsService, private reservationService: ReservationsService) { }
+  constructor(private translations: TranslationsService, private router: Router, private roomService: RoomsService, private reservationService: ReservationsService) { }
 
   // colors = ['#ffe2e8', '#eef3f8', '#eafff1', '#eef3f8', '#f6e7ea', '#e6e6fa', '#d7bfb9']
   administrator: any
+  reservationId: number
   dateFrom
   dateTo
   roomSelectedId
+  roomSelectedType
   name: string
   email: string
   phone: string
   notes: string
+  paid: number = 0
+  googleCalendarEventId = null
+  timestamp = null
+  price = 0
   rooms: Room[]
   reservations: any
   calendarView: false
@@ -35,14 +42,13 @@ export class DashboardComponent implements OnInit {
   curMonth = this.months[(new Date()).getMonth()]
   dates = this.getAllDates()
 
-  editMode = []
-
   filteredReservations: any
 
   isAdmin () {
     return localStorage.getItem('admin') !== null
   }
 
+  roomTypes = []
 
   ngOnInit() {
     if (localStorage.getItem('admin')) {
@@ -50,13 +56,17 @@ export class DashboardComponent implements OnInit {
     } else {
       this.router.navigate(['/login'])
     }
+    this.loading = true
     forkJoin([
       this.roomService.getRoomNumbers(),
       this.reservationService.getAll()
     ]).subscribe(allResults => {
       console.log(allResults)
       this.rooms = allResults[0] as Room[]
-      this.roomSelectedId = this.rooms[0].id
+      this.roomTypes = Object.keys(this.roomService.getRoomTypesFromRooms(this.rooms))
+      console.log(this.roomTypes)
+      this.roomSelectedId = 0
+      this.roomSelectedType = this.roomTypes[0]
       this.reservations = allResults[1]
       this.reservations.forEach(r => {
         r.date_from = moment(r.date_from).format("YYYY-MM-DD")
@@ -64,28 +74,18 @@ export class DashboardComponent implements OnInit {
         r.color = Math.floor(Math.random() * 361);
       })
       this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (new Date()).getMonth())
-      this.editMode = Array(this.filteredReservations.length).fill(false)
       this.dateFrom = new Date()
       this.dateTo = new Date()
       this.dateTo.setDate(this.dateFrom.getDate() + 2)
       this.dateFrom = this.dateFrom.toISOString().split('T')[0];
       this.dateTo = this.dateTo.toISOString().split('T')[0];
-
-
-
-
+      this.loading = false
     })
   }
 
   showNewReservation() {
-    let el = document.getElementById('reservationForm')
-    if (el) {
-      if (el.style.display === 'block') {
-        el.style.display = 'none'
-      } else {
-        el.style.display = 'block'
-      }
-    }
+    this.reservationDialog = true
+    this.reservationId = null
   }
 
   deleteRes(resId) {
@@ -93,15 +93,10 @@ export class DashboardComponent implements OnInit {
       console.log(res)
       this.message = res.message
       this.showModal()
-      console.log(resId)
-      console.log(this.reservations.map((item:any) => item.id))
-      var removeIndex = this.reservations.map((item:any) => item.id).indexOf(resId);
-      console.log(removeIndex)
-      if (removeIndex !== -1) {
-        this.reservations.splice(removeIndex, 1);
-      }
+      this.getReservations()
     })
   }
+
 
   export () {
     var data = 'id,name,email,phone,price,paid,room,startDate,endDate,notes\n';
@@ -129,13 +124,81 @@ export class DashboardComponent implements OnInit {
     a.remove();
   }
 
-  updateRes(id, index) {
-    let res = this.reservations.find(r => r.id === id)
-    this.reservationService.update(id, res).subscribe((res: any) => {
+
+  editDialog(res) {
+    this.reservationDialog = true
+    this.dateFrom = res.date_from
+    this.dateTo = res.date_to
+    this.name = res.person.name
+    this.phone = res.person.phone
+    this.email = res.person.email
+    this.roomSelectedId = res.room
+    let roomObj = this.rooms.find(r => r.id === res.room)
+    this.roomSelectedType = roomObj.name
+    this.notes = res.notes
+    this.paid = res.payed
+    this.reservationId = res.id
+    this.googleCalendarEventId = res.googleCalendarEventId
+    this.timestamp = res.timestamp
+    this.price = res.price
+  }
+
+
+  unsetReservation() {
+    this.dateFrom = new Date()
+    this.dateTo = new Date()
+    this.dateTo.setDate(this.dateFrom.getDate() + 2)
+    this.dateFrom = this.dateFrom.toISOString().split('T')[0];
+    this.dateTo = this.dateTo.toISOString().split('T')[0];
+    this.name = ''
+    this.phone = ''
+    this.email = ''
+    this.roomSelectedId = '0'
+    this.roomSelectedType = this.roomTypes[0]
+    this.notes = ''
+    this.paid = 0
+    this.reservationId = null
+    this.reservationDialog = false
+    this.googleCalendarEventId = null
+    this.timestamp = null
+    this.price = 0
+  }
+
+
+  loading = false
+
+  getReservations () {
+    forkJoin([
+      this.roomService.getRoomNumbers(),
+      this.reservationService.getAll()
+    ]).subscribe(allResults => {
+      this.rooms = allResults[0] as Room[]
+      this.roomTypes = Object.keys(this.roomService.getRoomTypesFromRooms(this.rooms))
+      this.reservations = allResults[1]
+      this.reservations.forEach(r => {
+        r.date_from = moment(r.date_from).format("YYYY-MM-DD")
+        r.date_to = moment(r.date_to).format("YYYY-MM-DD")
+        r.color = Math.floor(Math.random() * 361);
+      })
+      this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (new Date()).getMonth())
+      console.log(this.filteredReservations)
+      this.loading = false
+    })
+  }
+
+  updateRes () {
+    let reservation: Reservation = {
+      date_from: this.dateFrom, date_to: this.dateTo, id: this.reservationId, person: {name: this.name, email: this.email, phone: this.phone},
+      notes: this.notes, payed: this.paid, price: this.price, room: this.roomSelectedId, user_id: 0, googleCalendarEventId: this.googleCalendarEventId, timestamp: this.timestamp
+    }
+    console.log(reservation)
+    this.reservationService.update(this.reservationId, reservation).subscribe((res: any) => {
       console.log(res)
       this.message = res.message
       this.showModal()
-      this.editMode[index] = false
+      this.unsetReservation()
+      this.loading = true
+      this.getReservations()
     });
   }
 
@@ -144,21 +207,15 @@ export class DashboardComponent implements OnInit {
     console.log(new Date(this.dateFrom + ' 00:00'))
     let reservation: Reservation = {
       date_from: this.dateFrom, date_to: this.dateTo, id: 0, person: {name: this.name, email: this.email, phone: this.phone},
-      notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null
+      notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null, googleCalendarEventId: null
     }
     console.log(reservation)
     this.reservationService.book(reservation).subscribe((res: any) => {
-      console.log(res)
-      if (res.new) {
-        res.new.color = Math.floor(Math.random() * 361);
-        res.new.date_from = moment(res.new.date_from).format("YYYY-MM-DD")
-        res.new.date_to = moment(res.new.date_to).format("YYYY-MM-DD")
-        this.reservations.push(res.new)
-        this.filteredReservations.push(res.new)
-        this.showNewReservation()
-      }
       this.message = res.message
       this.showModal()
+      this.unsetReservation()
+      this.loading = true
+      this.getReservations()
     });
   }
 
@@ -289,22 +346,73 @@ export class DashboardComponent implements OnInit {
     element.style.display = 'none'
   }
 
-  createInvoice (resId) {
+  checkedRes = []
+
+  includeRes(checked, res) {
+    if (checked.target.checked) {
+      this.checkedRes.push(res)
+    } else {
+      let index = this.checkedRes.findIndex(r => r.id === res.id)
+      if (index !== -1) {
+        this.checkedRes.splice(index, 1)
+      }
+    }
+    console.log(this.checkedRes)
+  }
+
+  invoiceMultiple() {
+    this.createInvoice(this.checkedRes[0])
+  }
+
+  singleInvoice(res) {
+    document.getElementById('invoiceRoomNumber').innerHTML = res.room
+    document.getElementById('invoiceRoomType').innerHTML = this.getRoomType(res.room)
+    document.getElementById('invoiceDateFrom').innerHTML = this.formattedDate(res.date_from)
+    document.getElementById('invoiceNights').innerHTML = this.getNights(res.date_from, res.date_to).toString()
+    document.getElementById('invoicePricePerNight').innerHTML = (res.price/this.getNights(res.date_from, res.date_to)).toFixed(2)
+    document.getElementById('invoicePrice').innerHTML = res.price.toFixed(2)
+
+    document.getElementById('invoiceTotalPrice').innerHTML = res.price.toFixed(2)
+    document.getElementById('invoiceTotalDeposit').innerHTML = res.payed.toFixed(2)
+
+    this.createInvoice(res)
+  }
+
+  createInvoice (res) {
     let content = document.getElementById('invoice')
+    document.getElementById('invoiceName').innerHTML = res.person.name
+    document.getElementById('invoiceJmbg').innerHTML = res.person.jmbg ? res.person.jmbg : ''
+    document.getElementById('invoicePhone').innerHTML = res.person.phone ? res.person.phone : ''
+    // document.getElementById('invoiceId').innerHTML = res.id
+
     content.style.display = 'block'
-    console.log(content.innerHTML)
     html2canvas(content).then(function(canvas) {
-        console.log(canvas)
-        // let imgWidth = content.offsetWidth
-        // let imgHeight = content.offsetHeight
         const contentDataURL = canvas.toDataURL('image/png')
         let pdf = new jsPDF('p', 'px', 'a4')
         var width = pdf.internal.pageSize.getWidth();
         var height = pdf.internal.pageSize.getHeight();
         pdf.addImage(contentDataURL, 'png', 2, 0, width, height)
         pdf.save('invoice.pdf')
-    });  
+        document.getElementById('invoice').style.display = 'none'
+    });
   }
 
+  getRoomType (roomId) {
+    this.translations.changeLanguage('en_GB')
+    console.log(this.translations)
+    return this.translations.labels.common[this.rooms.find(r => r.id === roomId).name]
+  }
+
+  getNights(date1, date2) {
+    var timeDiff = Math.abs(new Date(date2).getTime() - new Date(date1).getTime());
+    var numberOfNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return numberOfNights
+  }
+
+  getTotalPrice(prop) {
+    return this.checkedRes.reduce((a, res) => a + res[prop], 0).toFixed(2)
+  }
+
+  reservationDialog = false
 
 }

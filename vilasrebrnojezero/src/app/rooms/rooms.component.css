@@ -1,0 +1,36 @@
+.pricelist-room {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-evenly;
+    /* margin: 0 20px; */
+    margin-top: 20px;
+}
+
+.pricelist-room > div {
+   width: 400px;
+   margin-bottom: 15px;
+}
+
+.pricelist-room .name {
+    padding:10px;
+    background-color:#c6e2f2;
+    font-weight:bold;
+    color:black;
+    text-align:center;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px
+}
+
+.pricelist-room .prices {
+    padding:10px;
+    background-color:#fcd5ae;
+    color:black;
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px
+}
+
+.pricelist-room .prices > div {
+   display: flex;
+   justify-content: space-between;
+}
