@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   phone: string
   notes: string
   paid: number = 0
+  status = ''
   googleCalendarEventId = null
   timestamp = null
   price = 0
@@ -66,7 +67,9 @@ export class DashboardComponent implements OnInit {
       this.roomTypes = Object.keys(this.roomService.getRoomTypesFromRooms(this.rooms))
       console.log(this.roomTypes)
       this.roomSelectedId = 0
+      this.status = 'approved'
       this.roomSelectedType = this.roomTypes[0]
+      this.selectRoomType()
       this.reservations = allResults[1]
       this.reservations.forEach(r => {
         r.date_from = moment(r.date_from).format("YYYY-MM-DD")
@@ -84,8 +87,12 @@ export class DashboardComponent implements OnInit {
   }
 
   showNewReservation() {
-    this.reservationDialog = true
     this.reservationId = null
+    this.showDialog()
+  }
+
+  showDialog() {
+    document.getElementsByClassName('newDialog')[0].classList.add('show')
   }
 
   deleteRes(resId) {
@@ -97,6 +104,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  roomsOfType = []
+
+  selectRoomType () {
+    this.roomsOfType = this.rooms.filter(r => r.name === this.roomSelectedType)
+  }
 
   export () {
     var data = 'id,name,email,phone,price,paid,room,startDate,endDate,notes\n';
@@ -126,15 +138,17 @@ export class DashboardComponent implements OnInit {
 
 
   editDialog(res) {
-    this.reservationDialog = true
+    this.showDialog()
     this.dateFrom = res.date_from
     this.dateTo = res.date_to
     this.name = res.person.name
     this.phone = res.person.phone
     this.email = res.person.email
-    this.roomSelectedId = res.room
     let roomObj = this.rooms.find(r => r.id === res.room)
     this.roomSelectedType = roomObj.name
+    this.selectRoomType()
+    this.roomSelectedId = res.room
+    this.status = res.status ? res.status : 'approved'
     this.notes = res.notes
     this.paid = res.payed
     this.reservationId = res.id
@@ -154,14 +168,15 @@ export class DashboardComponent implements OnInit {
     this.phone = ''
     this.email = ''
     this.roomSelectedId = '0'
+    this.status = 'approved'
     this.roomSelectedType = this.roomTypes[0]
     this.notes = ''
     this.paid = 0
     this.reservationId = null
-    this.reservationDialog = false
     this.googleCalendarEventId = null
     this.timestamp = null
     this.price = 0
+    document.getElementsByClassName('newDialog')[0].classList.remove('show')
   }
 
 
@@ -186,10 +201,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  updateRes () {
+  updateRes (status = 'approved') {
     let reservation: Reservation = {
-      date_from: this.dateFrom, date_to: this.dateTo, id: this.reservationId, person: {name: this.name, email: this.email, phone: this.phone},
-      notes: this.notes, payed: this.paid, price: this.price, room: this.roomSelectedId, user_id: 0, googleCalendarEventId: this.googleCalendarEventId, timestamp: this.timestamp
+      date_from: this.dateFrom, date_to: this.dateTo, id: this.reservationId, 
+      person: {name: this.name, email: this.email, phone: this.phone}, status: status,
+      notes: this.notes, payed: this.paid, price: this.price, room: this.roomSelectedId, 
+      user_id: 0, googleCalendarEventId: this.googleCalendarEventId, timestamp: this.timestamp
     }
     console.log(reservation)
     this.reservationService.update(this.reservationId, reservation).subscribe((res: any) => {
@@ -202,11 +219,16 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  changeStatus(status) {
+    this.updateRes(status)
+  }
+
   book() {
     let room = this.rooms.find(r => r.id === parseInt(this.roomSelectedId)) as Room
     console.log(new Date(this.dateFrom + ' 00:00'))
     let reservation: Reservation = {
-      date_from: this.dateFrom, date_to: this.dateTo, id: 0, person: {name: this.name, email: this.email, phone: this.phone},
+      date_from: this.dateFrom, date_to: this.dateTo, id: 0, 
+      person: {name: this.name, email: this.email, phone: this.phone}, status: 'approved',
       notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null, googleCalendarEventId: null
     }
     console.log(reservation)
@@ -281,7 +303,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getReservation(date, roomId) {
-    let res = this.filteredReservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00'))  )
+    let res = this.filteredReservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00')) && r.status !== 'cancelled'  )
     if (res.length) {
       var element = document.getElementById("Reservation " + date.getDate() + "-" + roomId);
       if (res.length > 1) {
@@ -316,7 +338,7 @@ export class DashboardComponent implements OnInit {
 
 
   getDayInfo(date, roomId) {
-    let res = this.filteredReservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00'))  )
+    let res = this.filteredReservations.filter(r => r.room === roomId && r.status !== 'cancelled' && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00'))  )
     if (res.length) {
       if (res.length > 1) {
         res.sort((a, b) => (new Date(a.date_from).getTime()) - (new Date(b.date_from).getTime()));
@@ -412,7 +434,5 @@ export class DashboardComponent implements OnInit {
   getTotalPrice(prop) {
     return this.checkedRes.reduce((a, res) => a + res[prop], 0).toFixed(2)
   }
-
-  reservationDialog = false
 
 }

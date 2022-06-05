@@ -62,7 +62,7 @@
             <div class="col">Reserved</div>
             <div class="col"></div>
           </li>
-          <li class="table-row" *ngFor='let reservation of filteredReservations; index as i'>
+          <li class="table-row" *ngFor='let reservation of filteredReservations; index as i'  [ngClass]="{'cancelledRes' : reservation.status === 'cancelled', 'noshowRes' : reservation.status === 'no-show'}">
             <div class="col" data-label="Name">
                 <input type="checkbox" (change)="includeRes($event, reservation)" style="width: 20px">
                 <span>{{ reservation.person.name }}</span>
@@ -209,12 +209,15 @@
 
 
 
-<div *ngIf="reservationDialog" class="newDialog">
+<div class="newDialog">
     <div class="heading" [ngStyle]="{'margin-bottom' : reservationId ? '0' : '20px'}">
         <p class="title">{{ reservationId ? 'Edit' : 'New'}} reservation</p>
         <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="unsetReservation()">
     </div>
-    <p *ngIf="reservationId">Reservation id: {{ reservationId }}</p>
+    <p *ngIf="reservationId" style="display: flex; justify-content: space-between">
+        <span>Reservation id: {{ reservationId }}</span>
+        <span style="font-weight: 600" [ngStyle]="{'color': status === 'cancelled' ? 'red' : 'rgba(0, 0, 0, 0.5)'}"> {{ status.charAt(0).toUpperCase() + status.slice(1) }} </span>
+    </p>
     <div class="newOptions">
         <div class="newOptionsMain">
             <div>
@@ -228,7 +231,7 @@
             </div>
             <div>
                 <p>Room type:</p>
-                <select [(ngModel)]="roomSelectedType" class='form-control' name="roomSelectedType">
+                <select [(ngModel)]="roomSelectedType" class='form-control' name="roomSelectedType" (change)="selectRoomType()">
                     <option *ngFor='let room of roomTypes' [value]="room">
                         {{ translations.labels.common[room] }}
                     </option>
@@ -240,7 +243,7 @@
                     <option value="0">
                         Any room
                     </option>
-                    <option *ngFor='let room of rooms'>
+                    <option *ngFor='let room of roomsOfType'>
                         {{ room.id }}
                     </option>
                 </select>    
@@ -270,8 +273,21 @@
         <p class="save" (click)="book()" *ngIf="!reservationId">
             Save
         </p>
-        <p class="save" (click)="updateRes()" *ngIf="reservationId">
-            Save
-        </p>
+        <div *ngIf="reservationId" class="footerBtns">
+            <p class="save" (click)="updateRes()">
+                Save
+            </p>
+            <p *ngIf="status === 'approved'" class="cancel" (click)="changeStatus('cancelled')">
+                Cancel
+            </p>
+            <p *ngIf="status === 'approved'" class="noshow" (click)="changeStatus('no-show')">
+                No-show
+            </p>
+            <p *ngIf="status === 'cancelled' || status === 'no-show'" class="approve" 
+            (click)="changeStatus('approved')">
+                Approve
+            </p>
+        </div>
+      
     </div>
 </div>

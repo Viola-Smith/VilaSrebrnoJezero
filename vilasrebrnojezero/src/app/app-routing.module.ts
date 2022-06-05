@@ -7,6 +7,7 @@ import { LoginComponent } from './admin/login/login.component';
 import { NotificationsComponent } from './admin/notifications/notifications.component';
 import { PricelistComponent } from './admin/pricelist/pricelist.component';
 import { RateplansComponent } from './admin/rateplans/rateplans.component';
+import { StatisticsComponent } from './admin/statistics/statistics.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventsComponent } from './events/events.component';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'rooms', component: RoomsComponent },
+  { path: 'statistics', component: StatisticsComponent },
   { path: 'events', component: EventsComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'admin', component: DashboardComponent },

@@ -29,27 +29,12 @@ export class PricelistComponent implements OnInit {
         this.rooms = rooms
         this.dates = this.getAllDates()
         this.setPricelistForDates()
-        // this.rooms.forEach((room) => {
-        //   if (!this.roomPrices.find(r => r.room === room.name)) {
-        //     let plShown = []
-        //     this.dates.forEach((date) => {
-        //       let price = this.pricelist.filter(p => (new Date(date)) >= (new Date(p.period_dates.date_from)) && (new Date(date)) <= (new Date(p.period_dates.date_to)) && p.room === room.name)
-        //       plShown.push(price.length ? price[price.length - 1].base_price : 0)
-        //     })
-        //     let rP = {room: room.name, prices: this.pricelist.filter(p => p.room === room.name), plShown: plShown}
-        //     this.roomPrices.push(rP)
-        //     this.editMode.push(false)
-        //     this.roomsCheckbox.push({room: room.name, checked: false})
-        //   }
-        // })
       })
     })
   }
 
   message = ''
 
-
-  bulkEdit = false
 
   savePlChange(index) {
     let temp = this.pricelist.filter(p => p.room === this.roomPrices[index].room)
@@ -95,6 +80,14 @@ export class PricelistComponent implements OnInit {
     return localStorage.getItem('admin') !== null
   }
 
+  showDialog() {
+    document.getElementsByClassName('bulkDialog')[0].classList.add('show');
+  }
+
+  hideDialog() {
+    document.getElementsByClassName('bulkDialog')[0].classList.remove('show');
+  }
+
   formatDate (date) {
     return moment(date).format('MMMM D, YYYY')
   }
@@ -115,15 +108,13 @@ export class PricelistComponent implements OnInit {
     return this.roomsCheckbox.filter(c => c.checked)
   }
 
-  bulkOptions = {name: '', room: '0', period_dates: {date_from: moment().format('YYYY-MM-DD'), date_to: moment().add(1, 'M').format('YYYY-MM-DD')}, base_price: 0}
+  bulkOptions = {id:0, name: '', room: '0', period_dates: {date_from: moment().format('YYYY-MM-DD'), date_to: moment().add(1, 'M').format('YYYY-MM-DD')}, base_price: 0}
   msgPriceReq = ''
   msgDate1Req = ''
   msgDate2Req = ''
   expanded = false
 
   bulkPricesChange () {
-    console.log(this.bulkOptions)
-    console.log(this.roomsCheckbox)
     this.msgPriceReq = ''
     this.msgDate1Req = ''
     this.msgDate2Req = ''
@@ -163,7 +154,15 @@ export class PricelistComponent implements OnInit {
 
     console.log(final)
     this.pricelistService.addPricelist(final).subscribe((res:any) => {
-      window.location.reload()
+      this.pricelistService.getPricelists().subscribe((pl: any) => {
+        this.pricelist = pl
+        this.roomService.getRoomNumbers().subscribe((rooms: any) => {
+          this.rooms = rooms
+          this.dates = this.getAllDates()
+          this.setPricelistForDates()
+          this.hideDialog()
+        })
+      })
     })
 
   }
@@ -197,12 +196,23 @@ export class PricelistComponent implements OnInit {
           let price = this.pricelist.filter(p => (new Date(date)) >= (new Date(p.period_dates.date_from)) && (new Date(date)) <= (new Date(p.period_dates.date_to)) && p.room === room.name)
           plShown.push(price.length ? price[price.length - 1].base_price : 0)
         })
-        let rP = {room: room.name, prices: this.pricelist.filter(p => p.room === room.name), plShown: plShown}
+        let rP = {room: room.name, prices: this.pricelist.filter(p => p.room === room.name), plShown: plShown, showNamed: false}
         this.roomPrices.push(rP)
         this.editMode.push(false)
         this.roomsCheckbox.push({room: room.name, checked: false})
       }
     })
+  }
+
+  openEditDialog (pl) {
+    console.log(pl)
+    this.bulkOptions = pl
+    this.roomsCheckbox.find(r => r.room === pl.room).checked = true
+  }
+
+  openNewDialog () {
+    this.bulkOptions = {id:0, name: '', room: '0', period_dates: {date_from: moment().format('YYYY-MM-DD'), date_to: moment().add(1, 'M').format('YYYY-MM-DD')}, base_price: 0}
+    this.showDialog()
   }
 
 }

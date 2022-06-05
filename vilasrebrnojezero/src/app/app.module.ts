@@ -29,6 +29,7 @@ import { NotificationsComponent } from './admin/notifications/notifications.comp
 import { RateplansComponent } from './admin/rateplans/rateplans.component';
 import { PricelistComponent } from './admin/pricelist/pricelist.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { StatisticsComponent } from './admin/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     CalendarComponent,
     NotificationsComponent,
     RateplansComponent,
-    PricelistComponent
+    PricelistComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

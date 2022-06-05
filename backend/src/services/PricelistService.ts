@@ -89,5 +89,13 @@ export default class PricelistService extends Service {
     public async getPricelistByRoom(room:any) {
         return await this.repo.getPriceListByRoom(room)
     }
+
+    public async getAll() {
+        let allPl = await super.getAll()
+        allPl.sort(function(a:any,b:any){
+            return new Date(a.period_dates.date_from).getTime() - new Date(b.period_dates.date_from).getTime();
+        });
+        return allPl
+    }
        
 }

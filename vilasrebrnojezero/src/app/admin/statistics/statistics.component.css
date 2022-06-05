@@ -1,0 +1,13 @@
+.statisticsContainer {
+    margin-left: 250px;
+    padding-top: 20px;
+}
+
+.charts {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.charts h4 {
+    text-align: center;
+}

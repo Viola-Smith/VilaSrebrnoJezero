@@ -39,6 +39,11 @@ let Reservation = new Schema({
     },
     googleCalendarEventId: {
         type: String
+    },
+    status: {
+        type: String,
+        enum : ['approved','cancelled', 'no-show'],
+        default: 'approved'
     }
 }, {collection:"Reservation"});
 

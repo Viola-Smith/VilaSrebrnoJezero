@@ -1,3 +1,4 @@
+import { Person } from "./person";
 import { Room } from "./room";
 
 export class Reservation {
@@ -5,11 +6,12 @@ export class Reservation {
     date_from: Date;
     date_to: Date;
     room: Room;
-    person: Object;
+    person: Person;
     user_id: number;
     timestamp: Date;
     price: number;
     payed: number;
     notes: string;
     googleCalendarEventId: string;
+    status: string
 }

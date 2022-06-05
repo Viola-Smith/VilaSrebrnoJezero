@@ -15,16 +15,16 @@
         <p *ngIf="rateplan.minNights">Minimum nights: {{rateplan.minNights}}</p>
         <p *ngIf="rateplan.maxNights">Maximum nights: {{rateplan.maxNights}}</p>
         <p>{{rateplan.subtract ? 'Subtract' : 'Add'}} {{ rateplan.base_price_mod + (rateplan.percent ? '%' : 'RSD') }} from base price</p>
-   </div>
+    </div>
    </div>
 </div>
 
 <div id='msg-popup' class='hide'> {{ message }} </div>
 
-<div *ngIf="openDialog" class="createDialog">
+<div class="createDialog">
     <div class="heading">
         <p class="title">Create Rate plan</p>            
-        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="openDialog = false">
+        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="hideDialog()">
     </div>
     <div class="createOptions">
         <div class="createOptionsMain">

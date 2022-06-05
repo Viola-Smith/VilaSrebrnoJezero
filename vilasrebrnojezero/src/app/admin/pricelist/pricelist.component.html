@@ -1,5 +1,5 @@
 <div class="pricelistContainer">
-
+    
     <div class="searchDates">
         <div>
             <p>Date from:</p>
@@ -11,7 +11,7 @@
         </div>   
     </div>
 
-    <div *ngFor="let pl of roomPrices; let j = index">
+    <div *ngFor="let pl of roomPrices; let j = index" class="pricelistRoom">
         <div class="plName">
             <p>{{ pl.room }}</p>
             <img src="../../../assets/styles/images/edit.png" (click)="editMode[j] = true" *ngIf="!editMode[j]">
@@ -29,22 +29,40 @@
                     <input [(ngModel)]="pl.plShown[i]" [name]="plShown+i">
                 </div>
             </div>
-       </div>
+        </div>
+
+        <p (click)="pl.showNamed = !pl.showNamed" *ngIf="pl.prices.length" class="pricelistBtn">
+            <span *ngIf="!pl.showNamed">Show</span> 
+            <span *ngIf="pl.showNamed">Hide</span>
+            named pricelists for room
+        </p>
+
+        <div class="rateplans" *ngIf="pl.showNamed">
+            <div *ngFor="let priceList of pl.prices" class="rateplan">
+                <div class="title">
+                    <p>{{priceList.name}}</p>
+                    <div class="icons">
+                        <img src="../../../assets/styles/images/edit.png" (click)="openEditDialog(priceList)">
+                        <img src="../../../assets/styles/images/trash.png" (click)="deletePL(priceList)">
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div id='msg-popup' class='hide'> {{ message }} </div>
 
-    <div class="bulkBtn" (click)="bulkEdit = true">
+    <div class="bulkBtn" (click)="openNewDialog()">
         <p>Bulk edit</p>
     </div>
 
 
 </div>
 
-<div class="bulkDialog" *ngIf="bulkEdit">
+<div class="bulkDialog">
     <div class="heading">
         <p class="title">Bulk Edit</p>            
-        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="bulkEdit = false">
+        <img src="../../../assets/styles/images/close.jpg" class="close-btn" (click)="hideDialog()">
     </div>
     
     <div class="bulkOptions">

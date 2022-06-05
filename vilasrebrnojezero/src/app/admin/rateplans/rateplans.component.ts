@@ -12,7 +12,6 @@ export class RateplansComponent implements OnInit {
 
   rateplans = []
 
-  openDialog = false
 
   newRateplan = {id: 0, name: '', minNights: 0, maxNights: 0, base_price_mod: 0, subtract: true, percent: true}
 
@@ -53,12 +52,12 @@ export class RateplansComponent implements OnInit {
 
   openEditDialog(rateplan) {
     this.newRateplan = rateplan
-    this.openDialog = true
+    this.showDialog()
   }
 
   createRP () {
     this.newRateplan = {id: 0, name: '', minNights: 0, maxNights: 0, base_price_mod: 0, subtract: true, percent: true}
-    this.openDialog = true
+    this.showDialog()
   }
 
   deleteRP (rateplan) {
@@ -74,9 +73,17 @@ export class RateplansComponent implements OnInit {
       if (res) {
         this.message = res.message
         this.showModal()
-        this.openDialog = false  
+        this.hideDialog()
       }
     })
+  }
+
+  showDialog() {
+    document.getElementsByClassName('createDialog')[0].classList.add('show');
+  }
+
+  hideDialog () {
+    document.getElementsByClassName('createDialog')[0].classList.remove('show');
   }
 
 }
