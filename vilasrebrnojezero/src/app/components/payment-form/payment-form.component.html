@@ -9,16 +9,16 @@
                     <div class='closeBook' (click)='closeBook()'>
                         <img style='width:38px' src='../../../assets/styles/images/icons/x-icon.png'>
                     </div>
-                    <div style='color:rgba(62, 193, 172, 0.9)' class='row'>
+                    <div style='color:rgb(51, 51, 51)' class='row'>
                         <div class='col-lg-4 col-md-4'>
                             {{ translations.labels.payment_form.pay }} :
                         </div>
                         <div class='col-lg-4 col-md-4'>
-                            <input type='radio' value='avans' [(ngModel)]='type' name='type'> 
+                            <input type='radio' value='avans' (change)="handleChange()" [(ngModel)]='type' name='type'> 
                             {{ translations.labels.payment_form.deposit }}
                         </div>
                         <div class='col-lg-4 col-md-4'>
-                            <input type='radio' value='celo' [(ngModel)]='type' name='type'>
+                            <input type='radio' value='celo' (change)="handleChange()" [(ngModel)]='type' name='type'>
                             {{ translations.labels.payment_form.full_price }}
                         </div>
                     </div>

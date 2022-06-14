@@ -132,7 +132,7 @@
                         <div class='row text-center'>
                             <div class='col-lg-2 col-md-2 col-sm-6 my-auto'>
                                 <img class='roomImage'
-                                    src='{{ "../assets/styles/images/sobe/" + getImage(room.name) + ".jpg"  }}'>
+                                    src='{{ "../assets/styles/images/sobe/" + room.name + "/1.jpg"  }}'>
                             </div>
                             <div class='col-lg-3 col-md-3 col-sm-6 my-auto' style='overflow-wrap:break-word;'>
                                 <h5>
@@ -155,14 +155,14 @@
                                         {{ i }}
                                     </option>
                                 </select>
-                                <div *ngIf='room.extra_beds > 0 && roomSelected(room)'>
+                                <!-- <div *ngIf='room.extra_beds > 0 && roomSelected(room)'>
                                     <div style='padding-top: 5px;'
                                     *ngFor='let extraBed of [].constructor(room.extra_beds); let i = index'>
                                         <input type='checkbox' name='extra_bed' (change)="selectExtraBed(room, $event.currentTarget.checked)">
                                         <label style="margin:0" for="extra_bed">{{ translations.labels.common.extra_bed }} {{i+1}}</label>
 
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class='col-lg-2 col-md-2 col-sm-4 my-auto'>
                                 <span class='room-info'>{{ translations.labels.search_rooms.price }}</span>

@@ -30,13 +30,15 @@ export class ReservationFormComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo({ top: 80, behavior: 'smooth' });
-    this.reservation.res.forEach(roomType => {
-      let extra_beds = 0
-      roomType.rooms.forEach(room => {
-        extra_beds += room.extra_beds_used
-      });
-      roomType.extra_beds_used = extra_beds
-    });
+    console.log('ngOnInit res form')
+    console.log(this.reservation)
+    // this.reservation.res.forEach(roomType => {
+    //   let extra_beds = 0
+    //   roomType.rooms.forEach(room => {
+    //     extra_beds += room.extra_beds_used
+    //   });
+    //   roomType.extra_beds_used = roomType.extra_beds_selected
+    // });
 
   }
 

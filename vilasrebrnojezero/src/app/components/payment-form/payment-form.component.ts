@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { CookieService } from 'src/services/cookie.service';
 import { ReservationsService } from 'src/services/reservations/reservations.service';
 import { TranslationsService } from 'src/services/translations.service';
+import { VisitorService } from 'src/services/visitor.service';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-payment-form',
@@ -13,10 +16,19 @@ export class PaymentFormComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
   showSuccess = true
 
-  constructor(private translations: TranslationsService, private reservationService: ReservationsService) { }
+  constructor(private cookieService: CookieService, private translations: TranslationsService, private reservationService: ReservationsService, private visitorService: VisitorService) { }
+
+  eurToRsd = 117
 
   ngOnInit() {
-    this.initConfig();
+    this.reservationService.exchangeRate().subscribe((res:any) => {
+      console.log(res)
+      if (res && res.result && res.result.RSD) {
+        this.eurToRsd = res.result.RSD
+      }
+      this.initConfig(this.eurToRsd);
+    })
+    
   }
 
   bookingDone = false
@@ -27,15 +39,21 @@ export class PaymentFormComponent implements OnInit {
   @Input() reservation: any
 
 
+  handleChange() {
+    this.initConfig(this.eurToRsd)
+  }
+
   type = 'avans'
   errorMessage = ''
 
-  private initConfig(): void {
+  private initConfig(eurToRsd): void {
     let resPrice = this.reservation.price
+    console.log(this.type)
     if (this.type === 'avans') {
       resPrice = (resPrice*0.3)
     }
-    let amount = resPrice/117
+    
+    let amount = resPrice/eurToRsd
     this.payPalConfig = {
         currency: 'EUR',
         clientId: 'sb',
@@ -88,6 +106,20 @@ export class PaymentFormComponent implements OnInit {
                 let failures = outcomes.filter(o => o.new === null)
                 if (!failures.length) {
                   this.bookingDone = true
+                  if (!this.cookieService.getCookie('visitor')) {
+                    const myId = uuid.v4();
+                    let visitorObj = {'uuid': myId, reserved: true}
+                    let params = {name: 'visitor', value: JSON.stringify(visitorObj)}
+                    this.cookieService.setCookie(params)
+                    this.visitorService.add(visitorObj).subscribe((obj) => {
+                      console.log(obj)
+                    })
+                  } else {
+                    let visitorObj = JSON.parse(this.cookieService.getCookie('visitor'))
+                    this.visitorService.update(visitorObj.uuid, visitorObj).subscribe((obj) => {
+                      console.log(obj)
+                    })
+                  }
                 } else {
                   this.bookingDone = false
                   this.errorMessage = failures[0].message

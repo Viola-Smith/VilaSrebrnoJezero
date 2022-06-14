@@ -194,7 +194,7 @@
       top:50px;
       right:50px;
       padding:30px;
-      z-index: 120;
+      z-index: 999;
       background-color:whitesmoke;
       border-radius: 25px;
       border: 2px solid #ccc;
@@ -375,5 +375,10 @@
 
 .noshowRes {
   background-color: rgba(197, 196, 196, 0.3) !important;
+  opacity: 0.9;
+}
+
+.pendingRes {
+  background-color: rgba(209, 161, 4, 0.3) !important;
   opacity: 0.9;
 }

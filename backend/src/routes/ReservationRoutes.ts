@@ -30,6 +30,12 @@ export default class ReservationRoutes extends Routes {
 		console.log(reservation)
 		res.json(await this.service.checkAll(reservation.reservation))
 	});
+
+	this.router.route('/confirm/:id').post(async (req, res) => {
+		let id = req.params.id
+		res.json(await this.service.confirmBooking(parseInt(id)))
+	});
+
 	
 	this.router.route('/pay').post(async (req, res) => {
 		let reservation = req.body

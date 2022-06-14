@@ -21,6 +21,7 @@
 
     <div style='display:flex; align-items: center; position:relative; float:right; margin-right: 30px;'>
         <input type='text' class='form-control' (input)="searchReservations($event.target.value)"
+        [(ngModel)]="searchTerm" name="searchTerm"
         style='background: url(../../../assets/styles/images/icons/search.png) no-repeat scroll 7px 7px; padding-left: 50px;'>
     </div>
 
@@ -62,7 +63,7 @@
             <div class="col">Reserved</div>
             <div class="col"></div>
           </li>
-          <li class="table-row" *ngFor='let reservation of filteredReservations; index as i'  [ngClass]="{'cancelledRes' : reservation.status === 'cancelled', 'noshowRes' : reservation.status === 'no-show'}">
+          <li class="table-row" *ngFor='let reservation of filteredReservations; index as i'  [ngClass]="{'cancelledRes' : reservation.status === 'cancelled', 'noshowRes' : reservation.status === 'no-show', 'pendingRes' : reservation.status === 'pending'}">
             <div class="col" data-label="Name">
                 <input type="checkbox" (change)="includeRes($event, reservation)" style="width: 20px">
                 <span>{{ reservation.person.name }}</span>

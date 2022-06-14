@@ -42,7 +42,7 @@ let Reservation = new Schema({
     },
     status: {
         type: String,
-        enum : ['approved','cancelled', 'no-show'],
+        enum : ['approved','cancelled', 'no-show', 'pending'],
         default: 'approved'
     }
 }, {collection:"Reservation"});

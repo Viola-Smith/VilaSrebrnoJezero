@@ -29,7 +29,7 @@ var notificationRoutes = require('./routes/NotificationRoutes')
 var pricelistRoutes = require('./routes/PricelistRoutes')
 var rateplansRoutes = require('./routes/RateplanRoutes')
 var integrationRoutes = require('./routes/IntegrationRoutes')
-
+var visitorRoutes = require('./routes/VisitorRoutes')
 
 app.use('/reservation', reservationRoutes)
 app.use('/room', roomRoutes)
@@ -38,6 +38,7 @@ app.use('/notification', notificationRoutes)
 app.use('/pricelist', pricelistRoutes)
 app.use('/rateplan', rateplansRoutes)
 app.use('/integration', integrationRoutes)
+app.use('/visitor', visitorRoutes)
 
 app.listen(4000, () => console.log('Express server running on port 4000'));
 

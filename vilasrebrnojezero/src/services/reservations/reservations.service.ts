@@ -20,6 +20,14 @@ export class ReservationsService {
     return this.http.post(`${this.uri}/reservation`, data);
   }
 
+  confirm(reservationId: number){
+    console.log(reservationId)
+    const data = {
+      status: 'approved'
+    }
+    return this.http.post(`${this.uri}/reservation/confirm/${reservationId}`, data);
+  }
+
   getAll(){
     return this.http.get(`${this.uri}/reservation`);
   }
@@ -64,5 +72,10 @@ export class ReservationsService {
 
   delete(resId) {
     return this.http.delete(`${this.uri}/reservation/${resId}`);
+  }
+
+  exchangeRate() {
+    let apiKey = '4d2a3e4a7b-4cc830aa0a-rdhe5o'
+    return this.http.get('https://api.fastforex.io/fetch-one?from=EUR&to=RSD&api_key='+apiKey);
   }
 }

@@ -163,7 +163,7 @@ export default class BookingService {
              + '&no_rooms=' + roomsNum + ';req_adults=' + adults + ';req_children=' + kids
             );
 
-            await page.waitForSelector('[data-room-id*="502402701"]');
+            await page.waitForSelector('[id="available_rooms"]');
             let data = await page.evaluate(() => {
                 let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402701_335372905_2_0_0"] option'))
                 return arrs.map(a => a.textContent)
@@ -177,13 +177,13 @@ export default class BookingService {
             availableRooms.push({type: '2bed_single', amount: data.length ? data.length - 1 : 0})
 
             data = await page.evaluate(() => {
-                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402703_335372905_2_0_0"] option'))
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402703_335372905_3_0_0"] option'))
                 return arrs.map(a => a.textContent)
             })
             availableRooms.push({type: '3bed', amount: data.length ? data.length - 1 : 0})
 
             data = await page.evaluate(() => {
-                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402704_335372905_2_0_0"] option'))
+                let arrs = Array.from(document.querySelectorAll('[name="nr_rooms_502402704_335372905_4_0_0"] option'))
                 return arrs.map(a => a.textContent)
             })
             availableRooms.push({type: '4bed', amount: data.length ? data.length - 1 : 0})

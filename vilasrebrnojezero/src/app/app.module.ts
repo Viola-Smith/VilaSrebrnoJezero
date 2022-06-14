@@ -30,6 +30,7 @@ import { RateplansComponent } from './admin/rateplans/rateplans.component';
 import { PricelistComponent } from './admin/pricelist/pricelist.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StatisticsComponent } from './admin/statistics/statistics.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { StatisticsComponent } from './admin/statistics/statistics.component';
     NotificationsComponent,
     RateplansComponent,
     PricelistComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

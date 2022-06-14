@@ -87,7 +87,7 @@
 		"full_price"			: "Full price",
 		"back"					: "Back",
 		"cancel"				: "Cancel",
-		"booking_successfull"	: "Booking successfull",
+		"booking_successfull"	: "Confirm Booking in e-mail",
 		"paid"					: "Paid",
 		"left_to_pay"			: "Left to pay"
 	},

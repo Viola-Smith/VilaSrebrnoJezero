@@ -8,6 +8,7 @@ import { NotificationsComponent } from './admin/notifications/notifications.comp
 import { PricelistComponent } from './admin/pricelist/pricelist.component';
 import { RateplansComponent } from './admin/rateplans/rateplans.component';
 import { StatisticsComponent } from './admin/statistics/statistics.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventsComponent } from './events/events.component';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -20,6 +21,7 @@ import { SearchRoomsComponent } from './search-rooms/search-rooms.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'confirm', component: ConfirmComponent},
   { path: 'rooms', component: RoomsComponent },
   { path: 'statistics', component: StatisticsComponent },
   { path: 'events', component: EventsComponent },

@@ -87,12 +87,16 @@ export class DashboardComponent implements OnInit {
   }
 
   showNewReservation() {
-    this.reservationId = null
+    this.unsetReservation()
     this.showDialog()
   }
 
   showDialog() {
     document.getElementsByClassName('newDialog')[0].classList.add('show')
+  }
+
+  hideDialog() {
+    document.getElementsByClassName('newDialog')[0].classList.remove('show')
   }
 
   deleteRes(resId) {
@@ -159,6 +163,7 @@ export class DashboardComponent implements OnInit {
 
 
   unsetReservation() {
+    this.hideDialog()
     this.dateFrom = new Date()
     this.dateTo = new Date()
     this.dateTo.setDate(this.dateFrom.getDate() + 2)
@@ -172,11 +177,10 @@ export class DashboardComponent implements OnInit {
     this.roomSelectedType = this.roomTypes[0]
     this.notes = ''
     this.paid = 0
-    this.reservationId = null
     this.googleCalendarEventId = null
     this.timestamp = null
     this.price = 0
-    document.getElementsByClassName('newDialog')[0].classList.remove('show')
+    this.reservationId = null
   }
 
 
@@ -202,10 +206,11 @@ export class DashboardComponent implements OnInit {
   }
 
   updateRes (status = 'approved') {
+    let room = this.rooms.find(r => r.id === parseInt(this.roomSelectedId)) as Room
     let reservation: Reservation = {
       date_from: this.dateFrom, date_to: this.dateTo, id: this.reservationId, 
       person: {name: this.name, email: this.email, phone: this.phone}, status: status,
-      notes: this.notes, payed: this.paid, price: this.price, room: this.roomSelectedId, 
+      notes: this.notes, payed: this.paid, price: this.price, room: room, roomType: this.roomSelectedType,
       user_id: 0, googleCalendarEventId: this.googleCalendarEventId, timestamp: this.timestamp
     }
     console.log(reservation)
@@ -213,9 +218,12 @@ export class DashboardComponent implements OnInit {
       console.log(res)
       this.message = res.message
       this.showModal()
-      this.unsetReservation()
-      this.loading = true
-      this.getReservations()
+      console.log(res)
+      if (res.outcome) {
+        this.hideDialog()
+        this.loading = true
+        this.getReservations()
+      }
     });
   }
 
@@ -229,15 +237,18 @@ export class DashboardComponent implements OnInit {
     let reservation: Reservation = {
       date_from: this.dateFrom, date_to: this.dateTo, id: 0, 
       person: {name: this.name, email: this.email, phone: this.phone}, status: 'approved',
-      notes: this.notes, payed: 0, price: 0, room: room, user_id: 0, timestamp: null, googleCalendarEventId: null
+      notes: this.notes, payed: this.paid, price: 0, room: room, roomType: this.roomSelectedType, user_id: 0, timestamp: null, googleCalendarEventId: null
     }
     console.log(reservation)
     this.reservationService.book(reservation).subscribe((res: any) => {
       this.message = res.message
+      console.log(res)
       this.showModal()
-      this.unsetReservation()
-      this.loading = true
-      this.getReservations()
+      if (res.new) {
+        this.hideDialog()
+        this.loading = true
+        this.getReservations()
+      }
     });
   }
 
@@ -273,29 +284,31 @@ export class DashboardComponent implements OnInit {
   changeMonth(val) {
     let monthVal = this.months.indexOf(val)
     this.dates = this.getAllDates(monthVal)
-    this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == monthVal)
+    this.filterReservations(this.filteredRoom, this.searchTerm)
   }
 
-  filterReservations () {
-    
+  filterReservations (room, search) {
+    this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (this.months.indexOf(this.curMonth)))  
+    if (room != 0) {
+      this.filteredReservations = this.filteredReservations.filter(r => r.room == room)
+    }
+    if (search != '') {
+      this.filteredReservations = this.filteredReservations.filter(r => r.person.name.toLowerCase().includes(search.toLowerCase()) ||
+      (r.person.email ? r.person.email.toLowerCase().includes(search.toLowerCase()) : false) || 
+      (r.person.phone ? r.person.phone.toLowerCase().includes(search.toLowerCase()) : false))
+    }
   }
 
   searchReservations (val) {
-    if (val) {
-      this.filteredReservations = this.reservations.filter(r => r.person.name.toLowerCase().includes(val.toLowerCase()) ||
-      (r.person.email ? r.person.email.toLowerCase().includes(val.toLowerCase()) : false) || 
-      (r.person.phone ? r.person.phone.toLowerCase().includes(val.toLowerCase()) : false))
-    } else {
-      this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (this.months.indexOf(this.curMonth)))
-    }
+    this.filterReservations(this.filteredRoom, val)
   }
 
+  filteredRoom = 0
+  searchTerm = ''
+  
   filterByRoom (room) {
-    if (room == 0) {
-      this.filteredReservations = this.reservations.filter(r => (parseInt(r.date_from.split('-')[1]) - 1) == (this.months.indexOf(this.curMonth)))
-      return
-    }
-    this.filteredReservations = this.reservations.filter(r => r.room == room) 
+    this.filteredRoom = room
+    this.filterReservations(this.filteredRoom, this.searchTerm)
   }
 
   isBetween(date, date1, date2) {
@@ -303,7 +316,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getReservation(date, roomId) {
-    let res = this.filteredReservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00')) && r.status !== 'cancelled'  )
+    let res = this.reservations.filter(r => r.room === roomId && (new Date(date)) >= (new Date(r.date_from + 'T00:00:00.000+02:00')) && (new Date(date)) <= (new Date(r.date_to + 'T00:00:00.000+02:00')) && r.status !== 'cancelled'  )
     if (res.length) {
       var element = document.getElementById("Reservation " + date.getDate() + "-" + roomId);
       if (res.length > 1) {

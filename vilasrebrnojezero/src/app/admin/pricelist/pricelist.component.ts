@@ -38,14 +38,13 @@ export class PricelistComponent implements OnInit {
 
   savePlChange(index) {
     let temp = this.pricelist.filter(p => p.room === this.roomPrices[index].room)
+    
     let plToChange = []
     this.roomPrices[index].plShown.forEach((p, i) => {
       let tFind = temp.filter(tmp =>  (new Date(this.dates[i])) >= (new Date(tmp.period_dates.date_from)) && (new Date(this.dates[i])) <= (new Date(tmp.period_dates.date_to)))
       let t = tFind[tFind.length - 1]
 
       if (t && t.base_price !== parseInt(p)) {
-        console.log(t.base_price)
-        console.log(p)
         let ch = Object.assign({}, t)
         ch.base_price = parseInt(p)
         ch.name = 'single_price'
@@ -208,6 +207,7 @@ export class PricelistComponent implements OnInit {
     console.log(pl)
     this.bulkOptions = pl
     this.roomsCheckbox.find(r => r.room === pl.room).checked = true
+    this.showDialog()
   }
 
   openNewDialog () {

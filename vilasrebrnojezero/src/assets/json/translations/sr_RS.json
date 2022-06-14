@@ -86,7 +86,7 @@
 		"full_price"			: "Punu cenu",
 		"back"					: "Nazad",
 		"cancel"				: "Odustani",
-		"booking_successfull"	: "Rezervacija uspešna",
+		"booking_successfull"	: "Potvrdite rezervaciju u email-u",
 		"paid"					: "Placeno",
 		"left_to_pay"			: "Puna cena"
 	},

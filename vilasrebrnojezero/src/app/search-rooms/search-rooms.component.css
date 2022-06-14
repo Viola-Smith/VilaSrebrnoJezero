@@ -10,8 +10,8 @@
     border-radius:20px; 
     /* border:1px solid gray;
     box-shadow: 2px 1px 8px 2px darkgrey; */
-    border: 1px solid rgba(62, 193, 172, 0.8); 
-    box-shadow: 1px 1px 15px 1px rgba(62, 193, 172, 0.5)
+    border: 1px solid lightgray; 
+    box-shadow: 1px 1px 15px 1px lightgray
 }
 
 .roomImage {
@@ -30,10 +30,15 @@
     border-radius: 20px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, .5), 3px 3px 8px white inset;
     margin-bottom:10px */
-    background: rgba(177, 245, 233, 0.1); 
-            padding:20px; display: flex; flex-direction: column;
-            border: 1px solid rgba(62, 193, 172, 0.6);
-    margin-bottom: 10px;
+    /* border-radius: 25px; */
+    /* background: rgba(114, 112, 112, 0.1);  */
+            padding:25px; display: flex; flex-direction: column;
+            /* border: 1px solid rgba(62, 193, 172, 0.6); */
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius:20px; 
+    border: 1px solid lightgray; 
+    box-shadow: 1px 1px 15px 1px lightgray;
 }
 
 .room-info {
@@ -61,11 +66,14 @@
 }
 
 .reserveButton button {
+    background: rgba(114, 112, 112, 0.1);
+    padding: 15px;
+    border-radius:20px; 
+    border: 1px solid lightgray; 
+    /* box-shadow: 1px 1px 15px 1px lightgray; */
     font-size: x-large;
     margin-top:8px;
     padding:10px;
-    background-color:rgba(62, 193, 172, 0.3);
-    border-radius: 25px;
     cursor: pointer
 }
 

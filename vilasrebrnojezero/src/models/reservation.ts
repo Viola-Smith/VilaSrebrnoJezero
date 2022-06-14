@@ -13,5 +13,6 @@ export class Reservation {
     payed: number;
     notes: string;
     googleCalendarEventId: string;
-    status: string
+    status: string;
+    roomType: string
 }

@@ -93,8 +93,8 @@ export class SearchRoomsComponent implements OnInit {
 
 
   getExtraBedsPrice (room) {
-    if (room.extra_beds_selected) {
-      return room.extra_beds_price[0].price + (room.extra_beds_selected > 1 ? room.extra_beds_price[1].price : 0)
+    if (room.extra_beds_used) {
+      return room.extra_beds_price[0].price + (room.extra_beds_used > 1 ? room.extra_beds_price[1].price : 0)
     }
     return 0
   }
@@ -111,9 +111,9 @@ export class SearchRoomsComponent implements OnInit {
     let r = this.manualReservationArray.find(r => r.name === room.name)
     if (r) {
       if (checked) {
-        r.extra_beds_selected = r.extra_beds_selected ? r.extra_beds_selected + 1 : 1
+        r.extra_beds_used = r.extra_beds_used ? r.extra_beds_used + 1 : 1
       } else {
-        r.extra_beds_selected = r.extra_beds_selected ? r.extra_beds_selected - 1 : 0
+        r.extra_beds_used = r.extra_beds_used ? r.extra_beds_used - 1 : 0
       }
     }
   }
@@ -131,7 +131,6 @@ export class SearchRoomsComponent implements OnInit {
   showPaymentForm = false
 
   goToPayment(value) {
-    console.log(value)
     this.showForm = false
     this.showPaymentForm = value.go
     this.finalReservation.person = value.person
@@ -142,19 +141,7 @@ export class SearchRoomsComponent implements OnInit {
     this.showForm = true
   }
 
-
-  getImage(type) {
-    switch (type) {
-      case '2bed_double': return 'dvokrevetne/1'
-      case '2bed_single': return 'dvokrevetne/s1'
-      case '3bed': return 'trokrevetne/tr1'
-      case '4bed': return 'cetvorokrevetni/c1n'
-      case 'lux': return 'cetvorokrevetni/l2'
-    }
-  }
-
   reserve(obj) {
-    console.log(obj)
     this.finalReservation = { res: obj, dateRange: { date1: this.date1, date2: this.date2 }, price: this.getSumPrice(obj)}
     localStorage.setItem('currentReservation', JSON.stringify(this.finalReservation))
     this.showForm = true
@@ -174,7 +161,6 @@ export class SearchRoomsComponent implements OnInit {
       roomCopy.amount = parseInt(amount)
       this.manualReservationArray.push(roomCopy)
     }
-    console.log(this.manualReservationArray)
   }
 
 

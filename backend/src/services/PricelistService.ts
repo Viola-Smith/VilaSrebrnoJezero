@@ -19,7 +19,7 @@ export default class PricelistService extends Service {
         let totalPrice = 0
         let currentDate = new Date(dateFrom);
         while (currentDate < date2) {
-            let prices = pricelist.filter((p:any) =>
+            let prices = pricelist.filter((p:any) => 
                 currentDate >= new Date(p.period_dates.date_from) &&
                 currentDate <= new Date(p.period_dates.date_to) &&
                 room.includes(p.room)

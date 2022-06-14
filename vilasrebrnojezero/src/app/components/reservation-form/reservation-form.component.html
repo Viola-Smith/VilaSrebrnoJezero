@@ -58,9 +58,9 @@
                                     </div>
                                     <div *ngFor='let res of reservation.res'>
                                         <div>
-                                            {{ res.amount }} X {{ res.type }}
+                                            {{ res.amount }} X {{ translations.labels.common[res.name] }}
                                             <span *ngIf='res.extra_beds>0'>
-                                                +{{ res.extra_beds }} extra beds
+                                                <!-- +{{ res.extra_beds }} extra beds -->
                                             </span> = {{ res.amount * res.price }}
                                         </div>
                                     </div>

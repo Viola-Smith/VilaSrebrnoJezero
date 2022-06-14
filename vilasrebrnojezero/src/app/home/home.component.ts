@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslationsService } from 'src/services/translations.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private translations: TranslationsService) { }
 
   ngOnInit() {
+  
   }
 
 }

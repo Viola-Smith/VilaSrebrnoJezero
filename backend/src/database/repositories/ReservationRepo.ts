@@ -20,6 +20,11 @@ export default class ReservationRepo extends Repo {
         return await this.model.updateOne( { id: resId }, { $set: { googleCalendarEventId : gcId } }, ).exec()
     }
 
+    public async confirm(resId: number) {
+        return await this.model.updateOne( { id: resId }, { $set: { status : 'approved' } }, ).exec()
+    }
+
+
     public async reservationBefore(date1: any, roomId: number) {
         return await this.model.find(
             {

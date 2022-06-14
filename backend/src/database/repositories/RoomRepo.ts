@@ -7,7 +7,7 @@ export default class RoomRepo extends Repo {
     }
 
     public async getRoomsByType(name: string) {
-        return await this.model.find({ name: name }).exec()
+        return await this.model.find({ '$and': [{name: name}, {'bookable' : true}] }).exec()
     }
 
     public async getAvailableRoom(finalRoomIds: any[], takenRoomIds: any[], adultsNum: number) {
@@ -16,13 +16,7 @@ export default class RoomRepo extends Repo {
                 '$and': [
                     { 'id': { $nin: finalRoomIds } },
                     { 'id': { $nin: takenRoomIds } },
-                    {
-                        '$or':
-                            [
-                                { 'adults': adultsNum }
-
-                            ]
-                    },
+                    { 'adults': adultsNum },
                     { 'bookable': true }
                 ],
             }

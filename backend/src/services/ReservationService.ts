@@ -17,6 +17,18 @@ export default class ReservationService extends Service {
     }
 
     public async book(reservationObject: any) {
+        console.log(reservationObject)
+        if (!reservationObject.room) {
+            reservationObject.amount = 1
+            reservationObject.name = reservationObject.roomType
+            let rooms = await this.getRooms([reservationObject], {date1: reservationObject.date_from, date2: reservationObject.date_to, })
+            if (rooms.length > 0) {
+                reservationObject.room = rooms[0].room
+            } else {
+                return { 'message': 'No available rooms found', 'new': null }
+            }
+        }
+        console.log(reservationObject)
         let price = await new PricelistService().calculatePrice(reservationObject.date_from, reservationObject.date_to, reservationObject.room.name)
         console.log(price)
         if (price) {
@@ -24,6 +36,7 @@ export default class ReservationService extends Service {
             delete reservationObject.timestamp
             return await this.create(reservationObject)
         }
+        return { 'message': 'Price is 0', 'new': null }
     }
 
     public async create(reservationObject: any) {
@@ -31,8 +44,10 @@ export default class ReservationService extends Service {
         if (reservationsExist && reservationsExist.length > 0) {
             return { 'message': 'Room not available for set dates', 'new': null }
         }
+        console.log(reservationObject)
         try {
             let outcome = await this.repo.book(reservationObject)
+            console.log(outcome)
             if (outcome) {
                 let integrations = await (new IntegrationService()).getAll()
                 let calendarEnabled = integrations.find((i:any) => i.name === 'Google Calendar').enabled
@@ -63,7 +78,7 @@ export default class ReservationService extends Service {
     public async checkAll(reservation: any) {
         for (var roomType of reservation.res) {
             console.log(roomType)
-            let rooms = await this.roomService.getAllRoomsByType(roomType.type)
+            let rooms = await this.roomService.getAllRoomsByType(roomType.name)
             let roomIds = rooms.map((r:any) => r.id)
             let exists = await this.repo.checkAvailableRooms(reservation.dateRange.date1, reservation.dateRange.date2, roomIds)
             if (exists && (roomIds.length - exists.length) < roomType.amount) {
@@ -75,16 +90,16 @@ export default class ReservationService extends Service {
 
 
 
-    private async getRooms(reservationObj: any) {
-        console.log(reservationObj)
-        let roomArray = reservationObj.res
-        let dateRange = reservationObj.dateRange
+    private async getRooms(res: any, resDateRange: any) {
+        console.log(res)
+        let roomArray = res
+        let dateRange = resDateRange
         let finalRooms = []
         for (let index = 0; index < roomArray.length; index++) {
             let room = roomArray[index];
-            let extra_beds = room.rooms[0].extra_beds_used
+            // let extra_beds = room.rooms[0].extra_beds_used
             let amount = room.amount
-            let roomTypeIds = await this.roomService.getAllRoomsByType(room.type)
+            let roomTypeIds = await this.roomService.getAllRoomsByType(room.name)
             let roomsAdded = []
             for (let i = 0; i < roomTypeIds.length; i++) {
                 const tmp = await this.checkAvailable(dateRange.date1, dateRange.date2, roomTypeIds[i].id)
@@ -119,7 +134,7 @@ export default class ReservationService extends Service {
     }
 
     public async reserve(reservationObj: any) {
-        let rooms = await this.getRooms(reservationObj)
+        let rooms = await this.getRooms(reservationObj.res, reservationObj.dateRange)
         let outcomes = []
         for (let room of rooms) {
             let res = {
@@ -134,7 +149,8 @@ export default class ReservationService extends Service {
                     email: reservationObj.person.email,
                     phone: reservationObj.person.phone
                 },
-                user_id: 0
+                user_id: 0,
+                status: 'pending'
             }
             let outcome = await this.create(res)
             outcomes.push(outcome)
@@ -167,6 +183,17 @@ export default class ReservationService extends Service {
     public async update(resId: number, res: any) {
         try {
             res.payed = parseInt(res.payed)
+            let price = await new PricelistService().calculatePrice(res.date_from, res.date_to, res.room.name)
+            console.log(res)
+            if (!price) {  
+                return { 'message': 'Prices undefined for period and room', outcome: false, 'new': null as Object }
+            }
+            res.price = price
+            let reservationsExist = await this.checkAvailable(res.date_from, res.date_to, res.room.id)
+            if (reservationsExist && reservationsExist.length > 0) {
+                return { 'message': 'Room not available for set dates', outcome: false, 'new': null }
+            }
+            res.room = res.room.id
             let outcome = await super.update(resId, res)
             if (outcome.outcome) {
                 MailingService.updateReservation(res)
@@ -177,6 +204,20 @@ export default class ReservationService extends Service {
             }
         } catch (err) {
             return { 'message': err, outcome: false, 'new': null as Object }
+        }
+    }
+
+    public async confirmBooking(id: number) {
+        let res = await this.repo.getById(id)
+        if (res) {
+            let updated = await this.repo.confirm(id)
+            if (updated.modifiedCount > 0) {
+                return {'message': 'Succesfully confirmed reservation', outcome: true, 'new': updated}
+            } else {
+                return {'message': 'Reservation already confirmed', outcome: false, 'new': updated}
+            }
+        } else {
+            return { 'message': 'Reservation not found', outcome: false, 'new': null as Object }
         }
     }
 
