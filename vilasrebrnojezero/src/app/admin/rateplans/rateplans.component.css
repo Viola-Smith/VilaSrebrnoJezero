@@ -1,21 +1,18 @@
-.ratePlansContainer {
-    margin-left: 220px;
-    padding-top: 50px;
-}
 
-.ratePlansContainer .heading {
+
+.adminContentContainer .heading {
     display: flex;
     justify-content: space-between;
     margin: 0 40px;
     align-items: center;
 }
 
-.ratePlansContainer > .heading > .title {
+.adminContentContainer > .heading > .title {
     font-size: 30px;
     color: black;
 }
 
-.ratePlansContainer .create {
+.adminContentContainer .create {
     background-color: seagreen;
     padding: 5px 8px;
     border-radius: 5px;
@@ -24,7 +21,7 @@
     cursor: pointer;
 }
 
-.ratePlansContainer .create:hover {
+.adminContentContainer .create:hover {
    box-shadow: 1px 1px 8px darkgreen;
 }
 

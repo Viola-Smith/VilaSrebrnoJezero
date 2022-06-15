@@ -1,18 +1,18 @@
-.calendarForm {
-    margin-left: 250px;
-    padding-top: 40px;
+.integrations {
+    margin-top:20px;
 }
 
-.calendarForm p {
+.adminContentContainer p {
     color:darkslategrey
 }
 
-.calendarForm .integrations {
+.adminContentContainer .integrations {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
-.calendarForm .integrations .integration {
+.adminContentContainer .integrations .integration {
     background-color: rgba(236, 236, 236, 0.8);
     padding: 15px;
     color: rgb(83, 81, 81);
@@ -24,12 +24,12 @@
     width: 300px;
 }
 
-.calendarForm .integrations .integration img {
+.adminContentContainer .integrations .integration img {
     width: 35px;
     height: 35px;
 }
 
-.calendarForm .iconAndBtn {
+.adminContentContainer .iconAndBtn {
     display: flex;
     justify-content: space-between;
     align-items: center;

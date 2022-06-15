@@ -1,6 +1,11 @@
 <div class="sidebar-container">
-  <div class="sidebar-logo">
+  <div class="sidebar-logo" style="position: relative">
     Vila Srebrno Jezero
+
+    <!-- <div *ngIf="!showSideMenu" class="mobMenu">
+      <img src="../../../assets/styles/images/mobmenu.png" (click)="showMenu()">
+    </div> -->
+   
   </div>
   <ul class="sidebar-navigation">
     <!-- <li class="header">Reservations</li> -->
@@ -53,4 +58,9 @@
     </li>
    
   </ul>
+</div>
+<div *ngIf="!showSideMenu">
+  <div class="mobMenu">
+    <img src="../../../assets/styles/images/mobmenu.png" (click)="showMenu()">
+  </div>
 </div>

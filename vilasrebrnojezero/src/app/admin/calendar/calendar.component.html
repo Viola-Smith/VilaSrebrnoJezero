@@ -1,4 +1,4 @@
-<div class="calendarForm">
+<div class="adminContentContainer">
     <div class="integrations">
         <div *ngFor="let integration of inetgrations" class="integration">
             <p><span *ngIf="!integration.enabled">Connect</span><span *ngIf="integration.enabled">Connected</span> to {{ integration.name }}</p>

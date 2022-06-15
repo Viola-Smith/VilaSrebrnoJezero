@@ -4,50 +4,66 @@
     +
 </button>
 
-<div class="content-container">
+<div class="adminContentContainer">
 
     <div id='msg-popup' class='hide'> {{ message }} </div>
 
 
-    <div style='display:inline-block; align-items: center;margin-bottom: 30px;'>
-        <span style='margin-left:20px'>Calendar View</span>
-        <!-- Rounded switch -->
-        <label class="switch" style='margin-left:10px; margin-bottom: 0;'>
-            <input type="checkbox" [(ngModel)]="calendarView" name="calendarView"> 
-            <span class="slider round"></span>
-        </label>
-    
+    <div class="row">
+        <div class="col">
+            <div style='display:inline-block; align-items: center;margin-bottom: 30px;'>
+                <span style='margin-left:20px'>Calendar View</span>
+                <!-- Rounded switch -->
+                <label class="switch" style='margin-left:10px; margin-bottom: 0;'>
+                    <input type="checkbox" [(ngModel)]="calendarView" name="calendarView"> 
+                    <span class="slider round"></span>
+                </label>
+            
+            </div>
+        </div>
+        <div class="col">
+            <div style='display:flex; align-items: center; position:relative; float:right; margin-right: 30px;'>
+                <input type='text' class='form-control' (input)="searchReservations($event.target.value)"
+                [(ngModel)]="searchTerm" name="searchTerm"
+                style='background: url(../../../assets/styles/images/icons/search.png) no-repeat scroll 7px 7px; padding-left: 50px;'>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div style="width: 140px; margin-left: 30px">
+                <!-- <span>Month: </span> -->
+                <select class='form-control'  [(ngModel)]="curMonth" class='form-control' name="curMonth" (change)="changeMonth($event.target.value)">
+                    <option *ngFor='let month of months'>
+                        {{ month }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div style="margin-right: 30px; display: flex; gap: 10px; align-items: center; float:right">
+                <!-- <span>Room: </span> -->
+                <select class='form-control' style="width: 130px;" (change)="filterByRoom($event.target.value)">
+                    <option value="0">
+                        All rooms
+                    </option>
+                    <option *ngFor='let room of rooms'>
+                        {{ room.id }}
+                    </option>
+                </select>
+                <img class="exportBtn" src="../../../assets/styles/images/export.png" (click)="export()">
+                <img *ngIf="checkedRes.length" class="invoiceBtn" src="../../../assets/styles/images/invoice.png" (click)="invoiceMultiple()">
+            </div>
+        </div>
     </div>
 
-    <div style='display:flex; align-items: center; position:relative; float:right; margin-right: 30px;'>
-        <input type='text' class='form-control' (input)="searchReservations($event.target.value)"
-        [(ngModel)]="searchTerm" name="searchTerm"
-        style='background: url(../../../assets/styles/images/icons/search.png) no-repeat scroll 7px 7px; padding-left: 50px;'>
-    </div>
+  
 
     <div style="display: flex; justify-content: space-between">
-        <div style="width: 200px; margin-left: 30px">
-            <!-- <span>Month: </span> -->
-            <select class='form-control'  [(ngModel)]="curMonth" class='form-control' name="curMonth" (change)="changeMonth($event.target.value)">
-                <option *ngFor='let month of months'>
-                    {{ month }}
-                </option>
-            </select>
-        </div>
+       
     
-        <div style="margin-right: 30px; display: flex; gap: 10px; align-items: center;">
-            <!-- <span>Room: </span> -->
-            <select class='form-control' style="width: 200px;" (change)="filterByRoom($event.target.value)">
-                <option value="0">
-                    All rooms
-                </option>
-                <option *ngFor='let room of rooms'>
-                    {{ room.id }}
-                </option>
-            </select>
-            <img class="exportBtn" src="../../../assets/styles/images/export.png" (click)="export()">
-            <img *ngIf="checkedRes.length" class="invoiceBtn" src="../../../assets/styles/images/invoice.png" (click)="invoiceMultiple()">
-        </div>
+     
     
     </div>
     

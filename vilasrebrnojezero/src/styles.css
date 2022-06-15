@@ -189,3 +189,13 @@
     box-shadow: inset white 3px 3px 7px;
     cursor: pointer;
 }
+
+.adminContentContainer {
+	padding-top: 40px;
+	margin-left: 10px;
+}
+@media only screen and (min-width: 1100px) {
+	.adminContentContainer {
+		margin-left: 250px;
+	}
+}
