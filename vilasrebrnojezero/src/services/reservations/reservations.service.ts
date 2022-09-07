@@ -75,7 +75,12 @@ export class ReservationsService {
   }
 
   exchangeRate() {
-    let apiKey = '4d2a3e4a7b-4cc830aa0a-rdhe5o'
-    return this.http.get('https://api.fastforex.io/fetch-one?from=EUR&to=RSD&api_key='+apiKey);
+    let apiKey = 'POA6rreDDr3XLxQhEjUeqFHuAiOZWyby'
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: {'apikey': apiKey}
+    };
+    return this.http.get('https://api.apilayer.com/exchangerates_data/convert?to=RSD&from=USD&amount=1', requestOptions);
   }
 }

@@ -1,7 +1,0 @@
-booking.com api - no auth
-email - they send only link
-google calendar - no option, also doesn't work always
-third api - need to pay anyway
-apify - only gets availability
-puppeteer - 2FA -> cookies - are you a robot; different ip address - doesn't work
-twilio - also costs, no serbain numbers, cannot receive from short codes without request and even then has to be same country

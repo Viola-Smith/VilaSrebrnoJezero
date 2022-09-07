@@ -1,0 +1,410 @@
+{
+    "_id" : ObjectId("613488a84d39893e5e66eff7"),
+    "id" : 1,
+    "name" : "4bed",
+    "floor" : 0,
+    "adults" : 4,
+    "extra_beds" : 1,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488b94d39893e5e66f003"),
+    "id" : 2,
+    "name" : "3bed",
+    "floor" : 0,
+    "adults" : 3,
+    "extra_beds" : 1,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488c74d39893e5e66f006"),
+    "id" : 3,
+    "name" : "3bed",
+    "floor" : 0,
+    "adults" : 3,
+    "extra_beds" : 1,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488c74d39893e5e66f009"),
+    "id" : 4,
+    "name" : "2bed_single",
+    "floor" : 0,
+    "adults" : 2,
+    "extra_beds" : 2,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : false,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488c74d39893e5e66f00c"),
+    "id" : 5,
+    "name" : "2bed_single",
+    "floor" : 1,
+    "adults" : 2,
+    "extra_beds" : 2,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488d34d39893e5e66f00f"),
+    "id" : 6,
+    "name" : "2bed_double",
+    "floor" : 1,
+    "adults" : 2,
+    "extra_beds" : 0,
+    "extra_beds_price" : [ 
+        {
+            "1" : 300
+        }, 
+        {
+            "2" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488d34d39893e5e66f012"),
+    "id" : 7,
+    "name" : "2bed_double",
+    "floor" : 1,
+    "adults" : 2,
+    "extra_beds" : 0,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488d34d39893e5e66f015"),
+    "id" : 8,
+    "name" : "2bed_single",
+    "floor" : 1,
+    "adults" : 2,
+    "extra_beds" : 2,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488df4d39893e5e66f027"),
+    "id" : 9,
+    "name" : "2bed_single",
+    "floor" : 2,
+    "adults" : 2,
+    "extra_beds" : 2,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488df4d39893e5e66f02a"),
+    "id" : 10,
+    "name" : "2bed_double",
+    "floor" : 2,
+    "adults" : 2,
+    "extra_beds" : 0,
+    "bookable" : true,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488df4d39893e5e66f02d"),
+    "id" : 11,
+    "name" : "2bed_double",
+    "floor" : 2,
+    "adults" : 2,
+    "extra_beds" : 0,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488e94d39893e5e66f032"),
+    "id" : 12,
+    "name" : "2bed_single",
+    "floor" : 2,
+    "adults" : 2,
+    "extra_beds" : 2,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613488e94d39893e5e66f035"),
+    "id" : 13,
+    "name" : "lux",
+    "floor" : 3,
+    "adults" : 2,
+    "extra_beds" : 0,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613489434d39893e5e66f042"),
+    "id" : 14,
+    "name" : "2bed_single",
+    "floor" : 0,
+    "adults" : 2,
+    "extra_beds" : 2,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }, 
+        {
+            "start_date" : "12-01",
+            "end_date" : "03-31"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613489434d39893e5e66f045"),
+    "id" : 15,
+    "name" : "2bed_double",
+    "floor" : 0,
+    "adults" : 2,
+    "extra_beds" : 0,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }, 
+        {
+            "start_date" : "12-01",
+            "end_date" : "03-31"
+        }
+    ]
+}
+{
+    "_id" : ObjectId("613489434d39893e5e66f048"),
+    "id" : 16,
+    "name" : "4bed",
+    "floor" : 0,
+    "adults" : 4,
+    "extra_beds" : 1,
+    "extra_beds_price" : [ 
+        {
+            "order" : 1,
+            "price" : 300
+        }, 
+        {
+            "order" : 2,
+            "price" : 200
+        }
+    ],
+    "bookable" : true,
+    "bookable_periods" : [ 
+        {
+            "start_date" : "04-15",
+            "end_date" : "09-30"
+        }, 
+        {
+            "start_date" : "12-01",
+            "end_date" : "03-31"
+        }
+    ]
+}

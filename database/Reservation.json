@@ -1,0 +1,76 @@
+{
+    "_id" : ObjectId("62dc06efc45d08450d0c7890"),
+    "id" : 48,
+    "date_from" : ISODate("2022-09-25T00:00:00.000Z"),
+    "date_to" : ISODate("2022-09-29T00:00:00.000Z"),
+    "room" : 8,
+    "person" : {
+        "name" : "Milica Nikolic",
+        "email" : "milicanikolica97@gmail.com",
+        "phone" : "0631652656"
+    },
+    "user_id" : 0,
+    "price" : 9600,
+    "payed" : 2880,
+    "status" : "pending",
+    "timestamp" : ISODate("2022-07-23T14:34:23.891Z"),
+    "__v" : 0,
+    "googleCalendarEventId" : "03ujivqkd6sj8kue8fn9ghd8vo"
+}
+{
+    "_id" : ObjectId("62dc0688c45d08450d0c7888"),
+    "id" : 47,
+    "date_from" : ISODate("2022-09-25T00:00:00.000Z"),
+    "date_to" : ISODate("2022-09-29T00:00:00.000Z"),
+    "room" : 5,
+    "person" : {
+        "name" : "Adela Velikic",
+        "email" : "adela@gmail.com",
+        "phone" : "0631652656"
+    },
+    "user_id" : 0,
+    "price" : 9600,
+    "payed" : 2880,
+    "status" : "pending",
+    "timestamp" : ISODate("2022-07-23T14:32:40.142Z"),
+    "__v" : 0,
+    "googleCalendarEventId" : "k2ffekoudc61d7mf6f10viu6i0"
+}
+{
+    "_id" : ObjectId("62dc0666c45d08450d0c7880"),
+    "id" : 46,
+    "date_from" : ISODate("2022-09-27T00:00:00.000Z"),
+    "date_to" : ISODate("2022-09-29T00:00:00.000Z"),
+    "room" : 3,
+    "person" : {
+        "name" : "Ivana Nikolic",
+        "email" : "ivana@gmail.com",
+        "phone" : "0631652656"
+    },
+    "user_id" : 0,
+    "price" : 8100,
+    "payed" : 4320,
+    "status" : "approved",
+    "timestamp" : ISODate("2022-07-23T14:32:06.385Z"),
+    "__v" : 0,
+    "googleCalendarEventId" : "91r6ofo2uqnpm2dp3tunvo5ri4"
+}
+{
+    "_id" : ObjectId("62a8dd59eb51b5c559d84202"),
+    "id" : 45,
+    "date_from" : ISODate("2022-07-19T00:00:00.000Z"),
+    "date_to" : ISODate("2022-07-22T00:00:00.000Z"),
+    "room" : 13,
+    "person" : {
+        "name" : "Jonghyun Kim",
+        "email" : "snakemilica@yahoo.com",
+        "phone" : "0631656256"
+    },
+    "user_id" : 0,
+    "price" : 18480,
+    "payed" : 18480,
+    "status" : "pending",
+    "timestamp" : ISODate("2022-06-14T19:11:21.588Z"),
+    "__v" : 0,
+    "googleCalendarEventId" : "nc1big81th3st8h7kvjlc7imac"
+}

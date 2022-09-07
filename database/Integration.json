@@ -1,0 +1,24 @@
+{
+    "_id" : ObjectId("629397f5de6c050ff51e9207"),
+    "id" : 1,
+    "name" : "Booking.com",
+    "content" : {},
+    "enabled" : false,
+    "imgPath" : "booking.svg"
+}
+{
+    "_id" : ObjectId("629397f5de6c050ff51e920a"),
+    "id" : 2,
+    "name" : "Google Calendar",
+    "content" : {
+        "token" : {
+            "access_token" : "ya29.A0AVA9y1t6PastYGhPcNJWKulE2MWSI_HRpqKVYmsqV2ZaPHeYzgYOPYoxshQlOpV0e-tIgB1O7NMKTs534_eIDnXjYlXdfBjXEcQF0PAypi0S-NiZR4faSgffAqH3Fzgu6NyQ_Vs3SQweQ_Q_Opl1iUckU93TYUNnWUtBVEFTQVRBU0ZRRTY1ZHI4YTgzXzB6MmFzMDM3eEtobjdzVXRtQQ0163",
+            "refresh_token" : "1//09m-WVkvR9c8_CgYIARAAGAkSNwF-L9IrEBB5bPEvzVx1aFhhgSQcuPhbpSj1EsLGbr-MRdVqg6a-0iUPQDAwDYokV5GygMQ_lLM",
+            "scope" : "https://www.googleapis.com/auth/calendar.events",
+            "token_type" : "Bearer",
+            "expiry_date" : 1658592800123.0
+        }
+    },
+    "enabled" : true,
+    "imgPath" : "google_calendar.png"
+}

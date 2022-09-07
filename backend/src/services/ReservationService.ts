@@ -190,6 +190,8 @@ export default class ReservationService extends Service {
             }
             res.price = price
             let reservationsExist = await this.checkAvailable(res.date_from, res.date_to, res.room.id)
+            reservationsExist = reservationsExist ? reservationsExist.filter((r:any) => r.id !== resId ) : []
+            console.log(reservationsExist)
             if (reservationsExist && reservationsExist.length > 0) {
                 return { 'message': 'Room not available for set dates', outcome: false, 'new': null }
             }

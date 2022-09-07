@@ -1,0 +1,48 @@
+{
+    "_id" : ObjectId("62668825e0426c04df36cb68"),
+    "id" : 1,
+    "subject" : "Reservation Confirmation",
+    "text" : "<p>Dear %person_name%,</p><p>Your reservation for Vila Srebrno Jezero is waiting your confirmation. <br>The reservation is made from %start_date% to %end_date%. <br>Total price: %reservation_price% <br></p>\n<p> <a href='http://localhost:4200/confirm;id=%reservation_id%'>Click here to confirm reservation</a></p>\n<p>Kind regards, <br>Vila Srebrno Jezero</p>",
+    "type" : "confirmed",
+    "sendTo" : "customer"
+}
+{
+    "_id" : ObjectId("62668825e0426c04df36cb6b"),
+    "id" : 2,
+    "subject" : "Reservation Altered",
+    "text" : "<p>Dear %person_name%,</p><p>Your reservation for Vila Srebrno Jezero has been altered. <br>The reservation is made from %start_date% to %end_date%. <br>Total price: %reservation_price% <br></p><p>Kind regards, <br>Vila Srebrno Jezero</p>",
+    "type" : "altered",
+    "sendTo" : "customer"
+}
+{
+    "_id" : ObjectId("62668825e0426c04df36cb6e"),
+    "id" : 3,
+    "subject" : "Reservation Cancellation",
+    "text" : "<p>Dear %person_name%,</p><p>Your reservation for Vila Srebrno Jezero has been canceled. <br>The reservation is made from %start_date% to %end_date%. <br>Total price: %reservation_price% <br></p><p>Kind regards, <br>Vila Srebrno Jezero</p>",
+    "type" : "canceled",
+    "sendTo" : "customer"
+}
+{
+    "_id" : ObjectId("626688d9e0426c04df36cc8a"),
+    "id" : 4,
+    "subject" : "Reservation Confirmation",
+    "text" : "<p><p>Hello</p><p>You have a new reservation for Vila Srebrno Jezero. <br>The reservation is made from %start_date% to %end_date%. <br>Total price: %reservation_price%. <br> The customer is: %person_name%, %person_email%, %person_phone%</p><p>Kind regards, <br>Vila Srebrno Jezero</p>",
+    "type" : "confirmed",
+    "sendTo" : "provider"
+}
+{
+    "_id" : ObjectId("626688d9e0426c04df36cc8d"),
+    "id" : 5,
+    "subject" : "Reservation Altered",
+    "text" : "<p>Hello</p><p>A reservation for Vila Srebrno Jezero has been altered. <br>The reservation is made from %start_date% to %end_date%. <br>Total price: %reservation_price%. <br> The customer is: %person_name%, %person_email%, %person_phone%</p><p>Kind regards, <br>Vila Srebrno Jezero</p>",
+    "type" : "altered",
+    "sendTo" : "provider"
+}
+{
+    "_id" : ObjectId("626688d9e0426c04df36cc90"),
+    "id" : 6,
+    "subject" : "Reservation Cancellation",
+    "text" : "<p><p>Hello</p><p>A reservation for Vila Srebrno Jezero has been canceled. <br>The reservation is made from %start_date% to %end_date%. <br>Total price: %reservation_price%. <br> The customer is: %person_name%, %person_email%, %person_phone%</p><p>Kind regards, <br>Vila Srebrno Jezero</p>",
+    "type" : "canceled",
+    "sendTo" : "provider"
+}

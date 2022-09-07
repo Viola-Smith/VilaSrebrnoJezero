@@ -23,12 +23,11 @@ export class PaymentFormComponent implements OnInit {
   ngOnInit() {
     this.reservationService.exchangeRate().subscribe((res:any) => {
       console.log(res)
-      if (res && res.result && res.result.RSD) {
-        this.eurToRsd = res.result.RSD
+      if (res && res.success && res.result) {
+        this.eurToRsd = res.result
       }
       this.initConfig(this.eurToRsd);
     })
-    
   }
 
   bookingDone = false

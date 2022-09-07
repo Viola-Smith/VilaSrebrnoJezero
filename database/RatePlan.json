@@ -1,0 +1,44 @@
+{
+    "_id" : ObjectId("6291fd314f0e1fdf14d5f134"),
+    "id" : 2,
+    "name" : "3-4 nights",
+    "minNights" : 3,
+    "maxNights" : 4,
+    "base_price_mod" : 20,
+    "subtract" : true,
+    "percent" : true,
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("6291ff934f0e1fdf14d5f14c"),
+    "id" : 4,
+    "name" : "7 and more nights",
+    "minNights" : 7,
+    "maxNights" : 0,
+    "base_price_mod" : 40,
+    "subtract" : true,
+    "percent" : true,
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("629201574f0e1fdf14d5f17e"),
+    "id" : 5,
+    "name" : "2 nights",
+    "minNights" : 2,
+    "maxNights" : 2,
+    "base_price_mod" : 10,
+    "subtract" : true,
+    "percent" : true,
+    "__v" : 0
+}
+{
+    "_id" : ObjectId("62921bcbf41f409ae96f37da"),
+    "id" : 6,
+    "name" : "5-6 nights",
+    "minNights" : 5,
+    "maxNights" : 6,
+    "base_price_mod" : 30,
+    "subtract" : true,
+    "percent" : true,
+    "__v" : 0
+}
